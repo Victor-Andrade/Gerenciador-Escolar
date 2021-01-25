@@ -1,4 +1,4 @@
-package Aplicacao.pessoas;
+package Classes.pessoas;
 
 import java.time.LocalDate;
 

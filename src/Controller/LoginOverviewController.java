@@ -1,8 +1,9 @@
-package Aplicacao.login;
+package Controller;
 
-import Aplicacao.Main;
-import Aplicacao.pessoas.Login;
-import Aplicacao.pessoas.Pessoa;
+import Classes.pessoas.Administrador;
+import Classes.pessoas.interfaces.ILogin;
+import View.Main;
+import Classes.pessoas.Pessoa;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -49,15 +50,16 @@ public class LoginOverviewController {
     public void realizarLogin(){
         if(verificarCampos()){
             boolean encontrada = false;
-            Login loginTemp = new Login(removerCaracteres(this.txtUsuario.getText()), this.txtSenha.getText());
 
-            for (Login loginBanco : mainApp.getPersonLoginData()){
-                if (loginBanco.equals(loginTemp)){
-                    irParaTelaInicial();
-                    encontrada = true;
-                    break;
+            for (ILogin loginBanco : mainApp.getPersonData()){
+                if (loginBanco.getCpf().equals(removerCaracteres(this.txtUsuario.getText()))){
+                    if(loginBanco.getSenha().equals(this.txtSenha.getText())){
+                        encontrada = true;
+                        irParaTelaInicial();
+                    }
                 }
             }
+
             if(!encontrada){
                 this.txtAviso.setText("Usuário ou senha inválidos");
             }
@@ -69,11 +71,7 @@ public class LoginOverviewController {
 
     //Leva o usuário para a tela inicial
     private void irParaTelaInicial(){
-        for (Pessoa pessoaBanco: mainApp.getPersonData()){
-            if(pessoaBanco.getCpf().equals(removerCaracteres(this.txtUsuario.getText()))){
-                System.out.println("Aqui vai a parte de alterar telas");
-            }
-        }
+        System.out.println("Aqui vai a parte de alterar telas");
     }
 
     //Construtor

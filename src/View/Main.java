@@ -1,9 +1,9 @@
-package Aplicacao;
+package View;
 
-import Aplicacao.login.LoginOverviewController;
-import Aplicacao.pessoas.Administrador;
-import Aplicacao.pessoas.Login;
-import Aplicacao.pessoas.Pessoa;
+import Classes.pessoas.interfaces.ILogin;
+import Controller.LoginOverviewController;
+import Classes.pessoas.Administrador;
+import Classes.pessoas.Pessoa;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,23 +18,18 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private final ObservableList<Pessoa> personData = FXCollections.observableArrayList();
-    private final ObservableList<Login> personLoginData = FXCollections.observableArrayList();
+    private final ObservableList<ILogin> personData = FXCollections.observableArrayList();
+
 
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    public ObservableList<Pessoa> getPersonData() {
+    public ObservableList<ILogin> getPersonData() {
         return personData;
     }
 
-    public ObservableList<Login> getPersonLoginData() {
-        return personLoginData;
-    }
-
     public Main(){
-        this.personLoginData.add(new Login("12345678900", "12345678"));
-        this.personData.add(new Administrador("Amanda Coelho Alves Santos", "12345678900", new int[]{2021, 1, 14}, "teste@gmail.com", "(87)981067233"));
+        this.personData.add(new Administrador("Amanda Coelho Alves Santos", "12345678900", new int[]{2021, 1, 14}, "teste@gmail.com", "(87)981067233", "12345678"));
     }
 
     @Override
