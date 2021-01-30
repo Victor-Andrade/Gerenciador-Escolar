@@ -1,9 +1,11 @@
 package View;
 
+import Classes.datas.Data;
+import Classes.datas.excecoes.InvalidDateException;
+import Classes.pessoas.excecoes.InvalidFieldException;
 import Classes.pessoas.interfaces.ILogin;
 import Controller.LoginOverviewController;
 import Classes.pessoas.Administrador;
-import Classes.pessoas.Pessoa;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,7 +31,14 @@ public class Main extends Application {
     }
 
     public Main(){
-        this.personData.add(new Administrador("Amanda Coelho Alves Santos", "12345678900", new int[]{2021, 1, 14}, "teste@gmail.com", "(87)981067233", "12345678"));
+        try{
+            this.personData.add(new Administrador("Amanda Coelho Alves Santos", "12345678900", new Data(2021, 1, 14), "teste@gmail.com", "(87)981067233", "12345678"));
+            Data data = new Data(2020, 10, 23);
+        }catch (InvalidFieldException e){
+            System.out.println(e.getMessage());
+        }catch (InvalidDateException e){
+            System.out.println("Data inválida");
+        }
     }
 
     @Override
