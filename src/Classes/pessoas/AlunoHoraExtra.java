@@ -1,9 +1,9 @@
 package Classes.pessoas;
 
 import Classes.datas.Data;
-import Classes.datas.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidDateException;
 import Classes.materia.Materia;
-import Classes.pessoas.excecoes.InvalidFieldException;
+import Classes.excecoes.InvalidFieldException;
 
 public class AlunoHoraExtra extends Aluno{
     Materia curso;

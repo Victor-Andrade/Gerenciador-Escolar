@@ -1,7 +1,5 @@
 package Classes.materia;
 
-import Classes.pessoas.excecoes.InvalidFieldException;
-
 public class Materia {
     String nome;
     Bimestre primeiroBimestre;
@@ -21,63 +19,55 @@ public class Materia {
         return nome;
     }
 
-    public double[] getNotasPrimeiroBimestre() {
-        return new double[] {this.primeiroBimestre.getNota1(), this.primeiroBimestre.getNota2(), this.primeiroBimestre.calcularMedia()};
+    public Bimestre getPrimeiroBimestre(){
+        return this.primeiroBimestre;
     }
 
-    public void setNotasBimestre(double n1, double n2) throws InvalidFieldException {
-        if(!(n1 < 0) && !(n2 < 0)){
-            this.primeiroBimestre.setNota1(n1);
-            this.primeiroBimestre.setNota2(n2);
-        }else if(!(n1 < 0) && (n2 < 0)){
-            this.primeiroBimestre.setNota1(n1);
-        }else if((n1 < 0) && !(n2 < 0)){
-            this.primeiroBimestre.setNota2(n2);
-        }
+    public double getMedia1Bimestre(){
+        return primeiroBimestre.calcularMedia();
     }
 
-    public double[] getNotasSegundoBimestre() {
-        return new double[] {this.segundoBimestre.getNota1(), this.segundoBimestre.getNota2(), this.segundoBimestre.calcularMedia()};
+    public void setNotasPrimeiroBimestre(double n1, double n2){
+        this.primeiroBimestre.setNota1(n1);
+        this.primeiroBimestre.setNota2(n2);
     }
 
-    public void setNotasSegundoBimestre(double n1, double n2) throws InvalidFieldException {
-        if(!(n1 < 0) && !(n2 < 0)){
-            this.segundoBimestre.setNota1(n1);
-            this.segundoBimestre.setNota2(n2);
-        }else if(!(n1 < 0) && (n2 < 0)){
-            this.segundoBimestre.setNota1(n1);
-        }else if((n1 < 0) && !(n2 < 0)){
-            this.segundoBimestre.setNota2(n2);
-        }
+    public Bimestre getSegundoBimestre(){
+        return this.segundoBimestre;
     }
 
-    public double[] getTerceiroBimestre() {
-        return new double[] {this.terceiroBimestre.getNota1(), this.terceiroBimestre.getNota2(), this.terceiroBimestre.calcularMedia()};
+    public double getMedia2Bimestre(){
+        return segundoBimestre.calcularMedia();
     }
 
-    public void setNotasTerceiroBimestre(double n1, double n2) throws InvalidFieldException {
-        if(!(n1 < 0) && !(n2 < 0)){
-            this.terceiroBimestre.setNota1(n1);
-            this.terceiroBimestre.setNota2(n2);
-        }else if(!(n1 < 0) && (n2 < 0)){
-            this.terceiroBimestre.setNota1(n1);
-        }else if((n1 < 0) && !(n2 < 0)){
-            this.terceiroBimestre.setNota2(n2);
-        }
+    public void setNotasSegundoBimestre(double n1, double n2) {
+        this.segundoBimestre.setNota1(n1);
+        this.segundoBimestre.setNota2(n2);
     }
 
-    public double[] getNotasQuartoBimestre() {
-        return new double[] {this.quartoBimestre.getNota1(), this.quartoBimestre.getNota2(), this.quartoBimestre.calcularMedia()};
+    public Bimestre getTerceiroBimestre(){
+        return this.terceiroBimestre;
     }
 
-    public void setNotasQuartoBimestre(double n1, double n2) throws InvalidFieldException {
-        if(!(n1 < 0) && !(n2 < 0)){
-            this.terceiroBimestre.setNota1(n1);
-            this.terceiroBimestre.setNota2(n2);
-        }else if(!(n1 < 0) && (n2 < 0)){
-            this.terceiroBimestre.setNota1(n1);
-        }else if((n1 < 0) && !(n2 < 0)){
-            this.terceiroBimestre.setNota2(n2);
-        }
+    public double getMedia3Bimestre(){
+        return terceiroBimestre.calcularMedia();
+    }
+
+    public void setNotasTerceiroBimestre(double n1, double n2){
+        this.terceiroBimestre.setNota1(n1);
+        this.terceiroBimestre.setNota2(n2);
+    }
+
+    public Bimestre getQuartoBimestre(){
+        return this.quartoBimestre;
+    }
+
+    public double getMedia4Bimestre(){
+        return quartoBimestre.calcularMedia();
+    }
+
+    public void setNotasQuartoBimestre(double n1, double n2) {
+        this.quartoBimestre.setNota1(n1);
+        this.quartoBimestre.setNota2(n2);
     }
 }

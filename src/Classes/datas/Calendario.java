@@ -1,7 +1,6 @@
 package Classes.datas;
 
-import Classes.datas.interfaces.IDate;
-
+import Classes.interfaces.IDate;
 import java.time.LocalDateTime;
 
 public class Calendario {
@@ -19,13 +18,13 @@ public class Calendario {
         int contador = 0;
 
 
-        //Finais de semana recebem 2, outros dias recebem 0. Faltas recebem 1.
+        //Finais de semana recebem 3, outros dias recebem 0. Faltas recebem 1, faltas justificadas 2.
         for(int i = 0; i <= dias; i++){
             if(contador == 5 || contador == 6){
                 if(contador == 6){
                     contador = 0;
                 }
-                this.dias[i] = 2;
+                this.dias[i] = 3;
             }else{
                 this.dias[i] = 0;
                 contador++;
@@ -43,9 +42,14 @@ public class Calendario {
         return totalFaltas;
     }
 
-    public void adicionarFalta(Data data){
+    public void adicionarFalta(Data data, boolean justificada){
         int posicao = data.contarDias();
-        this.dias[posicao] = 1;
+        if(justificada){
+            this.dias[posicao] = 2;
+        }else{
+            this.dias[posicao] = 1;
+        }
+
     }
 
     public void removerFalta(Data data){

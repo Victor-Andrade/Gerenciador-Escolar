@@ -2,9 +2,9 @@ package Classes.pessoas;
 
 import Classes.datas.Calendario;
 import Classes.datas.Data;
-import Classes.datas.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidDateException;
 import Classes.materia.Materia;
-import Classes.pessoas.excecoes.InvalidFieldException;
+import Classes.excecoes.InvalidFieldException;
 
 import java.util.ArrayList;
 
@@ -26,8 +26,8 @@ public class Aluno extends Pessoa{
         this.materias = materias;
     }
 
-    public void adicionarFalta(Data data){
-        faltas.adicionarFalta(data);
+    public void adicionarFalta(Data data, boolean justificada){
+        faltas.adicionarFalta(data, justificada);
     }
 
     public void removerFalta(Data data){

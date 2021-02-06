@@ -1,6 +1,6 @@
 package Classes.datas;
 
-import Classes.datas.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidDateException;
 
 public class Data {
     private int ano;

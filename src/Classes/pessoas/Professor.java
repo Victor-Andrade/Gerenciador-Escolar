@@ -1,9 +1,9 @@
 package Classes.pessoas;
 
 import Classes.datas.Data;
-import Classes.datas.excecoes.InvalidDateException;
-import Classes.pessoas.excecoes.InvalidFieldException;
-import Classes.pessoas.interfaces.ILogin;
+import Classes.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidFieldException;
+import Classes.interfaces.ILogin;
 
 public class Professor extends Pessoa implements ILogin {
     private String senha;
