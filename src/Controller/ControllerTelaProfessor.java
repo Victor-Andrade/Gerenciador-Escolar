@@ -1,9 +1,19 @@
 package Controller;
 
+import Classes.datas.Data;
+import Classes.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidFieldException;
+import Classes.materia.Bimestre;
 import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
+import Classes.pessoas.AlunoHoraExtra;
 import Classes.pessoas.Professor;
-import Classes.turma.Turma;
+import Classes.turmas.Turma;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +21,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.*;
+import java.util.ArrayList;
 
 
 public class ControllerTelaProfessor {
@@ -143,6 +159,10 @@ public class ControllerTelaProfessor {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+    }
+    @FXML
+    public void gerarBoletim() {
 
     }
 }

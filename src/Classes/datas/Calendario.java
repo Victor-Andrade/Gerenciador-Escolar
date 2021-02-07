@@ -1,6 +1,5 @@
 package Classes.datas;
 
-import Classes.interfaces.IDate;
 import java.time.LocalDateTime;
 
 public class Calendario {
@@ -12,7 +11,7 @@ public class Calendario {
 
     private void incializarCalendario(){
         LocalDateTime tempDate = LocalDateTime.now();
-        int dias = IDate.eBissexto(tempDate.getYear()) ? 366 : 365;
+        int dias = eBissexto(tempDate.getYear()) ? 366 : 365;
 
         this.dias = new int[dias + 1];
         int contador = 0;
@@ -55,6 +54,18 @@ public class Calendario {
     public void removerFalta(Data data){
         int posicao = data.contarDias();
         this.dias[posicao] = 0;
+    }
+
+    private boolean eBissexto(int ano){
+        if(ano%4 == 0){
+            if(ano%100 == 0){
+                return ano % 400 == 0;
+            }else{
+                return true;
+            }
+        }else{
+            return false;
+        }
     }
 }
 

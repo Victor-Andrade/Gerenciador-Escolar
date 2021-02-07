@@ -1,24 +1,28 @@
-package Classes.turmas;
+package Model.negocios;
 
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.excecoes.TurmaRepetidaException;
+import Classes.interfaces.IRepositorioTurmas;
 import Classes.pessoas.Aluno;
 import Classes.excecoes.InvalidFieldException;
+import Classes.turmas.Turma;
+
+import java.io.IOException;
 import java.util.List;
 
 public class NegocioTurma {
-    private RepositorioTurma repositorio;
+    private IRepositorioTurmas repositorio;
 
-    public NegocioTurma(RepositorioTurma repositorio) {
+    public NegocioTurma(IRepositorioTurmas repositorio) {
         this.repositorio = repositorio;
     }
 
-    private boolean turmaExiste(double id){
+    private boolean turmaExiste(double id) throws IOException, ClassNotFoundException {
         return this.repositorio.turmaExiste(id);
     }
 
     public void adicionarTurma(double id, String apelido, List<Aluno> alunos)
-            throws InvalidFieldException, TurmaRepetidaException {
+            throws InvalidFieldException, TurmaRepetidaException, IOException, ClassNotFoundException {
         if(apelido.isBlank()){
             throw new InvalidFieldException("Nome da turma");
         }
@@ -29,7 +33,7 @@ public class NegocioTurma {
         this.repositorio.adicionarTurma(novaTurma);
     }
 
-    public void removerTurma(double id) throws TurmaNaoExisteException {
+    public void removerTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(this.turmaExiste(id)){
             this.repositorio.excluirTurma(id);
         }else{
@@ -37,7 +41,7 @@ public class NegocioTurma {
         }
     }
 
-    public Turma pegarTurma(double id) throws TurmaNaoExisteException {
+    public Turma pegarTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(this.turmaExiste(id)){
             return this.repositorio.getTurma(id);
         }else{
@@ -46,7 +50,7 @@ public class NegocioTurma {
     }
 
     public void atualizarTurma(double id, String apelido, List<Aluno> alunos)
-            throws TurmaNaoExisteException {
+            throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         Turma nova = new Turma(id, apelido, alunos);
         if(this.turmaExiste(id)){
             this.repositorio.atualizarTurma(nova);
@@ -55,7 +59,7 @@ public class NegocioTurma {
         }
     }
 
-    public List<Turma> listarTurmas(){
+    public List<Turma> listarTurmas() throws IOException, ClassNotFoundException {
         return this.repositorio.listarTurmas();
     }
 }

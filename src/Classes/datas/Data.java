@@ -78,7 +78,7 @@ public class Data {
     }
 
     public String formatarData(){
-        return this.dia + "/" + this.mes + "/" + this.ano;
+        return this.dia + "/" + (mes >= 10 ? this.mes : "0" + this.mes) + "/" + this.ano;
     }
 
     private boolean verificarData(int ano, int mes, int dia) throws InvalidDateException{
