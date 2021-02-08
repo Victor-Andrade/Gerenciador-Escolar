@@ -1,6 +1,8 @@
 package Classes.materia;
 
-public class Materia {
+import java.io.Serializable;
+
+public class Materia implements Serializable {
     String nome;
     Bimestre primeiroBimestre;
     Bimestre segundoBimestre;

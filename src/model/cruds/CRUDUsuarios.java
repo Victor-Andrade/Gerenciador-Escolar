@@ -1,4 +1,4 @@
-package Model.cruds;
+package model.cruds;
 
 import Classes.excecoes.UsuarioNotFoundException;
 import Classes.interfaces.IRepositorioUsuarios;
@@ -69,16 +69,17 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
     public ArrayList<Pessoa> todosOsUsuariosArray() throws IOException, ClassNotFoundException {
         ArrayList<Pessoa> temp;
 
-        FileInputStream file = new FileInputStream("/src/Model/usuarios.dat");
+        FileInputStream file = new FileInputStream("usuarios.dat");
         ObjectInputStream is = new ObjectInputStream(file);
 
         temp = (ArrayList<Pessoa>) is.readObject();
+        is.close();
 
         return temp;
     }
 
     private void atualizarModificacoes(List<Pessoa> pessoas) throws IOException {
-        FileOutputStream file2 = new FileOutputStream("/src/Model/usuarios.dat");
+        FileOutputStream file2 = new FileOutputStream("usuarios.dat");
         ObjectOutputStream os = new ObjectOutputStream(file2);
 
         os.writeObject(pessoas);

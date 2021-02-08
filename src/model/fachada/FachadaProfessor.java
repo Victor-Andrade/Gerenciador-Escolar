@@ -1,15 +1,14 @@
-package Model.fachada;
+package model.fachada;
 
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.excecoes.TurmaRepetidaException;
-import Classes.interfaces.IRepositorioAlunos;
 import Classes.pessoas.Aluno;
 import Classes.excecoes.InvalidFieldException;
-import Model.cruds.CRUDAlunos;
-import Model.cruds.CRUDTurma;
-import Model.negocios.NegocioAdministrador;
-import Model.negocios.NegocioProfessor;
-import Model.negocios.NegocioTurma;
+import Classes.pessoas.Professor;
+import model.cruds.CRUDAlunos;
+import model.cruds.CRUDTurma;
+import model.negocios.NegocioProfessor;
+import model.negocios.NegocioTurma;
 import Classes.turmas.Turma;
 
 import java.io.IOException;
@@ -26,6 +25,14 @@ public class FachadaProfessor {
 
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException {
         this.negocioProfessor.gerarBoletim(aluno);
+    }
+
+    public void recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
+        this.negocioProfessor.recuperarTurmasProfessor(professor);
+    }
+
+    public void recuperarAlunosTurma(Turma turma) throws IOException, ClassNotFoundException {
+        this.negocioTurma.recuperarAlunosTurma(turma);
     }
 
     void adicionarTurma(double id, String apelido, List<Aluno> alunos)

@@ -1,4 +1,4 @@
-package Model.cruds;
+package model.cruds;
 
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.interfaces.IRepositorioTurmas;

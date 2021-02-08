@@ -22,4 +22,5 @@ public interface IRepositorioUsuarios {
     boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException;
 
     ArrayList<Pessoa> todosOsUsuariosArray() throws IOException, ClassNotFoundException;
+
 }

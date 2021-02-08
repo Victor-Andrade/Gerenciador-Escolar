@@ -1,4 +1,4 @@
-package Model.negocios;
+package model.negocios;
 
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.excecoes.TurmaRepetidaException;
