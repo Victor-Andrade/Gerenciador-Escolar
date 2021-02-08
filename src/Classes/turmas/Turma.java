@@ -2,10 +2,12 @@ package Classes.turmas;
 
 import Classes.pessoas.Aluno;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Turma {
     private double id;
+    private ArrayList<String> nomesAlunos;
     private String apelido;
     private List<Aluno> alunos;
 
@@ -29,6 +31,26 @@ public class Turma {
 
     public List<Aluno> getAlunos() {
         return alunos;
+    }
+
+    public void adicionarAluno(String nome){
+        this.nomesAlunos.add(nome);
+    }
+
+    public void removerAluno(String nome) {
+        this.nomesAlunos.remove(nome);
+    }
+
+    public void setNomesAlunos(ArrayList<String> alunos){
+        this.nomesAlunos = alunos;
+    }
+
+    public ArrayList<String> getNomesAlunos(){
+        return this.nomesAlunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos){
+        this.alunos = alunos;
     }
 
     public void adicionarAluno(Aluno novo){

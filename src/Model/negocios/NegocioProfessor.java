@@ -1,35 +1,44 @@
 package Model.negocios;
 
 import Classes.datas.Data;
+import Classes.excecoes.AlunoAlredyRegisteredException;
 import Classes.excecoes.AlunoNotFoundException;
+import Classes.interfaces.IRepositorioTurmas;
 import Classes.materia.Bimestre;
 import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
 import Classes.interfaces.IRepositorioAlunos;
+import Classes.pessoas.Professor;
+import Classes.turmas.Turma;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NegocioProfessor {
-    private final IRepositorioAlunos repositorio;
+    private final IRepositorioAlunos repositorioAlunos;
 
-    public NegocioProfessor(IRepositorioAlunos repositorio){
-        this.repositorio = repositorio;
+
+    public NegocioProfessor(IRepositorioAlunos repositorioAlunos){
+        this.repositorioAlunos = repositorioAlunos;
     }
 
-    public void adicionarFalta(Aluno aluno, Data data, boolean justificar) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if(repositorio.existeNoBanco(aluno.getNome())){
+    public void adicionarFalta(Aluno aluno, Data data, boolean justificar) throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
+        if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             aluno.adicionarFalta(data, justificar);
+            repositorioAlunos.removerAluno(aluno);
+            repositorioAlunos.adicionarAluno(aluno);
         }else{
             throw new AlunoNotFoundException(aluno.getCpf());
         }
     }
 
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException {
-        if(repositorio.existeNoBanco(aluno.getNome())){
+        if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             Document documento = new Document();
             documento.setPageSize(PageSize.A4.rotate());
 

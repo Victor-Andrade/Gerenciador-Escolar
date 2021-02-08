@@ -1,15 +1,11 @@
 package Model.negocios;
 
 import Classes.datas.Data;
-import Classes.excecoes.InvalidDateException;
+import Classes.excecoes.*;
 import Classes.interfaces.IRepositorioTurmas;
 import Classes.interfaces.IRepositorioUsuarios;
-import Classes.pessoas.Aluno;
-import Classes.excecoes.InvalidFieldException;
-import Classes.excecoes.AlunoAlredyRegisteredException;
-import Classes.excecoes.AlunoNotFoundException;
+import Classes.pessoas.*;
 import Classes.interfaces.IRepositorioAlunos;
-import Classes.pessoas.AlunoHoraExtra;
 import Model.negocios.classesAuxiliares.Verificacao;
 import com.itextpdf.text.Document;
 
@@ -179,6 +175,44 @@ public class NegocioAdministrador {
         }
     }
 
+    public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
+        Professor professor = new Professor(nome, cpf, data, email, contato, senha);
+        if(verificarCadastroUsuario(professor)){
+            if(!repositorioUsuarios.existeNoBanco(professor.getCpf()) && !repositorioUsuarios.existeNoBanco(professor.getNome())){
+                this.repositorioUsuarios.adicionarUsuario(professor);
+            }else {
+                throw new UsuarioAlreadyRegisteredException();
+            }
+        }
+    }
+
+    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException, InvalidDateException {
+        Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
+        if(verificarCadastroUsuario(admin)){
+            if(!repositorioUsuarios.existeNoBanco(admin.getCpf()) && !repositorioUsuarios.existeNoBanco(admin.getNome())){
+                this.repositorioUsuarios.adicionarUsuario(admin);
+            }else {
+                throw new UsuarioAlreadyRegisteredException();
+            }
+        }
+
+    }
+
+    //FALTA FAZER
+    public void removerUsuario(){
+
+    }
+
+    //FALTA FAZER
+    public void confirmarJustificativaDeFalta(){
+
+    }
+
+    //FALTA FAZER
+    public void reportarSituacaoDoAluno(){
+
+    }
+
     private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, InvalidDateException, InvalidFieldException, AlunoAlredyRegisteredException {
         if(!repositorioAlunos.existeNoBanco(nome)){
             if(Verificacao.verificarCpf(cpf)){
@@ -226,4 +260,19 @@ public class NegocioAdministrador {
             throw new InvalidFieldException("CPF", cpf);
         }
     }
+
+    private boolean verificarCadastroUsuario(Professor professor) throws IOException, ClassNotFoundException {
+        if(repositorioUsuarios.existeNoBanco(professor.getCpf()) || repositorioUsuarios.existeNoBanco(professor.getNome())){
+            return professor.getSenha().length() >= 8;
+        }
+        return false;
+    }
+
+    private boolean verificarCadastroUsuario(Administrador professor) throws IOException, ClassNotFoundException {
+        if(repositorioUsuarios.existeNoBanco(professor.getCpf()) || repositorioUsuarios.existeNoBanco(professor.getNome())){
+            return professor.getSenha().length() >= 8;
+        }
+        return false;
+    }
+
 }
