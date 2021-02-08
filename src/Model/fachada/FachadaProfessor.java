@@ -21,7 +21,7 @@ public class FachadaProfessor {
 
     public FachadaProfessor() {
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
-        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos());
+        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
     }
 
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException {
@@ -40,8 +40,5 @@ public class FachadaProfessor {
     }
     void atualizarTurma(double id, String apelido, List<Aluno> alunos) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         this.negocioTurma.atualizarTurma(id, apelido, alunos);
-    }
-    List<Turma> listarTurmas() throws IOException, ClassNotFoundException {
-        return this.negocioTurma.listarTurmas();
     }
 }

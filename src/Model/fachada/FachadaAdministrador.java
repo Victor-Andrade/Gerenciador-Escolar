@@ -14,7 +14,7 @@ public class FachadaAdministrador {
     private final NegocioTurma negocioTurma;
 
     public FachadaAdministrador(){
-        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos());
+        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
         this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDTurma(), new CRUDUsuarios());
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
     }

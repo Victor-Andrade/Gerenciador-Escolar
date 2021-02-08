@@ -17,16 +17,18 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class NegocioProfessor {
     private final IRepositorioAlunos repositorioAlunos;
+    private final IRepositorioTurmas repositorioTurmas;
 
 
-    public NegocioProfessor(IRepositorioAlunos repositorioAlunos){
+    public NegocioProfessor(IRepositorioAlunos repositorioAlunos, IRepositorioTurmas repositorioTurmas){
         this.repositorioAlunos = repositorioAlunos;
+        this.repositorioTurmas = repositorioTurmas;
     }
 
+    //Adiciona uma falta em um aluno e atualiza o repositorio
     public void adicionarFalta(Aluno aluno, Data data, boolean justificar) throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
         if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             aluno.adicionarFalta(data, justificar);
@@ -37,6 +39,7 @@ public class NegocioProfessor {
         }
     }
 
+    //Gera o boletim de um aluno qualquer
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             Document documento = new Document();
@@ -165,5 +168,19 @@ public class NegocioProfessor {
     //Falta implementar
     public void anexarArquivoNoAluno(){
 
+    }
+
+    //Atualiza o arrayLista turmas de uma professor Obs: não os nomes (Função provavelmente usada exclusivamente nos Controllers);
+    public Professor recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
+        ArrayList<Turma> turmas = new ArrayList<>();
+        for(int id : professor.getTurmas()){
+            for(Turma turma: repositorioTurmas.listarTurmas()){
+                if(turma.getId() == id){
+                    turmas.add(turma);
+                }
+            }
+        }
+        professor.setTurmasArrayList(turmas);
+        return professor;
     }
 }

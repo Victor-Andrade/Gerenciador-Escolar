@@ -20,6 +20,6 @@ public interface IRepositorioAlunos {
 
     boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException;
 
-    List<Aluno> todasAsTurmasArray() throws IOException, ClassNotFoundException;
+    List<Aluno> todosOsAlunosArray() throws IOException, ClassNotFoundException;
 }
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Professor extends Pessoa implements ILogin {
-    private List<String> turmas;
+    private List<Integer> turmas;
     private ArrayList<Turma> turmasArrayList;
     private String senha;
 
@@ -19,15 +19,15 @@ public class Professor extends Pessoa implements ILogin {
         this.senha = senha;
     }
 
-    public List<String> getTurmas() {
+    public List<Integer> getTurmas() {
         return turmas;
     }
 
-    public void setTurmas(List<String> turmas) {
+    public void setTurmas(List<Integer> turmas) {
         this.turmas = turmas;
     }
 
-    public void adicionarTurma(String id){
+    public void adicionarTurma(int id){
         this.turmas.add(id);
     }
 
