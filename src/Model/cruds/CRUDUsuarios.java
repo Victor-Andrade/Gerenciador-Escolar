@@ -75,7 +75,6 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
         temp = (ArrayList<Pessoa>) is.readObject();
 
         return temp;
-
     }
 
     private void atualizarModificacoes(List<Pessoa> pessoas) throws IOException {

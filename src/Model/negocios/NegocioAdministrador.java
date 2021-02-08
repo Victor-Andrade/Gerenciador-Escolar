@@ -27,10 +27,7 @@ public class NegocioAdministrador {
         this.repositorioUsuarios = repositorioUsuarios;
     }
 
-    /**
-     * Colocar um try catch nos CRUDS para remover IOException, ClassNotFoundException dos métodos?
-     */
-
+    //Adiciona aluno o repositorio
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if(verificarCampos(nome, cpf, data, email, contato)){
             Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato);
@@ -38,6 +35,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Remove aluno do repositório
     public void removerAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
             repositorioAlunos.removerAluno(nomeOuCpf);
@@ -46,6 +44,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Busca um aluno específico
     public Aluno buscarAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
             return repositorioAlunos.buscarAluno(nomeOuCpf);
@@ -54,6 +53,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Atualiza informações de uma aluno
     public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
         if(verificarCamposAtualizacao(nome, cpf, data, email, contato)){
             if(repositorioAlunos.existeNoBanco(cpf) || repositorioAlunos.existeNoBanco(nome)){
@@ -64,6 +64,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Gera um certificado de conclusão de um aluno com hora extra
     public void gerarCertificadoDeConclusao(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             Document documento = new Document();
@@ -117,6 +118,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Gera um certificado de matrícula para um aluno qualquer
     public void gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno.getCpf())){
             Document documento = new Document();
@@ -175,6 +177,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Adiciona um professor no repositório
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
         Professor professor = new Professor(nome, cpf, data, email, contato, senha);
         if(verificarCadastroUsuario(professor)){
@@ -186,6 +189,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Adiciona um administrador no repositório
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException, InvalidDateException {
         Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
         if(verificarCadastroUsuario(admin)){
@@ -198,9 +202,13 @@ public class NegocioAdministrador {
 
     }
 
-    //FALTA FAZER
-    public void removerUsuario(){
-
+    //Remove um usuário
+    public void removerUsuario(String nomeOuCpf) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
+        if(repositorioUsuarios.existeNoBanco(nomeOuCpf)){
+            repositorioUsuarios.removerUsuario(nomeOuCpf);
+        }else{
+            throw new UsuarioNotFoundException();
+        }
     }
 
     //FALTA FAZER
@@ -213,6 +221,7 @@ public class NegocioAdministrador {
 
     }
 
+    //Verifica os campos de um alunos, inclusive se ele já se encontra no banco
     private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, InvalidDateException, InvalidFieldException, AlunoAlredyRegisteredException {
         if(!repositorioAlunos.existeNoBanco(nome)){
             if(Verificacao.verificarCpf(cpf)){
@@ -241,6 +250,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Verifica os campos de um alunos, não considera se ele já se encontra no banco
     private boolean verificarCamposAtualizacao(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException, InvalidFieldException {
         if(Verificacao.verificarCpf(cpf)){
             if(Verificacao.verificarEmail(email)){
@@ -261,6 +271,7 @@ public class NegocioAdministrador {
         }
     }
 
+    //Verifica se um professor já está cadastrado no banco (Nome ou cpf)
     private boolean verificarCadastroUsuario(Professor professor) throws IOException, ClassNotFoundException {
         if(repositorioUsuarios.existeNoBanco(professor.getCpf()) || repositorioUsuarios.existeNoBanco(professor.getNome())){
             return professor.getSenha().length() >= 8;
@@ -268,6 +279,7 @@ public class NegocioAdministrador {
         return false;
     }
 
+    //Verifica se um admin já está cadasrtrado no banco (Nome ou cpf)
     private boolean verificarCadastroUsuario(Administrador professor) throws IOException, ClassNotFoundException {
         if(repositorioUsuarios.existeNoBanco(professor.getCpf()) || repositorioUsuarios.existeNoBanco(professor.getNome())){
             return professor.getSenha().length() >= 8;

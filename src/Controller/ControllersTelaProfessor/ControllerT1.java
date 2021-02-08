@@ -1,11 +1,8 @@
 package Controller.ControllersTelaProfessor;
 
-import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
-import Model.fachada.FachadaAdministrador;
 import Model.fachada.FachadaProfessor;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
