@@ -1,0 +1,80 @@
+package Model.cruds;
+
+import Classes.datas.Data;
+import Classes.faltas.Falta;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CRUDFaltas {
+    List<Falta> faltas;
+    String cpfAluno;
+
+    public CRUDFaltas(String cpfAluno) {
+        this.cpfAluno = cpfAluno;
+        this.faltas = new ArrayList<Falta>();
+    }
+
+    public static CRUDFaltas carregarFaltas(String cpf) throws IOException, ClassNotFoundException {
+        String endereco = String.format("./dados/faltas/%s.pdf", cpf);
+        FileInputStream file = new FileInputStream(endereco);
+        ObjectInputStream os = new ObjectInputStream(file);
+        CRUDFaltas crud = (CRUDFaltas) os.readObject();
+        os.close();
+
+        return crud;
+    }
+
+    private void salvarAlteracoes() throws IOException {
+        String endereco = String.format("./dados/faltas/%s.pdf", this.cpfAluno);
+        FileOutputStream file2 = new FileOutputStream(endereco);
+        ObjectOutputStream os = new ObjectOutputStream(file2);
+        os.writeObject(faltas);
+        os.close();
+    }
+
+    public String getCpfAluno(){
+        return this.cpfAluno;
+    }
+
+    public void adicionarFalta(Falta falta) throws IOException {
+            faltas.add(falta);
+            salvarAlteracoes();
+    }
+
+    public List<Falta> listarFaltas(){
+        return this.faltas;
+    }
+
+    public void removerFalta(Data data) throws IOException, ClassNotFoundException {
+        for (Falta falta : this.faltas) {
+            if(data.equals(falta.getData())){
+                faltas.remove(falta);
+                this.salvarAlteracoes();
+                return;
+            }
+        }
+        throw new ClassNotFoundException("Falta não encontrada");
+    }
+
+    public void justificarFalta(Data data, String documento) throws ClassNotFoundException, IOException {
+        for (Falta falta : this.faltas) {
+            if(data.equals(falta.getData())){
+                falta.justificar(documento);
+                this.salvarAlteracoes();
+                return;
+            }
+        }
+        throw new ClassNotFoundException("Falta não encontrada");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof CRUDFaltas){
+            CRUDFaltas crud = (CRUDFaltas) obj;
+            return this.cpfAluno.equals(crud.getCpfAluno());
+        }
+        return false;
+    }
+}

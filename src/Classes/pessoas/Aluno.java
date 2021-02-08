@@ -3,14 +3,17 @@ package Classes.pessoas;
 import Classes.datas.Calendario;
 import Classes.datas.Data;
 import Classes.excecoes.InvalidDateException;
+import Classes.faltas.Falta;
 import Classes.materia.Materia;
 import Classes.excecoes.InvalidFieldException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Aluno extends Pessoa{
     private ArrayList<Materia> materias;
     private Calendario faltas;
+    private List<Falta> listaDeFaltas;
 
     public Aluno(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException {
         super(nome, cpf, data, email, contato);
