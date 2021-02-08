@@ -1,6 +1,8 @@
 package Classes.materia;
 
-public class Bimestre {
+import java.io.Serializable;
+
+public class Bimestre implements Serializable {
     private double nota1;
     private double nota2;
 

@@ -1,5 +1,10 @@
 package Controller;
 
+import Classes.pessoas.Administrador;
+import Classes.pessoas.Pessoa;
+import Classes.pessoas.Professor;
+import Controller.ControllersTelaProfessor.ControllerT1;
+import model.fachada.FachadaAdministrador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,10 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.fachada.FachadaProfessor;
 
 import java.io.IOException;
 
 public class ControllerLogin {
+    private FachadaAdministrador fachadaAdministrador;
+
     private Stage stage;
     @FXML
     private TextField txtUsuario;
@@ -19,15 +27,21 @@ public class ControllerLogin {
     @FXML
     private Text txtAviso;
 
+    public ControllerLogin(){
+        this.fachadaAdministrador = new FachadaAdministrador();
+    }
+
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
-    public void navegarParaTelaProfessor(){
+    public void navegarParaTelaProfessor(Professor professor){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/TelaProfessor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T1 Professor.fxml"));
             Parent root = fxmlLoader.load();
-            ((ControllerTelaProfessor) fxmlLoader.getController()).setStage(this.stage);
+            ((ControllerT1) fxmlLoader.getController()).setStage(this.stage);
+            ((ControllerT1) fxmlLoader.getController()).setProfessor(professor, new FachadaProfessor());
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Professor");
@@ -50,10 +64,10 @@ public class ControllerLogin {
         }
     }
 
-
     //Remove caracteres especiais no CPF
     private String removerCaracteres(String cpf){
-        return cpf.replace(".", "").replace("-", "").trim();
+        String a = cpf.replace(".", "").replace("-", "").trim();
+        return a;
     }
 
     //Verifica se uma string é um inteiro
@@ -76,16 +90,27 @@ public class ControllerLogin {
     }
 
     //Tenta realizar o login
-    public void realizarLogin() throws IOException {
-        navegarParaTelaProfessor();
-       /* if(verificarCampos()){
+    public void realizarLogin() throws IOException, ClassNotFoundException {
+       if(verificarCampos()){
             boolean encontrada = false;
 
-            for (ILogin loginBanco : mainApp.getPersonData()){
-                if (loginBanco.getCpf().equals(removerCaracteres(this.txtUsuario.getText()))){
-                    if(loginBanco.getSenha().equals(this.txtSenha.getText())){
-                        encontrada = true;
-                        irParaTelaInicial();
+            for (Pessoa loginBanco : fachadaAdministrador.getUsuariosLogin()){
+                String text = removerCaracteres(this.txtUsuario.getText());
+                String cpf = removerCaracteres(loginBanco.getCpf());
+                if (text.equals(cpf)){
+                    if(loginBanco instanceof Administrador){
+                        Administrador temp = (Administrador) loginBanco;
+                        if(temp.getSenha().equals(this.txtSenha.getText())){
+                            encontrada = true;
+                            navegarParaTelaAdministrador();
+                        }
+                    }
+                    if(loginBanco instanceof Professor){
+                        Professor temp = (Professor) loginBanco;
+                        if(temp.getSenha().equals(this.txtSenha.getText())){
+                            encontrada = true;
+                            navegarParaTelaProfessor(temp);
+                        }
                     }
                 }
             }
@@ -95,17 +120,8 @@ public class ControllerLogin {
             }
         }else{
             this.txtAviso.setText("Dados inválidos");
-        }*/
+        }
 
     }
 
-    //Leva o usuário para a tela inicial
-    private void irParaTelaInicial(){
-        System.out.println("Aqui vai a parte de alterar telas");
-    }
-
-    //Construtor
-    public ControllerLogin(){
-
-    }
 }

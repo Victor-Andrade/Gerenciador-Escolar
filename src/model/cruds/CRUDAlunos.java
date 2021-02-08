@@ -1,4 +1,4 @@
-package Model.cruds;
+package model.cruds;
 
 import Classes.excecoes.AlunoNotFoundException;
 import Classes.pessoas.Aluno;
@@ -76,6 +76,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
         ObjectInputStream is = new ObjectInputStream(file);
 
         temp = (ArrayList<Aluno>) is.readObject();
+        is.close();
 
         return temp;
 

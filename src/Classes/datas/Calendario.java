@@ -1,8 +1,9 @@
 package Classes.datas;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Calendario {
+public class Calendario implements Serializable {
     int[] dias;
 
     public Calendario(){

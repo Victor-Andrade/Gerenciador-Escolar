@@ -1,4 +1,4 @@
-package Model.negocios;
+package model.negocios;
 
 import Classes.datas.Data;
 import Classes.excecoes.*;
@@ -6,13 +6,14 @@ import Classes.interfaces.IRepositorioTurmas;
 import Classes.interfaces.IRepositorioUsuarios;
 import Classes.pessoas.*;
 import Classes.interfaces.IRepositorioAlunos;
-import Model.negocios.classesAuxiliares.Verificacao;
+import model.negocios.classesAuxiliares.Verificacao;
 import com.itextpdf.text.Document;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
+import java.util.List;
 
 public class NegocioAdministrador {
 
@@ -200,6 +201,10 @@ public class NegocioAdministrador {
             }
         }
 
+    }
+
+    public List<Pessoa> todosOsUsuarios() throws IOException, ClassNotFoundException {
+        return this.repositorioUsuarios.todosOsUsuariosArray();
     }
 
     //Remove um usuário

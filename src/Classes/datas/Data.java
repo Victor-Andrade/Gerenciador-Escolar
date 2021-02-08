@@ -2,7 +2,9 @@ package Classes.datas;
 
 import Classes.excecoes.InvalidDateException;
 
-public class Data {
+import java.io.Serializable;
+
+public class Data implements Serializable {
     private int ano;
     private int mes;
     private int dia;

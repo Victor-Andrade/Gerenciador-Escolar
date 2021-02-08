@@ -1,4 +1,4 @@
-package Model.negocios;
+package model.negocios;
 
 import Classes.datas.Data;
 import Classes.excecoes.AlunoAlredyRegisteredException;
@@ -171,7 +171,7 @@ public class NegocioProfessor {
     }
 
     //Atualiza o arrayLista turmas de uma professor Obs: não os nomes (Função provavelmente usada exclusivamente nos Controllers);
-    public Professor recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
+    public void recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
         ArrayList<Turma> turmas = new ArrayList<>();
         for(int id : professor.getTurmas()){
             for(Turma turma: repositorioTurmas.listarTurmas()){
@@ -181,6 +181,5 @@ public class NegocioProfessor {
             }
         }
         professor.setTurmasArrayList(turmas);
-        return professor;
     }
 }
