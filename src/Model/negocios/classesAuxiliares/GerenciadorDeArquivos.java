@@ -35,4 +35,9 @@ public abstract class GerenciadorDeArquivos {
             E.printStackTrace();
         }
     }
+
+    public static boolean existe(String endereco){
+        java.io.File file = new File(endereco);
+        return file.exists();
+    }
 }

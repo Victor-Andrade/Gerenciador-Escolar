@@ -10,10 +10,12 @@ import java.util.List;
 public class CRUDFaltas {
     List<Falta> faltas;
     String cpfAluno;
+    String endereco;
 
     public CRUDFaltas(String cpfAluno) {
         this.cpfAluno = cpfAluno;
         this.faltas = new ArrayList<Falta>();
+        this.endereco = String.format("./dados/faltas/%s.pdf", cpfAluno);
     }
 
     public static CRUDFaltas carregarFaltas(String cpf) throws IOException, ClassNotFoundException {
@@ -27,8 +29,7 @@ public class CRUDFaltas {
     }
 
     private void salvarAlteracoes() throws IOException {
-        String endereco = String.format("./dados/faltas/%s.pdf", this.cpfAluno);
-        FileOutputStream file2 = new FileOutputStream(endereco);
+        FileOutputStream file2 = new FileOutputStream(this.endereco);
         ObjectOutputStream os = new ObjectOutputStream(file2);
         os.writeObject(faltas);
         os.close();
@@ -38,6 +39,9 @@ public class CRUDFaltas {
         return this.cpfAluno;
     }
 
+    public String getEndereco(){
+        return this.endereco;
+    }
     public void adicionarFalta(Falta falta) throws IOException {
             faltas.add(falta);
             salvarAlteracoes();
