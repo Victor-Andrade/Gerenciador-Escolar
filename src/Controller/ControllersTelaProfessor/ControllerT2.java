@@ -52,7 +52,7 @@ public class ControllerT2 {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T1 Professor.fxml"));
             Parent root = fxmlLoader.load();
 
-            ((ControllerT1) fxmlLoader.getController()).setStage(this.stage, this.professor, this.fachadaProfessor);
+            //((ControllerT1) fxmlLoader.getController()).setStage(this.stage, this.professor, this.fachadaProfessor);
 
             Scene scene = new Scene(root);
             this.stage.setScene(scene);

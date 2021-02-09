@@ -8,18 +8,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ControllerT1 {
+public class ControllerT1 implements Initializable {
     private String mensagem;
     private FachadaProfessor fachadaProfessor;
     private Professor professor;
     private Turma turmaSelecionada;
+    private ObservableList<Turma> turmas;
 
     private Stage stage;
 
@@ -65,16 +70,25 @@ public class ControllerT1 {
         }
     }
 
-    private void iniciarLayout(){
-        ObservableList<Turma> turmas = FXCollections.observableArrayList(this.professor.getTurmasArrayList());
-
-        listaTurmas.setItems(turmas);
+    private void iniciarLayout(ObservableList<Turma> turma){
+        //listaTurmas.getItems().setAll(turmas);
+        listaTurmas.setItems(turma);
     }
 
-    public void setStage(Stage stage, Professor professor, FachadaProfessor fachadaProfessor){
+    public void setStage(Stage stage, Professor professor, FachadaProfessor fachadaProfessor) throws IOException, ClassNotFoundException {
         this.stage = stage;
         this.professor = professor;
         this.fachadaProfessor = fachadaProfessor;
-        this.listaTurmas = new ListView<>();
+        this.turmas = FXCollections.observableArrayList(this.professor.getTurmasArrayList());
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
+    //234.123.456-45
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        iniciarLayout(this.turmas);
     }
 }
