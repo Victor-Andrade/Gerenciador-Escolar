@@ -1,12 +1,12 @@
-package model.fachada;
+package Model.fachada;
 
 import Classes.pessoas.Pessoa;
-import model.cruds.CRUDTurma;
-import model.cruds.CRUDUsuarios;
-import model.negocios.NegocioAdministrador;
-import model.cruds.CRUDAlunos;
-import model.negocios.NegocioProfessor;
-import model.negocios.NegocioTurma;
+import Model.cruds.CRUDTurma;
+import Model.cruds.CRUDUsuarios;
+import Model.negocios.NegocioAdministrador;
+import Model.cruds.CRUDAlunos;
+import Model.negocios.NegocioProfessor;
+import Model.negocios.NegocioTurma;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +19,7 @@ public class FachadaAdministrador {
 
     public FachadaAdministrador(){
         this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
-        this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDTurma(), new CRUDUsuarios());
+        this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios());
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
     }
 

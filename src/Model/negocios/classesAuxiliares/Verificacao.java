@@ -1,4 +1,4 @@
-package model.negocios.classesAuxiliares;
+package Model.negocios.classesAuxiliares;
 
 import Classes.datas.Data;
 import Classes.excecoes.InvalidDateException;

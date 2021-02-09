@@ -1,4 +1,4 @@
-package model.negocios;
+package Model.negocios;
 
 import Classes.datas.Data;
 import Classes.excecoes.AlunoAlredyRegisteredException;
@@ -28,7 +28,7 @@ public class NegocioProfessor {
         this.repositorioTurmas = repositorioTurmas;
     }
 
-    //Adiciona uma falta em um aluno e atualiza o repositorio
+    //Adiciona uma falta em um aluno e atualiza o repositorio ++++++++ FALTA IMPLEMENTAR
     public void adicionarFalta(Aluno aluno, Data data, boolean justificar) throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
         if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             aluno.adicionarFalta(data, justificar);
@@ -40,7 +40,7 @@ public class NegocioProfessor {
     }
 
     //Gera o boletim de um aluno qualquer
-    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException {
+    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno.getNome())){
             Document documento = new Document();
             documento.setPageSize(PageSize.A4.rotate());
@@ -157,6 +157,8 @@ public class NegocioProfessor {
             } finally {
                 documento.close();
             }
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
@@ -173,7 +175,7 @@ public class NegocioProfessor {
     //Atualiza o arrayLista turmas de uma professor Obs: não os nomes (Função provavelmente usada exclusivamente nos Controllers);
     public void recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
         ArrayList<Turma> turmas = new ArrayList<>();
-        for(int id : professor.getTurmas()){
+        for(double id : professor.getTurmas()){
             for(Turma turma: repositorioTurmas.listarTurmas()){
                 if(turma.getId() == id){
                     turmas.add(turma);

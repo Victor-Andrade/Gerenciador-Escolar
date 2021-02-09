@@ -1,4 +1,4 @@
-package model.cruds;
+package Model.cruds;
 
 import Classes.excecoes.UsuarioNotFoundException;
 import Classes.interfaces.IRepositorioUsuarios;

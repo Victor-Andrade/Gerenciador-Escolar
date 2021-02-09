@@ -4,7 +4,7 @@ import Classes.pessoas.Administrador;
 import Classes.pessoas.Pessoa;
 import Classes.pessoas.Professor;
 import Controller.ControllersTelaProfessor.ControllerT1;
-import model.fachada.FachadaAdministrador;
+import Model.fachada.FachadaAdministrador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.fachada.FachadaProfessor;
+import Model.fachada.FachadaProfessor;
 
 import java.io.IOException;
 
@@ -39,8 +39,7 @@ public class ControllerLogin {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T1 Professor.fxml"));
             Parent root = fxmlLoader.load();
-            ((ControllerT1) fxmlLoader.getController()).setStage(this.stage);
-            ((ControllerT1) fxmlLoader.getController()).setProfessor(professor, new FachadaProfessor());
+            ((ControllerT1) fxmlLoader.getController()).setStage(this.stage, professor, new FachadaProfessor());
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

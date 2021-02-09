@@ -19,9 +19,11 @@ public class Falta implements Serializable {
         this.justificada = true;
         this.documentoDaJustificativa = documentoDaJustificativa;
     }
+
     public void retirarJustificativa(){
         this.justificada = false;
     }
+
     public Data getData(){
         return this.data;
     }

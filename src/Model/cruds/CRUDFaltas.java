@@ -14,7 +14,7 @@ public class CRUDFaltas {
 
     public CRUDFaltas(String cpfAluno) {
         this.cpfAluno = cpfAluno;
-        this.faltas = new ArrayList<Falta>();
+        this.faltas = new ArrayList<>();
         this.endereco = String.format("./dados/faltas/%s.pdf", cpfAluno);
     }
 

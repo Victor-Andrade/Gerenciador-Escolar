@@ -1,4 +1,4 @@
-package model.cruds;
+package Model.cruds;
 
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.interfaces.IRepositorioTurmas;
@@ -62,7 +62,7 @@ public class CRUDTurma implements IRepositorioTurmas {
     public List<Turma> listarTurmas() throws IOException, ClassNotFoundException {
         List<Turma> temp;
 
-        FileInputStream file = new FileInputStream("/src/Model/turmas.dat");
+        FileInputStream file = new FileInputStream("turmas.dat");
         ObjectInputStream is = new ObjectInputStream(file);
 
         temp = (ArrayList<Turma>) is.readObject();
@@ -71,7 +71,7 @@ public class CRUDTurma implements IRepositorioTurmas {
     }
 
     private void atualizarModificacoes(List<Turma> turmas) throws IOException {
-        FileOutputStream file2 = new FileOutputStream("/src/Model/usuarios.dat");
+        FileOutputStream file2 = new FileOutputStream("usuarios.dat");
         ObjectOutputStream os = new ObjectOutputStream(file2);
 
         os.writeObject(turmas);

@@ -1,4 +1,4 @@
-package model.cruds;
+package Model.cruds;
 
 import Classes.excecoes.AlunoNotFoundException;
 import Classes.pessoas.Aluno;
@@ -22,7 +22,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
         List<Aluno> temp = todosOsAlunosArray();
 
         for(Aluno aluno: temp){
-            if(aluno.getNome().toLowerCase().equals(nomeOuCpf) || aluno.getCpf().equals(nomeOuCpf)){
+            if(aluno.equals(nomeOuCpf)){
                 temp.remove(aluno);
                 break;
             }
@@ -45,7 +45,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
         List<Aluno> temp = todosOsAlunosArray();
 
         for (Aluno alunoTemp: temp){
-            if(alunoTemp.getCpf().equals(nomeOuCpf) || alunoTemp.getNome().toLowerCase().equals(nomeOuCpf)){
+            if(alunoTemp.equals(nomeOuCpf)){
                 return alunoTemp;
             }
         }
@@ -61,7 +61,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
     @Override
     public boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException {
         for(Aluno aluno: todosOsAlunosArray()){
-            if(aluno.getCpf().equals(nomeOuCpf) || aluno.getNome().equals(nomeOuCpf)){
+            if(aluno.equals(nomeOuCpf)){
                 return true;
             }
         }
@@ -72,7 +72,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
     public List<Aluno> todosOsAlunosArray() throws IOException, ClassNotFoundException {
         List<Aluno> temp;
 
-        FileInputStream file = new FileInputStream("/src/Model/alunos.dat");
+        FileInputStream file = new FileInputStream("alunos.dat");
         ObjectInputStream is = new ObjectInputStream(file);
 
         temp = (ArrayList<Aluno>) is.readObject();
@@ -83,7 +83,7 @@ public class CRUDAlunos implements IRepositorioAlunos {
     }
 
     private void atualizarModificacoes(List<Aluno> alunos) throws IOException {
-        FileOutputStream file2 = new FileOutputStream("/src/Model/alunos.dat");
+        FileOutputStream file2 = new FileOutputStream("alunos.dat");
         ObjectOutputStream os = new ObjectOutputStream(file2);
 
         os.writeObject(alunos);

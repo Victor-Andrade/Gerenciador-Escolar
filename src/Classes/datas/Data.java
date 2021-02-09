@@ -143,4 +143,25 @@ public class Data implements Serializable {
             return false;
         }
     }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public int getDia() {
+        return dia;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Data){
+            Data data = (Data) obj;
+            return data.getDia() == this.dia && data.getMes() == this.mes && data.getAno() == this.ano;
+        }
+        return false;
+    }
 }

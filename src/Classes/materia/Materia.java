@@ -3,11 +3,11 @@ package Classes.materia;
 import java.io.Serializable;
 
 public class Materia implements Serializable {
-    String nome;
-    Bimestre primeiroBimestre;
-    Bimestre segundoBimestre;
-    Bimestre terceiroBimestre;
-    Bimestre quartoBimestre;
+    private final String nome;
+    private final Bimestre primeiroBimestre;
+    private final Bimestre segundoBimestre;
+    private final Bimestre terceiroBimestre;
+    private final Bimestre quartoBimestre;
 
     public Materia(String nome){
         this.nome = nome;
@@ -18,7 +18,7 @@ public class Materia implements Serializable {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public Bimestre getPrimeiroBimestre(){
@@ -26,7 +26,7 @@ public class Materia implements Serializable {
     }
 
     public double getMedia1Bimestre(){
-        return primeiroBimestre.calcularMedia();
+        return this.primeiroBimestre.calcularMedia();
     }
 
     public void setNotasPrimeiroBimestre(double n1, double n2){
@@ -39,7 +39,7 @@ public class Materia implements Serializable {
     }
 
     public double getMedia2Bimestre(){
-        return segundoBimestre.calcularMedia();
+        return this.segundoBimestre.calcularMedia();
     }
 
     public void setNotasSegundoBimestre(double n1, double n2) {
@@ -52,7 +52,7 @@ public class Materia implements Serializable {
     }
 
     public double getMedia3Bimestre(){
-        return terceiroBimestre.calcularMedia();
+        return this.terceiroBimestre.calcularMedia();
     }
 
     public void setNotasTerceiroBimestre(double n1, double n2){
@@ -65,7 +65,7 @@ public class Materia implements Serializable {
     }
 
     public double getMedia4Bimestre(){
-        return quartoBimestre.calcularMedia();
+        return this.quartoBimestre.calcularMedia();
     }
 
     public void setNotasQuartoBimestre(double n1, double n2) {

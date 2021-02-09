@@ -1,12 +1,11 @@
-package model.negocios;
+package Model.negocios;
 
 import Classes.datas.Data;
 import Classes.excecoes.*;
-import Classes.interfaces.IRepositorioTurmas;
 import Classes.interfaces.IRepositorioUsuarios;
 import Classes.pessoas.*;
 import Classes.interfaces.IRepositorioAlunos;
-import model.negocios.classesAuxiliares.Verificacao;
+import Model.negocios.classesAuxiliares.Verificacao;
 import com.itextpdf.text.Document;
 
 import com.itextpdf.text.*;
@@ -18,21 +17,23 @@ import java.util.List;
 public class NegocioAdministrador {
 
     private final IRepositorioAlunos repositorioAlunos;
-    private final IRepositorioTurmas repositorioTurmas;
     private final IRepositorioUsuarios repositorioUsuarios;
 
 
-    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioTurmas repositorioTurmas, IRepositorioUsuarios repositorioUsuarios){
+    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios){
         this.repositorioAlunos = repositorioAlunos;
-        this.repositorioTurmas = repositorioTurmas;
         this.repositorioUsuarios = repositorioUsuarios;
     }
 
     //Adiciona aluno o repositorio
-    public void matricularAluno(String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
+    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if(verificarCampos(nome, cpf, data, email, contato)){
-            Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato);
-            repositorioAlunos.adicionarAluno(alunoTemp);
+            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
+                Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+                repositorioAlunos.adicionarAluno(alunoTemp);
+            }else{
+                throw new AlunoAlredyRegisteredException(nome, cpf);
+            }
         }
     }
 
@@ -55,19 +56,17 @@ public class NegocioAdministrador {
     }
 
     //Atualiza informações de uma aluno
-    public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
-        if(verificarCamposAtualizacao(nome, cpf, data, email, contato)){
-            if(repositorioAlunos.existeNoBanco(cpf) || repositorioAlunos.existeNoBanco(nome)){
-                if(verificarCamposAtualizacao(nome, cpf, data, email, contato)){
-                    repositorioAlunos.atualizarAluno(alunoAntigo.getNome(), new Aluno(nome, cpf, data, email, contato));
-                }
+    public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
+        if(verificarCampos(nome, cpf, data, email, contato)){
+            if(repositorioAlunos.existeNoBanco(cpf) || this.repositorioAlunos.existeNoBanco(nome)){
+                repositorioAlunos.atualizarAluno(alunoAntigo.getNome(), new Aluno(nome, cpf, data, email, contato, emailResponsavel));
             }
         }
     }
 
     //Gera um certificado de conclusão de um aluno com hora extra
-    public void gerarCertificadoDeConclusao(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException {
-        if(repositorioAlunos.existeNoBanco(aluno.getNome())){
+    public void gerarCertificadoDeConclusao(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno.getCpf())){
             Document documento = new Document();
             try{
                 PdfWriter.getInstance(documento, new FileOutputStream("Declaração de Conlcusão.pdf"));
@@ -116,6 +115,8 @@ public class NegocioAdministrador {
             }finally {
                 documento.close();
             }
+        }else {
+            throw new AlunoNotFoundException(aluno.getCpf());
         }
     }
 
@@ -185,7 +186,7 @@ public class NegocioAdministrador {
             if(!repositorioUsuarios.existeNoBanco(professor.getCpf()) && !repositorioUsuarios.existeNoBanco(professor.getNome())){
                 this.repositorioUsuarios.adicionarUsuario(professor);
             }else {
-                throw new UsuarioAlreadyRegisteredException();
+                throw new UsuarioAlreadyRegisteredException(professor.getNome());
             }
         }
     }
@@ -197,10 +198,9 @@ public class NegocioAdministrador {
             if(!repositorioUsuarios.existeNoBanco(admin.getCpf()) && !repositorioUsuarios.existeNoBanco(admin.getNome())){
                 this.repositorioUsuarios.adicionarUsuario(admin);
             }else {
-                throw new UsuarioAlreadyRegisteredException();
+                throw new UsuarioAlreadyRegisteredException(admin.getNome());
             }
         }
-
     }
 
     public List<Pessoa> todosOsUsuarios() throws IOException, ClassNotFoundException {
@@ -212,7 +212,7 @@ public class NegocioAdministrador {
         if(repositorioUsuarios.existeNoBanco(nomeOuCpf)){
             repositorioUsuarios.removerUsuario(nomeOuCpf);
         }else{
-            throw new UsuarioNotFoundException();
+            throw new UsuarioNotFoundException(nomeOuCpf);
         }
     }
 
@@ -226,37 +226,9 @@ public class NegocioAdministrador {
 
     }
 
-    //Verifica os campos de um alunos, inclusive se ele já se encontra no banco
-    private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato) throws IOException, ClassNotFoundException, InvalidDateException, InvalidFieldException, AlunoAlredyRegisteredException {
-        if(!repositorioAlunos.existeNoBanco(nome)){
-            if(Verificacao.verificarCpf(cpf)){
-                if(!repositorioAlunos.existeNoBanco(cpf)){
-                    if(Verificacao.verificarEmail(email)){
-                        if(Verificacao.verificarDataDeNascimento(data)){
-                            if(Verificacao.verificarNumeroParaContato(contato)){
-                                return true;
-                            }else{
-                                throw new InvalidFieldException("Numero"  + contato);
-                            }
-                        }else{
-                            throw new InvalidFieldException("Data de nascimento"  + data.formatarData());
-                        }
-                    }else{
-                        throw new InvalidFieldException("Email" + email);
-                    }
-                } else{
-                    throw new AlunoAlredyRegisteredException(nome, cpf);
-                }
-            }else{
-                throw new InvalidFieldException("CPF", cpf);
-            }
-        }else{
-            throw new AlunoAlredyRegisteredException(nome, cpf);
-        }
-    }
 
     //Verifica os campos de um alunos, não considera se ele já se encontra no banco
-    private boolean verificarCamposAtualizacao(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException, InvalidFieldException {
+    private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException, InvalidFieldException {
         if(Verificacao.verificarCpf(cpf)){
             if(Verificacao.verificarEmail(email)){
                 if(Verificacao.verificarDataDeNascimento(data)){

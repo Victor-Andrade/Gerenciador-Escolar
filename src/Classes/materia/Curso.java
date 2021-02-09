@@ -11,7 +11,7 @@ public class Curso implements Serializable {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {
@@ -19,7 +19,7 @@ public class Curso implements Serializable {
     }
 
     public int getHoras() {
-        return horas;
+        return this.horas;
     }
 
     public void adicionarHoras() {

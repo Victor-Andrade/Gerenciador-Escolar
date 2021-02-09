@@ -1,11 +1,6 @@
 package Classes.main;
 
-import Classes.datas.Data;
-import Classes.excecoes.InvalidDateException;
-import Classes.pessoas.Pessoa;
-import Classes.pessoas.Professor;
 import Controller.ControllerLogin;
-import model.cruds.CRUDUsuarios;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
@@ -23,7 +18,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaLogin/TelaLogin.fxml"));
         Parent root = fxmlLoader.load();
 
-        ((ControllerLogin) fxmlLoader.getController()).setStage(primaryStage);
+        (((ControllerLogin) fxmlLoader.getController())).setStage(primaryStage);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

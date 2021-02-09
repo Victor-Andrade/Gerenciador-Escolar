@@ -1,6 +1,5 @@
 package Classes.pessoas;
 
-import Classes.datas.Calendario;
 import Classes.datas.Data;
 import Classes.excecoes.InvalidDateException;
 import Classes.faltas.Falta;
@@ -11,31 +10,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno extends Pessoa{
-    private ArrayList<Materia> materias;
-    private Calendario faltas;
+    private List<Materia> materias;
     private List<Falta> listaDeFaltas;
+    private String emailPais;
 
-    public Aluno(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException {
+    public Aluno(String nome, String cpf, Data data, String email, String contato, String emailPais) throws InvalidDateException {
         super(nome, cpf, data, email, contato);
         this.materias =  new ArrayList<>();
-        this.faltas = new Calendario();
-
+        this.emailPais = emailPais;
+        inicializarMaterias();
     }
 
-    public ArrayList<Materia> getMaterias() {
-        return materias;
+    public String getEmailPais() {
+        return this.emailPais;
+    }
+
+    public void setEmailPais(String emailPais) {
+        this.emailPais = emailPais;
+    }
+
+    public List<Materia> getMaterias() {
+        return this.materias;
     }
 
     public void setMaterias(ArrayList<Materia> materias) {
         this.materias = materias;
     }
 
+    //Em branco
     public void adicionarFalta(Data data, boolean justificada){
-        faltas.adicionarFalta(data, justificada);
+
     }
 
+    //Em branco
     public void removerFalta(Data data){
-        faltas.removerFalta(data);
+
     }
 
     public Materia getMateria(String nomeDaMateria) throws InvalidFieldException {
@@ -44,12 +53,12 @@ public class Aluno extends Pessoa{
                 return materia;
             }
         }
-
-        throw new InvalidFieldException("Materia", nomeDaMateria);
+        return null;
     }
 
-    public int getFaltas(){
-        return faltas.contarFaltas();
+    //Em branco
+    public void getFaltas(){
+
     }
 
     private void inicializarMaterias(){

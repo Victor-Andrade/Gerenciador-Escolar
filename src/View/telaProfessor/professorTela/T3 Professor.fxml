@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllersTelaProfessor.ControllerT2">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllersTelaProfessor.ControllerT3">
    <children>
-      <Button layoutX="8.0" layoutY="361.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="143.0" text="Voltar" />
-      <Button fx:id="btnSalvarModificacoes" layoutX="164.0" layoutY="361.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="169.0" text="Salvar" />
-      <Button fx:id="btnDescartarAlteracoes" layoutX="340.0" layoutY="361.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="176.0" style="-fx-background-color: #ff8c8c;" text="Descartar" />
+      <Button layoutX="8.0" layoutY="361.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="143.0" text="Voltar" />
+      <Button fx:id="btnSalvarModificacoes" layoutX="164.0" layoutY="361.0" mnemonicParsing="false" onAction="#salvarNotas" prefHeight="46.0" prefWidth="169.0" text="Salvar" />
+      <Button fx:id="btnDescartarAlteracoes" layoutX="340.0" layoutY="361.0" mnemonicParsing="false" onAction="#descartarModificacoes" prefHeight="46.0" prefWidth="176.0" style="-fx-background-color: #ff8c8c;" text="Descartar" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="101.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="44.0" layoutY="200.0" text="1º Bimestre" />
       <Label layoutX="138.0" layoutY="202.0" text="2º Bimestre" />
@@ -44,7 +44,7 @@
       <Text fx:id="txtEmail" layoutX="59.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" textAlignment="CENTER" wrappingWidth="626.13671875" />
       <Text fx:id="txtContato" layoutX="59.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contato:" textAlignment="CENTER" wrappingWidth="626.13671875" />
       <Button layoutX="616.0" layoutY="275.0" mnemonicParsing="false" text="Anexo" />
-      <Button fx:id="btnSalvarModificacoes1" layoutX="526.0" layoutY="361.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="169.0" text="Boletim" />
+      <Button fx:id="btnSalvarModificacoes1" layoutX="526.0" layoutY="361.0" mnemonicParsing="false" onAction="#gerarBoletim" prefHeight="46.0" prefWidth="169.0" text="Boletim" />
       <Button layoutX="578.0" layoutY="99.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="115.0" text="Reportar Situação" />
    </children>
 </AnchorPane>

@@ -2,7 +2,8 @@ package Controller.ControllersTelaProfessor;
 
 import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
-import model.fachada.FachadaProfessor;
+import Controller.ControllerLogin;
+import Model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,38 +23,38 @@ public class ControllerT1 {
 
     private Stage stage;
 
-    public ControllerT1 (){
-        this.fachadaProfessor = new FachadaProfessor();
-    }
 
     @FXML
     private ListView<Turma> listaTurmas;
 
-    public void setStage(Stage stage){
-        this.stage = stage;
+    @FXML
+    private void setTurmaSelecionada(){
+        Turma turma = this.listaTurmas.getSelectionModel().getSelectedItem();
+
+        this.turmaSelecionada = turma;
     }
 
-    public void setProfessor(Professor professor, FachadaProfessor fachadaProfessor) {
-        try{
-            fachadaProfessor.recuperarTurmasProfessor(professor);
-            this.professor = professor;
+    @FXML
+    public void voltar() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaLogin/TelaLogin.fxml"));
+        Parent root = fxmlLoader.load();
 
-            ObservableList<Turma> turmas = FXCollections.observableArrayList(professor.getTurmasArrayList());
+        ((ControllerLogin) fxmlLoader.getController()).setStage(this.stage);
 
-            listaTurmas.setItems(turmas);
-            this.fachadaProfessor = fachadaProfessor;
-        }catch (IOException | ClassNotFoundException e){
-            this.mensagem = "Professor não cadastrado no banco";
-        }
+        Scene scene = new Scene(root);
+        this.stage.setScene(scene);
+        this.stage.setTitle("Login");
     }
 
+
+    @FXML
     public void continuar(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T2 Professor.fxml"));
             Parent root = fxmlLoader.load();
 
             ((ControllerT2) fxmlLoader.getController()).setStage(this.stage);
-            ((ControllerT2) fxmlLoader.getController()).setParametros(this.fachadaProfessor, this.turmaSelecionada);
+            ((ControllerT2) fxmlLoader.getController()).setParametros(this.fachadaProfessor, this.turmaSelecionada, this.professor);
 
             Scene scene = new Scene(root);
             this.stage.setScene(scene);
@@ -62,5 +63,18 @@ public class ControllerT1 {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void iniciarLayout(){
+        ObservableList<Turma> turmas = FXCollections.observableArrayList(this.professor.getTurmasArrayList());
+
+        listaTurmas.setItems(turmas);
+    }
+
+    public void setStage(Stage stage, Professor professor, FachadaProfessor fachadaProfessor){
+        this.stage = stage;
+        this.professor = professor;
+        this.fachadaProfessor = fachadaProfessor;
+        this.listaTurmas = new ListView<>();
     }
 }

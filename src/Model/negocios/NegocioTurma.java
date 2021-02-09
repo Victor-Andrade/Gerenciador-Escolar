@@ -1,5 +1,6 @@
-package model.negocios;
+package Model.negocios;
 
+import Classes.excecoes.AlunoNotFoundException;
 import Classes.excecoes.TurmaNaoExisteException;
 import Classes.excecoes.TurmaRepetidaException;
 import Classes.interfaces.IRepositorioAlunos;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NegocioTurma {
-    private IRepositorioTurmas repositorioTurmas;
-    private IRepositorioAlunos repositorioAlunos;
+    private final IRepositorioTurmas repositorioTurmas;
+    private final IRepositorioAlunos repositorioAlunos;
 
     public NegocioTurma(IRepositorioTurmas repositorioTurmas, IRepositorioAlunos repositorioAlunos) {
         this.repositorioTurmas = repositorioTurmas;
@@ -62,28 +63,33 @@ public class NegocioTurma {
     }
 
     //Adiciona um aluno em uma turma (Somente o nome) e faz a atualização no banco
-    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno) throws Exception {
-        if(repositorioTurmas.turmaExiste(turma.getId()) && repositorioAlunos.existeNoBanco(aluno.getNome())){
-            turma.adicionarAluno(aluno.getNome());
-            this.repositorioTurmas.excluirTurma(turma.getId());
-            this.repositorioTurmas.adicionarTurma(turma);
+    public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws TurmaNaoExisteException, IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioTurmas.turmaExiste(turma.getId())){
+            if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
+                turma.adicionarAluno(nomeOuCpf);
+                this.repositorioTurmas.excluirTurma(turma.getId());
+                this.repositorioTurmas.adicionarTurma(turma);
+            }else{
+                throw new AlunoNotFoundException(nomeOuCpf);
+            }
         }else{
-            throw new Exception();
-            ////// VOLTAR AQUI/////
+            throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
         }
     }
 
     //Remove um aluno em uma turma (Somente o nome) e faz a atualizações no banco
-    public void removerAlunoDaTurma(Turma turma, Aluno aluno) throws Exception {
-        if(repositorioTurmas.turmaExiste(turma.getId()) && repositorioAlunos.existeNoBanco(aluno.getNome())){
-            turma.removerAluno(aluno.getNome());
-            this.repositorioTurmas.excluirTurma(turma.getId());
-            this.repositorioTurmas.adicionarTurma(turma);
+    public void removerAlunoDaTurma(Turma turma, String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException {
+        if(repositorioTurmas.turmaExiste(turma.getId())){
+            if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
+                turma.removerAluno(nomeOuCpf);
+                this.repositorioTurmas.excluirTurma(turma.getId());
+                this.repositorioTurmas.adicionarTurma(turma);
+            }else{
+                throw new AlunoNotFoundException(nomeOuCpf);
+            }
         }else {
-            throw new Exception();
-            ////// VOLTAR AQUI/////
+            throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
         }
-
     }
 
     //Atualiza o arrayLista da turma, dessa vez com um arrayList de turmas(Função provavelmente usada exclusivamente nos Controllers);

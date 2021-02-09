@@ -2,12 +2,13 @@ package Classes.turmas;
 
 import Classes.pessoas.Aluno;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Turma {
+public class Turma implements Serializable {
     private double id;
-    private ArrayList<String> nomesAlunos;
+    private List<String> nomesAlunos;
     private String apelido;
     private List<Aluno> alunos;
 
@@ -15,14 +16,25 @@ public class Turma {
         this.id = id;
         this.apelido = apelido;
         this.alunos = alunos;
+        this.nomesAlunos = new ArrayList<>();
+    }
+
+    public Turma(double id, String apelido) {
+        this.id = id;
+        this.apelido = apelido;
+        this.nomesAlunos = new ArrayList<>();
     }
 
     public double getId() {
         return id;
     }
 
+    public void setId(int id){
+        this.id = id;
+    }
+
     public String getApelido() {
-        return apelido;
+        return this.apelido;
     }
 
     public void setApelido(String apelido) {
@@ -30,7 +42,7 @@ public class Turma {
     }
 
     public List<Aluno> getAlunos() {
-        return alunos;
+        return this.alunos;
     }
 
     public void adicionarAluno(String nome){
@@ -45,7 +57,7 @@ public class Turma {
         this.nomesAlunos = alunos;
     }
 
-    public ArrayList<String> getNomesAlunos(){
+    public List<String> getNomesAlunos(){
         return this.nomesAlunos;
     }
 
@@ -53,17 +65,6 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    public void adicionarAluno(Aluno novo){
-        this.alunos.add(novo);
-    }
-
-    public Aluno selecionarAluno(int index){
-        return alunos.get(index);
-    }
-
-    public void removerAluno(int index){
-        this.alunos.remove(index);
-    }
 
     @Override
     public boolean equals(Object obj) {

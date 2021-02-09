@@ -1,10 +1,13 @@
 package Controller.ControllersTelaProfessor;
 
-import Classes.excecoes.InvalidFieldException;
 import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
+import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
-import model.fachada.FachadaProfessor;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import Model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,10 +18,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class ControllerT3 {
     private FachadaProfessor fachadaProfessor;
     private Turma turma;
+    private Professor professor;
 
     private Stage stage;
 
@@ -67,21 +73,44 @@ public class ControllerT3 {
     @FXML
     private CheckBox justificar;
 
-    public ControllerT3() throws InvalidFieldException {
+    public ControllerT3() {
         inicializarInfoAluno();
+    }
+
+    @FXML
+    public void gerarBoletim() throws IOException, ClassNotFoundException {
+        this.fachadaProfessor.gerarBoletim(this.aluno);
+    }
+
+    @FXML
+    private void voltar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T2 Professor.fxml"));
+            Parent root = fxmlLoader.load();
+
+            ((ControllerT2) fxmlLoader.getController()).setStage(this.stage);
+            ((ControllerT2) fxmlLoader.getController()).setParametros(this.fachadaProfessor, this.turma, this.professor);
+
+            Scene scene = new Scene(root);
+            this.stage.setScene(scene);
+            this.stage.setTitle("Turma");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void setStage(Stage stage){
         this.stage = stage;
     }
 
-    public void setParametros(FachadaProfessor fachadaProfessor, Turma turma, Aluno aluno){
+    public void setParametros(FachadaProfessor fachadaProfessor, Turma turma, Aluno aluno, Professor professor){
             this.fachadaProfessor = fachadaProfessor;
             this.turma = turma;
             this.aluno = aluno;
+            this.professor = professor;
     }
 
-    private void inicializarInfoAluno() throws InvalidFieldException {
+    private void inicializarInfoAluno() {
 
         ObservableList<Materia> materiasDoAluno = FXCollections.observableArrayList(aluno.getMaterias());
 
@@ -89,10 +118,11 @@ public class ControllerT3 {
         txtEmail.setText(aluno.getEmail());
         txtContato.setText(aluno.getNumeroParaContato());
         materias.setItems(materiasDoAluno);
-        inicializarNotas(aluno.getMateria("Português"));
     }
 
-    private void inicializarNotas(Materia materia){
+    @FXML
+    private void inicializarNotas(){
+        Materia materia = materias.getSelectionModel().getSelectedItem();
 
         b1N1.setText(Double.toString(materia.getPrimeiroBimestre().getNota1()));
         b1N2.setText(Double.toString(materia.getPrimeiroBimestre().getNota2()));

@@ -20,7 +20,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     //Falta definir uma regra
@@ -29,7 +29,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public String getCpf() {
-        return cpf;
+        return this.cpf;
     }
 
     public void setCpf(String cpf){
@@ -37,7 +37,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public Data getDataDeNascimento() {
-        return dataDeNascimento;
+        return this.dataDeNascimento;
     }
 
     //Falta idade?
@@ -46,7 +46,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email){
@@ -54,11 +54,20 @@ public abstract class Pessoa implements Serializable {
     }
 
     public String getNumeroParaContato() {
-        return numeroParaContato;
+        return this.numeroParaContato;
     }
 
     public void setNumeroParaContato(String numeroParaContato){
         this.numeroParaContato = numeroParaContato;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof String){
+            String nomeOuCpf = (String) obj;
+            return nomeOuCpf.toLowerCase().equals(this.nome) || nomeOuCpf.replace("-", "").replace(".", "").replace(" ", "").equals(this.cpf);
+        }else{
+            return false;
+        }
+    }
 }
