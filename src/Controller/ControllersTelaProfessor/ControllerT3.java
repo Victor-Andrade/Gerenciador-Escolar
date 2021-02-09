@@ -1,5 +1,6 @@
 package Controller.ControllersTelaProfessor;
 
+import Classes.excecoes.AlunoNotFoundException;
 import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
@@ -78,7 +79,7 @@ public class ControllerT3 {
     }
 
     @FXML
-    public void gerarBoletim() throws IOException, ClassNotFoundException {
+    public void gerarBoletim() throws IOException, ClassNotFoundException, AlunoNotFoundException {
         this.fachadaProfessor.gerarBoletim(this.aluno);
     }
 

@@ -46,7 +46,7 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
             }
         }
 
-        throw new UsuarioNotFoundException();
+        throw new UsuarioNotFoundException(nomeOuCpf);
     }
 
     @Override

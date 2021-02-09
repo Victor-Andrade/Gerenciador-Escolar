@@ -39,7 +39,10 @@ public class ControllerLogin {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T1 Professor.fxml"));
             Parent root = fxmlLoader.load();
-            ((ControllerT1) fxmlLoader.getController()).setStage(this.stage, professor, new FachadaProfessor());
+
+            ControllerT1 controller = fxmlLoader.getController();
+
+            controller.setStage(this.stage, professor, new FachadaProfessor());
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
