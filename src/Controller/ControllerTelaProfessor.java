@@ -4,6 +4,7 @@ import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
+import Model.negocios.classesAuxiliares.GerenciadorDeArquivos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 
 
 public class ControllerTelaProfessor {

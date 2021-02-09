@@ -1,5 +1,8 @@
 package Model.fachada;
 
+import Classes.datas.Data;
+import Classes.excecoes.InvalidDateException;
+import Classes.pessoas.Administrador;
 import Classes.pessoas.Pessoa;
 import Model.cruds.CRUDTurma;
 import Model.cruds.CRUDUsuarios;
@@ -8,7 +11,11 @@ import Model.cruds.CRUDAlunos;
 import Model.negocios.NegocioProfessor;
 import Model.negocios.NegocioTurma;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,5 +32,21 @@ public class FachadaAdministrador {
 
     public List<Pessoa> getUsuariosLogin() throws IOException, ClassNotFoundException {
         return this.negocioAdministrador.todosOsUsuarios();
+    }
+
+    public void adicionarAdmPadrao(){
+        try{
+            Data data = new Data(2021, 2, 10);
+            Administrador adm = new Administrador("admin", "12345678910", data
+                    ,"admin@admin.com", "(87)99999-9999", "admin123");
+            List<Pessoa> p = new ArrayList<Pessoa>(10);
+            FileOutputStream file = new FileOutputStream("usuarios.dat");
+            ObjectOutputStream os = new ObjectOutputStream(file);
+            p.add(adm);
+            os.writeObject(p);
+            os.close();
+        } catch (InvalidDateException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

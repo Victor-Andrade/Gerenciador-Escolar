@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import Model.fachada.FachadaProfessor;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ControllerLogin {
     private FachadaAdministrador fachadaAdministrador;
@@ -93,6 +94,7 @@ public class ControllerLogin {
 
     //Tenta realizar o login
     public void realizarLogin() throws IOException, ClassNotFoundException {
+        verificarExistenciaUsuarios();
        if(verificarCampos()){
             boolean encontrada = false;
 
@@ -120,10 +122,22 @@ public class ControllerLogin {
             if(!encontrada){
                 this.txtAviso.setText("Usuário ou senha inválidos");
             }
-        }else{
+       }
+       else{
             this.txtAviso.setText("Dados inválidos");
-        }
-
+       }
     }
 
+    private void verificarExistenciaUsuarios() {
+        try {
+            List<Pessoa> usuarios =  fachadaAdministrador.getUsuariosLogin();
+            if(usuarios.size() < 1){
+                System.out.println("Criando Usuário");
+                fachadaAdministrador.adicionarAdmPadrao();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro, criando usuário");
+            fachadaAdministrador.adicionarAdmPadrao();
+        }
+    }
 }
