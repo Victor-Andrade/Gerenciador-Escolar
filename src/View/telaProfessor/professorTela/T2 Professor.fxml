@@ -15,6 +15,6 @@
       <Button layoutX="521.0" layoutY="434.0" mnemonicParsing="false" onAction="#continuar" prefHeight="46.0" prefWidth="147.0" text="Avançar" />
       <TextField fx:id="campoAdicao" layoutX="684.0" layoutY="24.0" prefHeight="26.0" prefWidth="231.0" />
       <Text layoutX="714.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Para adicionar um aluno na turma digite o nome dele ou CPF no campo acima, para remover um aluno basta selecionar o item na lista ao lado" wrappingWidth="171.466796875" />
-      <Text fx:id="aviso" fill="RED" layoutX="678.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="242.13671875" />
+      <Text fx:id="aviso" fill="RED" layoutX="678.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="242.13671875" />
    </children>
 </AnchorPane>

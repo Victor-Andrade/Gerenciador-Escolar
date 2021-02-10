@@ -4,6 +4,7 @@ import Classes.pessoas.Administrador;
 import Classes.pessoas.Pessoa;
 import Classes.pessoas.Professor;
 import Controller.ControllersTelaProfessor.ControllerT1;
+import Controller.controllerTelaAdministrador.ControllerTelaAdministrador;
 import Model.fachada.FachadaAdministrador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,22 +58,20 @@ public class ControllerLogin {
         }
     }
 
-    public void navegarParaTelaAdministrador(){
+    public void navegarParaTelaAdministrador(Administrador administrador){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaAdministrador/TelaAdministrador.fxml"));
+
             ControllerTelaAdministrador controller = new ControllerTelaAdministrador();
-            controller.setTest("UHUUUUUU");
-            System.out.println(controller.getTest());
+
+            controller.setParams(this.stage, administrador, new FachadaAdministrador());
             fxmlLoader.setController(controller);
+
             Parent root = fxmlLoader.load();
-            ((ControllerTelaAdministrador) fxmlLoader.getController()).setStage(this.stage);
-
-
-//            fxmlLoader.setController(controller);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Administrador");
-            stage.show();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -117,7 +116,7 @@ public class ControllerLogin {
                         Administrador temp = (Administrador) loginBanco;
                         if(temp.getSenha().equals(this.txtSenha.getText())){
                             encontrada = true;
-                            navegarParaTelaAdministrador();
+                            navegarParaTelaAdministrador(temp);
                         }
                     }
                     if(loginBanco instanceof Professor){

@@ -1,7 +1,9 @@
 package Model.fachada;
 
 import Classes.datas.Data;
+import Classes.excecoes.AlunoAlredyRegisteredException;
 import Classes.excecoes.InvalidDateException;
+import Classes.excecoes.InvalidFieldException;
 import Classes.pessoas.Administrador;
 import Classes.pessoas.Pessoa;
 import Model.cruds.CRUDTurma;
@@ -31,6 +33,10 @@ public class FachadaAdministrador {
         this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
         this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios());
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
+    }
+
+    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, AlunoAlredyRegisteredException, InvalidDateException, IOException {
+        this.negocioAdministrador.matricularAluno(nome, cpf, data, email,  contato, emailResponsavel);
     }
 
     public List<Pessoa> getUsuariosLogin() throws IOException, ClassNotFoundException {
