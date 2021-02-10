@@ -6,7 +6,7 @@ import Classes.excecoes.InvalidDateException;
 import java.time.LocalDateTime;
 
 /**
- * Classe utilitária para verificação de informações das Pessoas
+ * Classe utilitária para validação de informações das Pessoas
  * @author
  */
 

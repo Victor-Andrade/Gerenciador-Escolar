@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Classe responsável por fazer a manipulação primária de objetos de Aluno em arquivos
+ * Ela trata objetos da classe Aluno e AlunoHoraExtra.
  * @author
  */
 
@@ -27,6 +28,8 @@ public class CRUDAlunos implements IRepositorioAlunos {
         List<Aluno> temp = todosOsAlunosArray();
 
         for(Aluno aluno: temp){
+            //Usa o comportamento polimorfico para comparar, pois a classe Pessoa sobreEscreve o equals e compara
+            // a String com o objeto pessoa
             if(aluno.equals(nomeOuCpf)){
                 temp.remove(aluno);
                 break;
@@ -50,6 +53,8 @@ public class CRUDAlunos implements IRepositorioAlunos {
         List<Aluno> temp = todosOsAlunosArray();
 
         for (Aluno alunoTemp: temp){
+            //Usa o comportamento polimorfico para comparar, pois a classe Pessoa sobreEscreve o equals e compara
+            // a String com o objeto pessoa
             if(alunoTemp.equals(nomeOuCpf)){
                 return alunoTemp;
             }
@@ -66,6 +71,8 @@ public class CRUDAlunos implements IRepositorioAlunos {
     @Override
     public boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException {
         for(Aluno aluno: todosOsAlunosArray()){
+            //Usa o comportamento polimorfico para comparar, pois a classe Pessoa sobreEscreve o equals e compara
+            // a String com o objeto pessoa
             if(aluno.equals(nomeOuCpf)){
                 return true;
             }

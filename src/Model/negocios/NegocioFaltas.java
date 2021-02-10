@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Classe responsável por realizar a funcionalidades que são necessárias na manipulção de faltas
+ * Classe responsável por realizar a funcionalidades que são necessárias na manipulação de faltas
  * @author
  */
 

@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.List;
 
 /**
- * Classe responsável por realizar a funcionalidades do administrador
+ * Classe responsável por validar as funcionalidades do administrador
  * @author
  */
 

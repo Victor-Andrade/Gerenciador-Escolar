@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author
- * Classe representando o professor do sistema, guarda slista das turmas e a senha para autenticação
+ * Classe representando o professor do sistema, guarda uma lista de turmas e a senha para autenticação.
+ * @author Pedro Vinicius
  */
 
 public class Professor extends Pessoa implements ILogin {

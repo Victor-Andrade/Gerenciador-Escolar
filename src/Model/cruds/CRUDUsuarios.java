@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Classe responsável por fazer a manipulação primária de usuarios (Professor, administrador) em arquivos
+ * Ela faz uso do polimorfismo
  * @author
  */
 

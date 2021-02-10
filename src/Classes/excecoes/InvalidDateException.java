@@ -2,8 +2,8 @@ package Classes.excecoes;
 
 /**
  * Classe de excessão para ser utilizada se uma data for inserida incorretamente
- * Ela assegura que não haverá datas inexistentes 30 de fevereiro, ou alguma Data negativa.
- * @author: Pedro Vinicius, Victor Hugo
+ * Ela é usada quando há a tentativa de criar uma data inexistente como 30 de fevereiro, ou alguma Data negativa.
+ * @author Pedro Vinicius, Victor Hugo
  */
 public class InvalidDateException extends Exception{
     int value;
