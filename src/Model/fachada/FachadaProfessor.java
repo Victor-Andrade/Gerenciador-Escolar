@@ -1,6 +1,7 @@
 package Model.fachada;
 
 import Classes.excecoes.AlunoNotFoundException;
+import Classes.excecoes.TurmaNaoExisteException;
 import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
 import Model.cruds.CRUDAlunos;
@@ -36,11 +37,11 @@ public class FachadaProfessor {
         this.negocioTurma.recuperarAlunosTurma(turma);
     }
 
-    public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws Exception {
+    public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
         this.negocioTurma.adicionarAlunoEmTurma(turma, nomeOuCpf);
     }
 
-    public void removerAlunoDaTurma(Turma turma, String nomeOuCpf) throws Exception {
+    public void removerAlunoDaTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
         this.negocioTurma.removerAlunoDaTurma(turma, nomeOuCpf);
     }
 }

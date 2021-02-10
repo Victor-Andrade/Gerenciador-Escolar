@@ -53,7 +53,12 @@ public class Turma implements Serializable {
     }
 
     public void removerAluno(String nome) {
-        this.nomesAlunos.remove(nome);
+        for(String nomeTemp : this.nomesAlunos){
+            if(nome.toLowerCase().equals(nome)){
+                this.nomesAlunos.remove(nomeTemp);
+                break;
+            }
+        }
     }
 
     public void setNomesAlunos(ArrayList<String> alunos){

@@ -76,7 +76,7 @@ public class CRUDTurma implements IRepositorioTurmas {
     }
 
     private void atualizarModificacoes(List<Turma> turmas) throws IOException {
-        FileOutputStream file2 = new FileOutputStream("usuarios.dat");
+        FileOutputStream file2 = new FileOutputStream("turmas.dat");
         ObjectOutputStream os = new ObjectOutputStream(file2);
 
         os.writeObject(turmas);

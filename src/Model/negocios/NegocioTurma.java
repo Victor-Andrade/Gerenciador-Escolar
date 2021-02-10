@@ -86,7 +86,7 @@ public class NegocioTurma {
     public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws TurmaNaoExisteException, IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
             if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
-                turma.adicionarAluno(nomeOuCpf);
+                turma.adicionarAluno(this.repositorioAlunos.buscarAluno(nomeOuCpf).getNome());
                 this.repositorioTurmas.excluirTurma(turma.getId());
                 this.repositorioTurmas.adicionarTurma(turma);
             }else{
@@ -118,7 +118,7 @@ public class NegocioTurma {
 
         for(String nomeAluno : turma.getNomesAlunos()){
             for(Aluno aluno : repositorioAlunos.todosOsAlunosArray()){
-                if(aluno.getNome().equals(nomeAluno)){
+                if(aluno.getNome().toLowerCase().equals(nomeAluno.toLowerCase())){
                     alunos.add(aluno);
                 }
             }
