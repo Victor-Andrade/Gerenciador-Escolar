@@ -39,12 +39,12 @@ public class ControllerLogin {
     public void navegarParaTelaProfessor(Professor professor){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T1 Professor.fxml"));
-            Parent root = fxmlLoader.load();
 
-            ControllerT1 controller = fxmlLoader.getController();
+            ControllerT1 controller = new ControllerT1();
 
             controller.setStage(this.stage, professor, new FachadaProfessor());
-
+            fxmlLoader.setController(controller);
+            Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Professor");
@@ -56,12 +56,19 @@ public class ControllerLogin {
     public void navegarParaTelaAdministrador(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaAdministrador/TelaAdministrador.fxml"));
+            ControllerTelaAdministrador controller = new ControllerTelaAdministrador();
+            controller.setTest("UHUUUUUU");
+            System.out.println(controller.getTest());
+            fxmlLoader.setController(controller);
             Parent root = fxmlLoader.load();
             ((ControllerTelaAdministrador) fxmlLoader.getController()).setStage(this.stage);
 
+
+//            fxmlLoader.setController(controller);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Administrador");
+            stage.show();
         }catch (Exception e){
             e.printStackTrace();
         }
