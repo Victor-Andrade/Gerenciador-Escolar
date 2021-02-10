@@ -3,6 +3,7 @@ package Classes.pessoas;
 import Classes.datas.Data;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * Classe principal da hierarquia de pessoas do projeto.
@@ -70,13 +71,24 @@ public abstract class Pessoa implements Serializable {
         this.numeroParaContato = numeroParaContato;
     }
 
+
     @Override
-    public boolean equals(Object obj){
-        if(obj instanceof String){
-            String nomeOuCpf = (String) obj;
-            return nomeOuCpf.toLowerCase().equals(this.nome) || nomeOuCpf.replace("-", "").replace(".", "").replace(" ", "").equals(this.cpf);
-        }else{
-            return false;
+    public boolean equals(Object nomeOuCpf){
+        if(nomeOuCpf instanceof String){
+            String info = (String) nomeOuCpf;
+            String nome = info.toLowerCase().replace(" ", "");
+            String cpf =  info.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+            String nomeAluno = this.nome.toLowerCase().replace(" ", "");
+            String cpfAluno = this.cpf.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+            boolean verificador;
+
+            if(nome.equals(nomeAluno) || cpf.equals(cpfAluno)){
+                verificador = true;
+            }else{
+                verificador = false;
+            }
+            return verificador;
         }
+        return false;
     }
 }

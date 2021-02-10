@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllersTelaProfessor.ControllerT2">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ListView layoutX="133.0" layoutY="81.0" prefHeight="430.0" prefWidth="491.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ListView fx:id="listaAlunos" layoutX="133.0" layoutY="81.0" onMouseClicked="#setAlunoSelecionado" prefHeight="428.0" prefWidth="671.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="266.0" AnchorPane.topAnchor="0.0" />
       <Button layoutX="25.0" layoutY="434.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="133.0" text="Voltar" />
       <Button layoutX="184.0" layoutY="434.0" mnemonicParsing="false" onAction="#adicionarAluno" prefHeight="46.0" prefWidth="133.0" text="Adicionar Aluno" />
       <Button layoutX="350.0" layoutY="434.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="46.0" prefWidth="147.0" text="Remover Aluno" />

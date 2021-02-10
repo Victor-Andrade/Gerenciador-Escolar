@@ -5,13 +5,14 @@ import Classes.materia.Materia;
 import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import Model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -20,19 +21,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Controller da terceira tela do Professor. Essa tela lista informações do aluno selecionado na tela 2
  */
 
-public class ControllerT3 {
+public class ControllerT3 implements Initializable {
     private FachadaProfessor fachadaProfessor;
     private Turma turma;
     private Professor professor;
-
     private Stage stage;
-
     private Aluno aluno;
+    ObservableList<String> materiasString;
 
     @FXML
     private Text txtNome;
@@ -42,7 +45,7 @@ public class ControllerT3 {
     private Text txtContato;
 
     @FXML
-    private ChoiceBox<Materia> materias;
+    private ChoiceBox<String> materias;
 
     @FXML
     private TextField b1N1;
@@ -77,10 +80,6 @@ public class ControllerT3 {
     @FXML
     private CheckBox justificar;
 
-    public ControllerT3() {
-        inicializarInfoAluno();
-    }
-
     @FXML
     public void gerarBoletim() throws IOException, ClassNotFoundException, AlunoNotFoundException {
         this.fachadaProfessor.gerarBoletim(this.aluno);
@@ -90,59 +89,94 @@ public class ControllerT3 {
     private void voltar(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T2 Professor.fxml"));
+
+            ControllerT2 controller = new ControllerT2();
+
+            controller.setParametros(this.stage, this.fachadaProfessor, this.turma, this.professor);
+            fxmlLoader.setController(controller);
+
             Parent root = fxmlLoader.load();
-
-            ((ControllerT2) fxmlLoader.getController()).setStage(this.stage);
-            ((ControllerT2) fxmlLoader.getController()).setParametros(this.fachadaProfessor, this.turma, this.professor);
-
             Scene scene = new Scene(root);
-            this.stage.setScene(scene);
-            this.stage.setTitle("Turma");
+            stage.setScene(scene);
+            stage.setTitle("Turma");
+
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void setStage(Stage stage){
+    public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Turma turma, Aluno aluno, Professor professor){
         this.stage = stage;
-    }
-
-    public void setParametros(FachadaProfessor fachadaProfessor, Turma turma, Aluno aluno, Professor professor){
-            this.fachadaProfessor = fachadaProfessor;
-            this.turma = turma;
-            this.aluno = aluno;
-            this.professor = professor;
+        this.fachadaProfessor = fachadaProfessor;
+        this.turma = turma;
+        this.aluno = aluno;
+        this.professor = professor;
     }
 
     private void inicializarInfoAluno() {
+        ArrayList<String> materias = new ArrayList<>();
+        for(Materia materia : aluno.getMaterias()){
+            materias.add(materia.getNome());
+        }
 
-        ObservableList<Materia> materiasDoAluno = FXCollections.observableArrayList(aluno.getMaterias());
+        this.materiasString = FXCollections.observableArrayList(materias);
 
         txtNome.setText(aluno.getNome());
         txtEmail.setText(aluno.getEmail());
         txtContato.setText(aluno.getNumeroParaContato());
-        materias.setItems(materiasDoAluno);
+        this.materias.setItems(this.materiasString);
     }
 
     @FXML
     private void inicializarNotas(){
-        Materia materia = materias.getSelectionModel().getSelectedItem();
+        String materiaString = materias.getSelectionModel().getSelectedItem();
+        if(materiaString != null){
+            Materia materia = null;
 
-        b1N1.setText(Double.toString(materia.getPrimeiroBimestre().getNota1()));
-        b1N2.setText(Double.toString(materia.getPrimeiroBimestre().getNota2()));
+            for(Materia materiaTemp : this.aluno.getMaterias()){
+                if(materiaTemp.getNome().equals(materiaString)){
+                    materia = materiaTemp;
+                    break;
+                }
+            }
 
-        b2N1.setText(Double.toString(materia.getSegundoBimestre().getNota1()));
-        b2N2.setText(Double.toString(materia.getSegundoBimestre().getNota2()));
+            if(materia != null){
+                b1N1.setText(Double.toString(materia.getPrimeiroBimestre().getNota1()));
+                b1N2.setText(Double.toString(materia.getPrimeiroBimestre().getNota2()));
 
-        b3N1.setText(Double.toString(materia.getTerceiroBimestre().getNota1()));
-        b3N2.setText(Double.toString(materia.getTerceiroBimestre().getNota2()));
+                b2N1.setText(Double.toString(materia.getSegundoBimestre().getNota1()));
+                b2N2.setText(Double.toString(materia.getSegundoBimestre().getNota2()));
 
-        b4N1.setText(Double.toString(materia.getQuartoBimestre().getNota1()));
-        b4N2.setText(Double.toString(materia.getQuartoBimestre().getNota2()));
+                b3N1.setText(Double.toString(materia.getTerceiroBimestre().getNota1()));
+                b3N2.setText(Double.toString(materia.getTerceiroBimestre().getNota2()));
 
-        m1.setText(Double.toString(materia.getMedia1Bimestre()));
-        m2.setText(Double.toString(materia.getMedia2Bimestre()));
-        m3.setText(Double.toString(materia.getMedia3Bimestre()));
-        m4.setText(Double.toString(materia.getMedia4Bimestre()));
+                b4N1.setText(Double.toString(materia.getQuartoBimestre().getNota1()));
+                b4N2.setText(Double.toString(materia.getQuartoBimestre().getNota2()));
+
+                m1.setText(Double.toString(materia.getMedia1Bimestre()));
+                m2.setText(Double.toString(materia.getMedia2Bimestre()));
+                m3.setText(Double.toString(materia.getMedia3Bimestre()));
+                m4.setText(Double.toString(materia.getMedia4Bimestre()));
+            }
+        }
+    }
+
+    @FXML
+    private void salvarNotas(){
+
+    }
+
+    @FXML
+    private void descartarModificacoes(){
+
+    }
+
+    private void inicializarLayout(){
+        inicializarInfoAluno();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        inicializarLayout();
     }
 }

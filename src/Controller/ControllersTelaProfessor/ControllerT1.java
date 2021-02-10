@@ -23,24 +23,27 @@ import java.util.ResourceBundle;
  * Controller responsavel por todas as interações da primeira tela do professor.
  * Essa tela contém a lista de turmas de um professor
  */
+
 public class ControllerT1 implements Initializable {
-    private String mensagem;
     private FachadaProfessor fachadaProfessor;
     private Professor professor;
     private Turma turmaSelecionada;
-    private ObservableList<Turma> turmas;
+    private ObservableList<String> turmas;
 
     private Stage stage;
 
-
     @FXML
-    private ListView<Turma> listaTurmas;
+    private ListView<String> listaTurmas;
 
     @FXML
     private void setTurmaSelecionada(){
-        Turma turma = this.listaTurmas.getSelectionModel().getSelectedItem();
-
-        this.turmaSelecionada = turma;
+        String turmaString = this.listaTurmas.getSelectionModel().getSelectedItem();
+        for(Turma turma : this.professor.getTurmasArrayList()){
+            if(turma.getApelido().toLowerCase().equals(turmaString.toLowerCase())){
+                this.turmaSelecionada = turma;
+                break;
+            }
+        }
     }
 
     @FXML
@@ -55,27 +58,39 @@ public class ControllerT1 implements Initializable {
         this.stage.setTitle("Login");
     }
 
-
     @FXML
     public void continuar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T2 Professor.fxml"));
-            Parent root = fxmlLoader.load();
+        if(turmaSelecionada != null){
+            try{
+                fachadaProfessor.recuperarAlunosTurma(this.turmaSelecionada);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/telaProfessor/professorTela/T2 Professor.fxml"));
 
-            ((ControllerT2) fxmlLoader.getController()).setStage(this.stage);
-            ((ControllerT2) fxmlLoader.getController()).setParametros(this.fachadaProfessor, this.turmaSelecionada, this.professor);
+                ControllerT2 controller = new ControllerT2();
 
-            Scene scene = new Scene(root);
-            this.stage.setScene(scene);
-            this.stage.setTitle(turmaSelecionada.getApelido());
+                controller.setParametros(this.stage, this.fachadaProfessor, this.turmaSelecionada, this.professor);
+                fxmlLoader.setController(controller);
 
-        }catch (Exception e){
-            e.printStackTrace();
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle(turmaSelecionada.getApelido());
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("Não dá para navegar, não foi selecionado a turma");
         }
     }
 
-    private void iniciarLayout(ObservableList<Turma> turma){
-        listaTurmas.setItems(turma);
+    private void iniciarLayout(){
+        ArrayList<String> apelidos = new ArrayList<>();
+        for(Turma turma: this.professor.getTurmasArrayList()){
+            apelidos.add(turma.getApelido());
+        }
+        this.turmas = FXCollections.observableArrayList(apelidos);
+
+        listaTurmas.setItems(this.turmas);
     }
 
     public void setParams(Stage stage, Professor professor, FachadaProfessor fachadaProfessor) throws IOException, ClassNotFoundException {
@@ -83,12 +98,10 @@ public class ControllerT1 implements Initializable {
         fachadaProfessor.recuperarTurmasProfessor(professor);
         this.professor = professor;
         this.fachadaProfessor = fachadaProfessor;
-        this.turmas = FXCollections.observableArrayList(this.professor.getTurmasArrayList());
     }
 
-    //234.123.456-45
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        iniciarLayout(this.turmas);
+        iniciarLayout();
     }
 }
