@@ -5,6 +5,7 @@ import Classes.interfaces.ILogin;
 
 /**
  * Classe representado o administrador do sistema
+ * Ela herda de Professor
  * @author
  */
 

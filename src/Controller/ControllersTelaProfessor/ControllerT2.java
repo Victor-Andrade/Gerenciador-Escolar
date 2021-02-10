@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller da segunda tela do professor. Essa tela lista os alunos da turma selecionada na tela 1.
+ */
 public class ControllerT2 {
 
     private String mensagem;

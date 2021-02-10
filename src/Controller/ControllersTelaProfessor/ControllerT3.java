@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller da terceira tela do Professor. Essa tela lista informações do aluno selecionado na tela 2
+ */
 
 public class ControllerT3 {
     private FachadaProfessor fachadaProfessor;

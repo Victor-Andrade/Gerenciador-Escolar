@@ -17,6 +17,9 @@ import Model.fachada.FachadaProfessor;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller responsável pelas interações na tela de login
+ */
 public class ControllerLogin {
     private FachadaAdministrador fachadaAdministrador;
 

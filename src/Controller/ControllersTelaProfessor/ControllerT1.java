@@ -19,6 +19,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller responsavel por todas as interações da primeira tela do professor.
+ * Essa tela contém a lista de turmas de um professor
+ */
 public class ControllerT1 implements Initializable {
     private String mensagem;
     private FachadaProfessor fachadaProfessor;

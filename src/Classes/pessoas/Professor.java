@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author
- * Classe representando o professor do sistema, guarda somente o nome dos alunos
+ * Classe representando o professor do sistema, guarda slista das turmas e a senha para autenticação
  */
 
 public class Professor extends Pessoa implements ILogin {

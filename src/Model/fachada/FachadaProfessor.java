@@ -11,6 +11,10 @@ import Classes.turmas.Turma;
 
 import java.io.IOException;
 
+/**
+ * Fachada usada para lidar com as requisições do Professor,
+ * retorna informações com base no negócios de Turma e professor
+ */
 public class FachadaProfessor {
     private final NegocioTurma negocioTurma;
     private final NegocioProfessor negocioProfessor;

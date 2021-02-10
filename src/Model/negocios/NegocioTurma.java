@@ -27,7 +27,16 @@ public class NegocioTurma {
         this.repositorioAlunos = repositorioAlunos;
     }
 
-    //Adiciona uma turma no banco
+    /**
+     * Adiciona uma turma ao professor
+     * @param id Double com o id da turma.
+     * @param apelido String com o nome da turma.
+     * @param alunos Lista de Alunos.
+     * @throws InvalidFieldException indica que algum dos dados é invalido.
+     * @throws TurmaRepetidaException indica que a turma já está cadastrada.
+     * @throws IOException indica que houve um erro na gravação do arquivo
+     * @throws ClassNotFoundException algum dos arquivos foi passado com uma classe inválida
+     */
     public void adicionarTurma(double id, String apelido, List<Aluno> alunos) throws InvalidFieldException, TurmaRepetidaException, IOException, ClassNotFoundException {
         if(apelido.isBlank()){
             throw new InvalidFieldException("Nome da turma");
@@ -39,7 +48,13 @@ public class NegocioTurma {
         this.repositorioTurmas.adicionarTurma(novaTurma);
     }
 
-    //Remove uma turma do banco
+    /**
+     * Remove a Turma do sistema
+     * @param id Número unico da turma
+     * @throws TurmaNaoExisteException se o id não está vinculado a nenhuma turma cadastrada
+     * @throws IOException Erro genérico na gravação do arquivo
+     * @throws ClassNotFoundException
+     */
     public void removerTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(repositorioTurmas.turmaExiste(id)){
             this.repositorioTurmas.excluirTurma(id);

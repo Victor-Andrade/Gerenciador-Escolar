@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * Classe responsável por guardar uma data
- * @author
+ * @author: Pedro Vinicius, Victor Hugo
  */
 
 public class Data implements Serializable {

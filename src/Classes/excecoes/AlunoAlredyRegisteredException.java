@@ -4,7 +4,7 @@ package Classes.excecoes;
  * Classe de excessão para aluno já cadastrado.
  * Criado com a justifcativa de que um aluno pode já estar cadastrado
  * em uma turma ou no repositório.
- * @author
+ * @author: Pedro Vinicius, Victor Hugo
  */
 
 public class AlunoAlredyRegisteredException extends Exception{

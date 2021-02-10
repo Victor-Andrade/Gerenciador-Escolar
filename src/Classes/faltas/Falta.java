@@ -20,6 +20,10 @@ public class Falta implements Serializable {
         this.documentoDaJustificativa = documentoDaJustificativa;
     }
 
+    /**
+     * Justifica a falta e anexa um documento pdf com a justificativa
+     * @param documentoDaJustificativa String com caminho para o documento de justificativa
+     */
     public void justificar(String documentoDaJustificativa){
         this.justificada = true;
         this.documentoDaJustificativa = documentoDaJustificativa;

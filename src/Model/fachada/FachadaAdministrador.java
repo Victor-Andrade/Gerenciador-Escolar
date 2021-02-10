@@ -18,7 +18,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fachada responsável por gerenciar informações do administrador, ela atende as solicitações do controller e reponde
+ * de acordo com as regras de negócio tanto da turma quanto do professor.
+ */
 public class FachadaAdministrador {
     private final NegocioAdministrador negocioAdministrador;
     private final NegocioProfessor negocioProfessor;

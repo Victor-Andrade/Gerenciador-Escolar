@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe Turma, ela possui um ID unico e uma lista de alunos que pertencem a turma.
+ */
 public class Turma implements Serializable {
     private double id;
     private List<String> nomesAlunos;
