@@ -1,5 +1,7 @@
 package Controller.ControllersTelaProfessor;
 
+import Classes.excecoes.AlunoNotFoundException;
+import Classes.excecoes.TurmaNaoExisteException;
 import Classes.pessoas.Aluno;
 import Classes.pessoas.Professor;
 import Classes.turmas.Turma;
@@ -13,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,11 +34,14 @@ public class ControllerT2 implements Initializable {
     private Stage stage;
     private Professor professor;
     private ObservableList<String> alunos;
-
     private TextField nomeAluno;
-
     @FXML
     private ListView<String> listaAlunos;
+    @FXML
+    private TextField campoAdicao;
+    @FXML
+    private Text aviso;
+
 
     @FXML
     public void continuar(){
@@ -57,18 +63,23 @@ public class ControllerT2 implements Initializable {
                 e.printStackTrace();
             }
         }else{
-            System.out.println("Não é possível navegar pois nenhum aluno foi selecionado");
+            aviso.setText("Nenhum aluno foi selecionado");
         }
     }
 
     @FXML
     private void setAlunoSelecionado(){
-        String alunoString = this.listaAlunos.getSelectionModel().getSelectedItem();
-        for(Aluno aluno : this.turma.getAlunos()){
-            if(aluno.equals(alunoString)){
-                this.alunoSelecionado = aluno;
-                break;
+        try{
+            this.fachadaProfessor.recuperarAlunosTurma(this.turma);
+            String alunoString = this.listaAlunos.getSelectionModel().getSelectedItem();
+            for(Aluno aluno : this.turma.getAlunos()){
+                if(aluno.equals(alunoString)){
+                    this.alunoSelecionado = aluno;
+                    break;
+                }
             }
+        }catch (IOException | ClassNotFoundException e){
+            aviso.setText("Erro interno no repositorio");
         }
     }
 
@@ -92,13 +103,39 @@ public class ControllerT2 implements Initializable {
     }
 
     @FXML
-    public void removerAluno() throws Exception {
-        this.fachadaProfessor.removerAlunoDaTurma(turma, this.nomeAluno.getText());
+    public void removerAluno() {
+        if(alunoSelecionado != null){
+            try{
+                this.fachadaProfessor.removerAlunoDaTurma(turma, this.alunoSelecionado.getNome());
+                this.fachadaProfessor.recuperarAlunosTurma(this.turma);
+                inicializarLayout();
+            }catch (ClassNotFoundException | IOException e){
+                aviso.setText("Erro interno no banco");
+            }catch(AlunoNotFoundException | TurmaNaoExisteException e){
+                aviso.setText(e.getMessage());
+            }
+        }else{
+            aviso.setText("Nenhum aluno selecionado");
+        }
+
+
     }
 
     @FXML
-    public void adicionarAluno() throws Exception {
-        this.fachadaProfessor.adicionarAlunoEmTurma(turma, this.nomeAluno.getText());
+    public void adicionarAluno(){
+        if(this.campoAdicao.getText() != null){
+            try{
+                this.fachadaProfessor.adicionarAlunoEmTurma(turma, this.campoAdicao.getText());
+                this.fachadaProfessor.recuperarAlunosTurma(this.turma);
+                inicializarLayout();
+            }catch (ClassNotFoundException | IOException e){
+                aviso.setText("Erro interno no banco");
+            }catch(AlunoNotFoundException | TurmaNaoExisteException e){
+                aviso.setText(e.getMessage());
+            }
+        }else{
+            aviso.setText("Nenhum aluno foi digitado");
+        }
     }
 
     public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Turma turma, Professor professor){
