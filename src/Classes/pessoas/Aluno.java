@@ -9,6 +9,11 @@ import Classes.excecoes.InvalidFieldException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe representando o aluno base no sistema
+ * @author
+ */
+
 public class Aluno extends Pessoa{
     private List<Materia> materias;
     private List<Falta> listaDeFaltas;

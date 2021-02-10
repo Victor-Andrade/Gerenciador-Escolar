@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por realizar as funcionalidades e manipulação de objetos de turma
+ * @author
+ */
+
 public class NegocioTurma {
     private final IRepositorioTurmas repositorioTurmas;
     private final IRepositorioAlunos repositorioAlunos;

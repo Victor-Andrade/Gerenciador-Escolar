@@ -7,6 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Interface responsável por definir os métodos do repositório de turmas
+ * @author
+ */
+
 public interface IRepositorioTurmas {
     void adicionarTurma(Turma turma) throws IOException, ClassNotFoundException;
     Turma getTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException;

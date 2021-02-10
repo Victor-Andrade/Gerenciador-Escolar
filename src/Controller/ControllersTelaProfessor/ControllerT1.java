@@ -71,19 +71,15 @@ public class ControllerT1 implements Initializable {
     }
 
     private void iniciarLayout(ObservableList<Turma> turma){
-        //listaTurmas.getItems().setAll(turmas);
         listaTurmas.setItems(turma);
     }
 
-    public void setStage(Stage stage, Professor professor, FachadaProfessor fachadaProfessor) throws IOException, ClassNotFoundException {
+    public void setParams(Stage stage, Professor professor, FachadaProfessor fachadaProfessor) throws IOException, ClassNotFoundException {
         this.stage = stage;
+        fachadaProfessor.recuperarTurmasProfessor(professor);
         this.professor = professor;
         this.fachadaProfessor = fachadaProfessor;
         this.turmas = FXCollections.observableArrayList(this.professor.getTurmasArrayList());
-    }
-
-    public void setStage(Stage stage){
-        this.stage = stage;
     }
 
     //234.123.456-45

@@ -4,6 +4,11 @@ import Classes.datas.Data;
 import Classes.excecoes.InvalidDateException;
 import Classes.materia.Curso;
 
+/**
+ * Extensão da classe de aluno, guarda um curso que o aluno pode fazer
+ * @author
+ */
+
 public class AlunoHoraExtra extends Aluno{
     private Curso curso;
 

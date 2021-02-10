@@ -10,6 +10,11 @@ import Model.negocios.classesAuxiliares.GerenciadorDeArquivos;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * Classe responsável por realizar a funcionalidades que são necessárias na manipulção de faltas
+ * @author
+ */
+
 
 public class NegocioFaltas {
     CRUDFaltas crudFaltas;

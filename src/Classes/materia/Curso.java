@@ -2,6 +2,11 @@ package Classes.materia;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por armazenar as informações de um curso de um aluno
+ * @author
+ */
+
 public class Curso implements Serializable {
     private String nome;
     private int horas;

@@ -2,6 +2,11 @@ package Classes.materia;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por guardar todas as notas e nome de uma matéria de um aluno
+ * @author
+ */
+
 public class Materia implements Serializable {
     private final String nome;
     private final Bimestre primeiroBimestre;

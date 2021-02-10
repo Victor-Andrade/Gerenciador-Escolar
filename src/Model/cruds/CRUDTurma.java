@@ -8,6 +8,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por fazer a manipulação primária de objetos de turmas em arquivos
+ * @author
+ */
+
 public class CRUDTurma implements IRepositorioTurmas {
 
     @Override

@@ -14,6 +14,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.*;
 import java.util.List;
 
+/**
+ * Classe responsável por realizar a funcionalidades do administrador
+ * @author
+ */
+
 public class NegocioAdministrador {
 
     private final IRepositorioAlunos repositorioAlunos;

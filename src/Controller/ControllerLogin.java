@@ -42,8 +42,9 @@ public class ControllerLogin {
 
             ControllerT1 controller = new ControllerT1();
 
-            controller.setStage(this.stage, professor, new FachadaProfessor());
+            controller.setParams(this.stage, professor, new FachadaProfessor());
             fxmlLoader.setController(controller);
+
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);

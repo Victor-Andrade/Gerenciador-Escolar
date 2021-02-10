@@ -7,6 +7,11 @@ import Classes.excecoes.AlunoAlredyRegisteredException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Interface responsável por definir os métodos do repositório de alunos
+ * @author
+ */
+
 public interface IRepositorioAlunos {
     void adicionarAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException;
 

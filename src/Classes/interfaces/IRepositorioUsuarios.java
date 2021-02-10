@@ -7,6 +7,11 @@ import Classes.pessoas.Pessoa;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Interface responsável por definir os métodos do repositório de usuários
+ * @author
+ */
+
 public interface IRepositorioUsuarios {
 
     void adicionarUsuario(Pessoa usuario) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException;

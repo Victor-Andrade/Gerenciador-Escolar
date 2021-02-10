@@ -7,6 +7,11 @@ import Classes.turmas.Turma;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author
+ * Classe representando o professor do sistema, guarda somente o nome dos alunos
+ */
+
 public class Professor extends Pessoa implements ILogin {
     private List<Double> turmas;
     private List<Turma> turmasArrayList;

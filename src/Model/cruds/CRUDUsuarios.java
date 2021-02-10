@@ -8,6 +8,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por fazer a manipulação primária de usuarios (Professor, administrador) em arquivos
+ * @author
+ */
+
 public class CRUDUsuarios implements IRepositorioUsuarios {
 
     @Override

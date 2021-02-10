@@ -4,6 +4,11 @@ import Classes.excecoes.InvalidDateException;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por guardar uma data
+ * @author
+ */
+
 public class Data implements Serializable {
     private int ano;
     private int mes;

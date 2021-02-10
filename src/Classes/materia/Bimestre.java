@@ -2,6 +2,11 @@ package Classes.materia;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por administrar as notas de um bimestre
+ * @author
+ */
+
 public class Bimestre implements Serializable {
     private double nota1;
     private double nota2;

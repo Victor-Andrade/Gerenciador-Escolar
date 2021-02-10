@@ -5,7 +5,12 @@ import Classes.excecoes.InvalidDateException;
 
 import java.time.LocalDateTime;
 
-public class Verificacao {
+/**
+ * Classe utilitária para verificação de informações das Pessoas
+ * @author
+ */
+
+public abstract class Verificacao {
 
     public static boolean verificarEmail(String email) {
         if(email != null){

@@ -18,6 +18,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Classe responsável por realizar a funcionalidades do professor
+ * @author
+ */
+
 public class NegocioProfessor {
     private final IRepositorioAlunos repositorioAlunos;
     private final IRepositorioTurmas repositorioTurmas;

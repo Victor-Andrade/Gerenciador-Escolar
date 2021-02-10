@@ -6,6 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Classe responsável por fazer a manipulação de diretórios de arquivos
+ * @author
+ */
+
 public abstract class GerenciadorDeArquivos {
 
     public static String selecionarArquivo() throws IOException {

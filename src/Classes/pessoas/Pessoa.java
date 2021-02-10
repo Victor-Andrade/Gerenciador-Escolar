@@ -4,6 +4,15 @@ import Classes.datas.Data;
 
 import java.io.Serializable;
 
+/**
+ * Classe principal da hierarquia de pessoas do projeto.
+ * Escolhemos tal hierarquia pois foi observado que todos os objetos
+ * pessoa, administrador e aluno detem de características semelhantes tais como nome
+ * cpf, data de nascimento, entre outros.
+ *
+ * @author
+ */
+
 public abstract class Pessoa implements Serializable {
     private String nome;
     private String cpf;

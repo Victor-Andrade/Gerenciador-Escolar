@@ -4,6 +4,11 @@ import Classes.datas.Data;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por armazenar os dados de uma falta de um aluno
+ * @author
+ */
+
 public class Falta implements Serializable {
     private final Data data;
     private boolean justificada;

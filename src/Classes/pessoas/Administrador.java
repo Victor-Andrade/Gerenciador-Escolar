@@ -3,6 +3,11 @@ package Classes.pessoas;
 import Classes.datas.Data;
 import Classes.interfaces.ILogin;
 
+/**
+ * Classe representado o administrador do sistema
+ * @author
+ */
+
 public class Administrador extends Pessoa implements ILogin {
     private String senha;
 
