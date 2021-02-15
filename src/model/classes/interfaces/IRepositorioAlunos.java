@@ -1,0 +1,30 @@
+package model.classes.interfaces;
+
+import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.pessoas.Aluno;
+import model.classes.excecoes.AlunoAlredyRegisteredException;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Interface responsável por definir os métodos do repositório de alunos
+ * @author Pedro Vinícius
+ */
+
+public interface IRepositorioAlunos {
+    void adicionarAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException;
+
+    void removerAluno(String nomeOuCpf) throws IOException, ClassNotFoundException;
+
+    public void removerAluno(Aluno aluno) throws IOException, ClassNotFoundException;
+
+    Aluno buscarAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException;
+
+    public void atualizarAluno(String nomeOuCpf, Aluno aluno) throws IOException, ClassNotFoundException;
+
+    boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException;
+
+    List<Aluno> todosOsAlunosArray() throws IOException, ClassNotFoundException;
+}
+

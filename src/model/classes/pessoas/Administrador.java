@@ -1,0 +1,27 @@
+package model.classes.pessoas;
+
+import model.classes.datas.Data;
+import model.classes.interfaces.ILogin;
+
+/**
+ * Classe representado o administrador do sistema
+ * Ela herda de Professor
+ * @author Victor Hugo
+ */
+
+public class Administrador extends Pessoa implements ILogin {
+    private String senha;
+
+    public Administrador(String nome, String cpf, Data data, String email, String contato, String senha){
+        super(nome, cpf, data, email, contato);
+        this.senha = senha;
+    }
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+}

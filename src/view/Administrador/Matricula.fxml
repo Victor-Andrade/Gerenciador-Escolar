@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="261.0" layoutY="27.0" text="MATRÍCULA" textFill="RED">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="88.0" text="Nome" />
+      <TextField fx:id="nome" layoutX="71.0" layoutY="84.0" prefHeight="25.0" prefWidth="475.0" />
+      <Label layoutX="31.0" layoutY="136.0" text="CPF: " />
+      <TextField fx:id="cpf" layoutX="71.0" layoutY="132.0" prefHeight="25.0" prefWidth="475.0" />
+      <DatePicker fx:id="data" layoutX="163.0" layoutY="171.0" />
+      <Label layoutX="29.0" layoutY="175.0" text="Data de Nascimento: " />
+      <TextField fx:id="email" layoutX="81.0" layoutY="211.0" prefHeight="25.0" prefWidth="461.0" />
+      <Label layoutX="28.0" layoutY="215.0" text="Email: " />
+      <Label layoutX="33.0" layoutY="260.0" text="Contato: " />
+      <TextField fx:id="contato" layoutX="86.0" layoutY="256.0" prefHeight="25.0" prefWidth="450.0" />
+      <Text fx:id="aviso" fill="RED" layoutX="369.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="259.0" />
+      <Button layoutX="564.0" layoutY="78.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="37.0" prefWidth="89.0" text="Adicionar" />
+      <Button layoutX="45.0" layoutY="421.0" mnemonicParsing="false" onAction="#voltar" prefHeight="37.0" prefWidth="89.0" text="Voltar" />
+      <CheckBox fx:id="comCurso" layoutX="79.0" layoutY="327.0" mnemonicParsing="false" text="Aluno com curso" />
+      <ChoiceBox layoutX="213.0" layoutY="323.0" prefWidth="150.0" />
+      <Button layoutX="564.0" layoutY="126.0" mnemonicParsing="false" onAction="#apagar" prefHeight="37.0" prefWidth="89.0" text="Apagar" />
+   </children>
+</AnchorPane>

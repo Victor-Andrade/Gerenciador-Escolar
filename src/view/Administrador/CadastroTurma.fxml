@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.4704184704184704" layoutX="333.0" layoutY="188.0" prefHeight="535.0" prefWidth="695.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="74.0" layoutY="14.0" prefHeight="21.0" prefWidth="175.0" text="Cadastro de Nova Turma" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="69.0" text="Nome: " />
+                  <TextField fx:id="nome" layoutX="60.0" layoutY="65.0" prefHeight="25.0" prefWidth="249.0" />
+                  <ChoiceBox fx:id="professores" layoutX="64.0" layoutY="115.0" prefHeight="25.0" prefWidth="255.0" />
+                  <Text fx:id="aviso" fill="RED" layoutX="211.0" layoutY="506.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" />
+                  <Button layoutX="15.0" layoutY="525.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="99.0" text="Voltar" />
+                  <Button layoutX="15.0" layoutY="190.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="46.0" prefWidth="99.0" text="Adicionar" />
+                  <Label layoutX="8.0" layoutY="119.0" text="Professor:" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="408.0">
+               <children>
+                  <Label layoutX="133.0" layoutY="14.0" prefHeight="21.0" prefWidth="99.0" text="Incluir Alunos" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="alunosTotais" layoutX="11.0" layoutY="56.0" prefHeight="199.0" prefWidth="364.0" />
+                  <Label layoutX="122.0" layoutY="272.0" prefHeight="21.0" prefWidth="142.0" text="Alunos selecionados" textAlignment="CENTER">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="alunosSelecionados" layoutX="19.0" layoutY="302.0" prefHeight="214.0" prefWidth="349.0" />
+                  <Button layoutX="26.0" layoutY="525.0" mnemonicParsing="false" onAction="#adicionarAluno" prefHeight="46.0" prefWidth="129.0" text="Adicionar Aluno" />
+                  <Button layoutX="206.0" layoutY="525.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="129.0" text="Remover Aluno" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
