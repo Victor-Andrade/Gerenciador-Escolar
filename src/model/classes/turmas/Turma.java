@@ -16,11 +16,10 @@ public class Turma implements Serializable {
     private String apelido;
     private List<Aluno> alunos;
 
-    public Turma(double id, String apelido, List<Aluno> alunos) {
+    public Turma(double id, String apelido, List<String> alunos) {
         this.id = id;
         this.apelido = apelido;
-        this.alunos = alunos;
-        this.nomesAlunos = new ArrayList<>();
+        this.nomesAlunos = alunos;
     }
 
     public Turma(double id, String apelido) {

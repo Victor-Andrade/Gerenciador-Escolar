@@ -29,7 +29,6 @@ public class NegocioTurma {
 
     /**
      * Adiciona uma turma ao professor
-     * @param id Double com o id da turma.
      * @param apelido String com o nome da turma.
      * @param alunos Lista de Alunos.
      * @throws InvalidFieldException indica que algum dos dados é invalido.
@@ -37,14 +36,14 @@ public class NegocioTurma {
      * @throws IOException indica que houve um erro na gravação do arquivo
      * @throws ClassNotFoundException algum dos arquivos foi passado com uma classe inválida
      */
-    public void adicionarTurma(double id, String apelido, List<Aluno> alunos) throws InvalidFieldException, TurmaRepetidaException, IOException, ClassNotFoundException {
+    public void adicionarTurma(String apelido, List<String> alunos) throws InvalidFieldException, TurmaRepetidaException, IOException, ClassNotFoundException {
         if(apelido.isBlank()){
             throw new InvalidFieldException("Nome da turma");
         }
-        if(repositorioTurmas.turmaExiste(id)){
+        if(repositorioTurmas.turmaExiste(encontrarID())){
             throw new TurmaRepetidaException("Já existe uma turma com esse ID");
         }
-        Turma novaTurma = new Turma(id, apelido, alunos);
+        Turma novaTurma = new Turma(encontrarID(), apelido, alunos);
         this.repositorioTurmas.adicionarTurma(novaTurma);
     }
 
@@ -73,7 +72,7 @@ public class NegocioTurma {
     }
 
     //Atualiza as informações de uma turma no banco
-    public void atualizarTurma(double id, String apelido, List<Aluno> alunos) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
+    public void atualizarTurma(double id, String apelido, List<String> alunos) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         Turma nova = new Turma(id, apelido, alunos);
         if(repositorioTurmas.turmaExiste(id)){
             this.repositorioTurmas.atualizarTurma(nova);
@@ -95,6 +94,15 @@ public class NegocioTurma {
         }else{
             throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
         }
+    }
+
+    public ArrayList<String> todasAsTurmas() throws IOException, ClassNotFoundException {
+        ArrayList<String> turmas = new ArrayList<>();
+        for(Turma turma: this.repositorioTurmas.listarTurmas()){
+            String id = Double.toString(turma.getId());
+            turmas.add(id.length() == 1 ? "0" + id + ": " + turma.getApelido() : id + ": " + turma.getApelido());
+        }
+        return turmas;
     }
 
     //Remove um aluno em uma turma (Somente o nome) e faz a atualizações no banco
@@ -125,5 +133,20 @@ public class NegocioTurma {
         }
         turma.setAlunos(alunos);
         return turma;
+    }
+
+    public Turma getUltimaTurmaAdicionada() throws IOException, ClassNotFoundException, TurmaNaoExisteException {
+        double id = encontrarID() - 1;
+        return this.repositorioTurmas.getTurma(id);
+    }
+
+    private double encontrarID() throws IOException, ClassNotFoundException {
+        double maior = 0;
+        for(Turma turma: this.repositorioTurmas.listarTurmas()){
+            if(turma.getId() > maior){
+                maior = turma.getId();
+            }
+        }
+        return maior + 1;
     }
 }

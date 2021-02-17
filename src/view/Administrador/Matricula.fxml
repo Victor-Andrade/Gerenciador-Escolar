@@ -24,8 +24,10 @@
       <Text fx:id="aviso" fill="RED" layoutX="369.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="259.0" />
       <Button layoutX="564.0" layoutY="78.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="37.0" prefWidth="89.0" text="Adicionar" />
       <Button layoutX="45.0" layoutY="421.0" mnemonicParsing="false" onAction="#voltar" prefHeight="37.0" prefWidth="89.0" text="Voltar" />
-      <CheckBox fx:id="comCurso" layoutX="79.0" layoutY="327.0" mnemonicParsing="false" text="Aluno com curso" />
-      <ChoiceBox layoutX="213.0" layoutY="323.0" prefWidth="150.0" />
+      <CheckBox fx:id="comCurso" layoutX="79.0" layoutY="340.0" mnemonicParsing="false" text="Aluno com curso" />
+      <ChoiceBox fx:id="cursos" layoutX="211.0" layoutY="336.0" prefWidth="150.0" />
       <Button layoutX="564.0" layoutY="126.0" mnemonicParsing="false" onAction="#apagar" prefHeight="37.0" prefWidth="89.0" text="Apagar" />
+      <Label layoutX="32.0" layoutY="298.0" text="Emal pais: " />
+      <TextField fx:id="emailPais" layoutX="89.0" layoutY="294.0" prefHeight="25.0" prefWidth="450.0" />
    </children>
 </AnchorPane>

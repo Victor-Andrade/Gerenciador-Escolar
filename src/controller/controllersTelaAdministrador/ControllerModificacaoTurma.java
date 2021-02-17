@@ -1,5 +1,6 @@
 package controller.controllersTelaAdministrador;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +14,9 @@ import javafx.stage.Stage;
 import model.classes.pessoas.Administrador;
 import model.fachada.FachadaAdministrador;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerModificacaoTurma implements Initializable {
@@ -83,6 +86,11 @@ public class ControllerModificacaoTurma implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            ArrayList<String> turmas = this.fachadaAdministrador.todasAsTurmas();
+            this.listaTurmas.setItems(FXCollections.observableArrayList(turmas));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -46,7 +46,7 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
         List<Pessoa> temp = todosOsUsuariosArray();
 
         for (Pessoa pessoaTemp : temp){
-            if(pessoaTemp.getCpf().equals(nomeOuCpf) || pessoaTemp.getNome().toLowerCase().equals(nomeOuCpf)){
+            if(pessoaTemp.getCpf().equals(nomeOuCpf) || pessoaTemp.getNome().equalsIgnoreCase(nomeOuCpf)){
                 return pessoaTemp;
             }
         }

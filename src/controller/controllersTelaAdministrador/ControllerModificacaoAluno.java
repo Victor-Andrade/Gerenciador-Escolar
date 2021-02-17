@@ -1,5 +1,6 @@
 package controller.controllersTelaAdministrador;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,16 +12,24 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.materia.Materia;
 import model.classes.pessoas.Administrador;
+import model.classes.pessoas.Aluno;
+import model.classes.pessoas.AlunoHoraExtra;
 import model.fachada.FachadaAdministrador;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerModificacaoAluno implements Initializable {
     private Stage stage;
     private Administrador administrador;
     private FachadaAdministrador fachadaAdministrador;
+
+    private Aluno AlunoSelecionado;
 
     @FXML
     private Text aviso;
@@ -104,6 +113,40 @@ public class ControllerModificacaoAluno implements Initializable {
     private void removerAluno(){
 
     }
+
+    @FXML
+    private void inicializarAluno(){
+        String aluno = this.listaAlunos.getSelectionModel().getSelectedItem();
+        try{
+            if(aluno != null){
+                this.AlunoSelecionado = this.fachadaAdministrador.buscarAluno(aluno);
+                inicializarLayoutAluno();
+            }else{
+                this.aviso.setText("Aluno não selecionado");
+            }
+        } catch (IOException | AlunoNotFoundException | ClassNotFoundException e) {
+            this.aviso.setText(e.getMessage());
+        }
+    }
+
+    private void inicializarLayoutAluno(){
+        ArrayList<String> materias = new ArrayList<>();
+        for(Materia materia : this.AlunoSelecionado.getMaterias()){
+            materias.add(materia.getNome());
+        }
+
+        this.materias.getItems().addAll(FXCollections.observableArrayList(materias));
+
+        this.nome.setText(this.AlunoSelecionado.getNome());
+        this.email.setText(this.AlunoSelecionado.getEmail());
+        this.contato.setText(this.AlunoSelecionado.getNumeroParaContato());
+        this.cpf.setText(this.AlunoSelecionado.getCpf());
+        this.emailPais.setText(this.AlunoSelecionado.getEmailPais());
+        //Falta data
+        if(this.AlunoSelecionado instanceof AlunoHoraExtra){
+            this.curso.getItems().add(((AlunoHoraExtra) this.AlunoSelecionado).getCurso().getNome());
+        }
+    }
     /**
      *
      */
@@ -136,6 +179,11 @@ public class ControllerModificacaoAluno implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            ArrayList<String> alunos = this.fachadaAdministrador.todosOsAlunos();
+            this.listaAlunos.setItems(FXCollections.observableArrayList(alunos));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

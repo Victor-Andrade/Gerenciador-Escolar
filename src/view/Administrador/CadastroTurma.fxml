@@ -39,7 +39,7 @@
                   </Label>
                   <ListView fx:id="alunosSelecionados" layoutX="19.0" layoutY="302.0" prefHeight="214.0" prefWidth="349.0" />
                   <Button layoutX="26.0" layoutY="525.0" mnemonicParsing="false" onAction="#adicionarAluno" prefHeight="46.0" prefWidth="129.0" text="Adicionar Aluno" />
-                  <Button layoutX="206.0" layoutY="525.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="129.0" text="Remover Aluno" />
+                  <Button layoutX="206.0" layoutY="525.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="46.0" prefWidth="129.0" text="Remover Aluno" />
                </children>
             </AnchorPane>
         </items>

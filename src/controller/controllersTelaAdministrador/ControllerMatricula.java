@@ -11,10 +11,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.classes.datas.Data;
+import model.classes.excecoes.AlunoAlredyRegisteredException;
+import model.classes.excecoes.InvalidDateException;
+import model.classes.excecoes.InvalidFieldException;
 import model.classes.pessoas.Administrador;
 import model.fachada.FachadaAdministrador;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ControllerMatricula implements Initializable {
@@ -33,6 +39,8 @@ public class ControllerMatricula implements Initializable {
     @FXML
     private TextField contato;
     @FXML
+    private TextField emailPais;
+    @FXML
     private CheckBox comCurso;
     @FXML
     private ChoiceBox<String> cursos;
@@ -45,11 +53,55 @@ public class ControllerMatricula implements Initializable {
      */
     @FXML
     private void adicionar(){
-
+        if(this.comCurso.isSelected()){
+            adicionarAlunoCurso();
+        }else{
+            adicionarAlunoRegular();
+        }
     }
+
+    private void adicionarAlunoCurso(){
+        LocalDate dataLayout = data.getValue();
+        if(dataLayout != null){
+            if(this.cursos.getSelectionModel().getSelectedItem() != null){
+                try{
+                    Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
+                    this.fachadaAdministrador.matricularAlunoHoraExtra(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), emailPais.getText(), cursos.getSelectionModel().getSelectedItem());
+                    this.aviso.setText("Adicionado com sucesso!");
+                }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException | InvalidDateException |IOException e){
+                    this.aviso.setText(e.getMessage());
+                }
+            }else{
+                this.aviso.setText("Curso não informado");
+            }
+        }else{
+            this.aviso.setText("Data Inválida");
+        }
+    }
+
+    private void adicionarAlunoRegular() {
+        LocalDate dataLayout = data.getValue();
+        if(dataLayout != null){
+            try{
+                Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
+                this.fachadaAdministrador.matricularAluno(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), emailPais.getText());
+            }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException | InvalidDateException |IOException e){
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Data Inválida");
+        }
+    }
+
     @FXML
     private void apagar(){
-
+        this.nome.setText("");
+        this.cpf.setText("");
+        this.email.setText("");
+        this.contato.setText("");
+        this.emailPais.setText("");
+        this.comCurso.setSelected(false);
+        this.cursos.setValue(null);
     }
     /**
      *
@@ -81,6 +133,6 @@ public class ControllerMatricula implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.cursos.getItems().addAll("Inglês", "Robótica", "Música", "Judô");
     }
 }

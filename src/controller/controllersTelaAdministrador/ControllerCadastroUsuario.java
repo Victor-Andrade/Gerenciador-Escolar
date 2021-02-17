@@ -61,39 +61,47 @@ public class ControllerCadastroUsuario implements Initializable {
         String tipo = this.tipo.getValue();
         if(this.senha.getText().equals(this.senhaConfirmar.getText())){
             if(tipo.equals("Administrador")){
-                LocalDate dataLayout = data.getValue();
-                if(dataLayout != null){
-                    try{
-                        Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                        this.fachadaAdministrador.adicionarAdministrador(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
-                    }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException | InvalidFieldException e){
-                        this.aviso.setText(e.getMessage());
-                    }
-                }else{
-                    this.aviso.setText("Data não informada");
-                }
-
+                adicionarAdministrador();
             }else if(tipo.equals("Professor")){
-                LocalDate dataLayout = data.getValue();
-                if(dataLayout != null){
-                    try{
-                        Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                        this.fachadaAdministrador.adicionarProfessor(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
-                    }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException e){
-                        this.aviso.setText(e.getMessage());
-                    }
-                }else{
-                    this.aviso.setText("Data não informada");
-                }
+                adicionarProfessor();
             }else{
                 this.aviso.setText("Tipo de usuário não selecionado");
             }
         }else{
             this.aviso.setText("Senhas não batem");
         }
-
-
     }
+
+    private void adicionarAdministrador(){
+        LocalDate dataLayout = data.getValue();
+        if(dataLayout != null){
+            try{
+                Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
+                this.fachadaAdministrador.adicionarAdministrador(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
+                this.aviso.setText("Adicionado com sucesso!");
+            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException | InvalidFieldException e){
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Data não informada");
+        }
+    }
+
+    private void adicionarProfessor(){
+        LocalDate dataLayout = data.getValue();
+        if(dataLayout != null){
+            try{
+                Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
+                this.fachadaAdministrador.adicionarProfessor(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
+                this.aviso.setText("Adicionado com sucesso!");
+            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException e){
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Data não informada");
+        }
+    }
+
     @FXML
     private void apagar(){
         this.nome.setText("");
@@ -102,6 +110,7 @@ public class ControllerCadastroUsuario implements Initializable {
         this.contato.setText("");
         this.senhaConfirmar.setText("");
         this.senha.setText("");
+        this.tipo.setValue(null);
     }
     /**
      *
@@ -134,9 +143,6 @@ public class ControllerCadastroUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ArrayList<String> tipos = new ArrayList<>();
-        tipos.add("Administrador");
-        tipos.add("Professor");
-        this.tipo.setItems(FXCollections.observableArrayList(tipos));
+        this.tipo.getItems().addAll("Administrador", "Professor");
     }
 }

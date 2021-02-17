@@ -2,9 +2,13 @@ package model.negocios;
 
 import model.classes.datas.Data;
 import model.classes.excecoes.*;
+import model.classes.interfaces.ILogin;
+import model.classes.interfaces.IRepositorioTurmas;
 import model.classes.interfaces.IRepositorioUsuarios;
+import model.classes.materia.Curso;
 import model.classes.pessoas.*;
 import model.classes.interfaces.IRepositorioAlunos;
+import model.classes.turmas.Turma;
 import model.negocios.classesAuxiliares.Verificacao;
 import com.itextpdf.text.Document;
 
@@ -12,6 +16,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,14 +28,15 @@ public class NegocioAdministrador {
 
     private final IRepositorioAlunos repositorioAlunos;
     private final IRepositorioUsuarios repositorioUsuarios;
+    private final IRepositorioTurmas repositorioTurmas;
 
 
-    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios){
+    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios, IRepositorioTurmas repositorioTurmas){
         this.repositorioAlunos = repositorioAlunos;
         this.repositorioUsuarios = repositorioUsuarios;
+        this.repositorioTurmas = repositorioTurmas;
     }
 
-    //Adiciona aluno o repositorio
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if(verificarCampos(nome, cpf, data, email, contato)){
             if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
@@ -40,6 +46,43 @@ public class NegocioAdministrador {
                 throw new AlunoAlredyRegisteredException(nome, cpf);
             }
         }
+    }
+
+    public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailResponsavel, String curso) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
+        if(verificarCampos(nome, cpf, data, email, contato)){
+            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
+                AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
+                repositorioAlunos.adicionarAluno(alunoTemp);
+            }else{
+                throw new AlunoAlredyRegisteredException(nome, cpf);
+            }
+        }
+    }
+
+    public ArrayList<String> todosOsAlunos() throws IOException, ClassNotFoundException {
+        ArrayList<String> alunos = new ArrayList<>();
+        for(Aluno aluno: this.repositorioAlunos.todosOsAlunosArray()){
+            alunos.add(aluno.getNome());
+        }
+        return alunos;
+    }
+
+    public ArrayList<String> todosOsProfessores() throws IOException, ClassNotFoundException {
+        ArrayList<String> professores = new ArrayList<>();
+        for(Pessoa pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
+            if(pessoa instanceof Professor){
+                professores.add(pessoa.getNome());
+            }
+        }
+        return professores;
+    }
+
+    public ArrayList<String> todosOsUsuariosString() throws IOException, ClassNotFoundException {
+        ArrayList<String> pessoas = new ArrayList<>();
+        for(Pessoa pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
+            pessoas.add(pessoa.getNome());
+        }
+        return pessoas;
     }
 
     //Remove aluno do repositório
@@ -187,7 +230,7 @@ public class NegocioAdministrador {
     //Adiciona um professor no repositório
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
         Professor professor = new Professor(nome, cpf, data, email, contato, senha);
-        if(verificarCadastroUsuario(professor)){
+        if(verificarSenha(professor)){
             if(!repositorioUsuarios.existeNoBanco(professor.getCpf()) && !repositorioUsuarios.existeNoBanco(professor.getNome())){
                 this.repositorioUsuarios.adicionarUsuario(professor);
             }else {
@@ -199,13 +242,31 @@ public class NegocioAdministrador {
     //Adiciona um administrador no repositório
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException, InvalidDateException {
         Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
-        if(verificarCadastroUsuario(admin)){
+        if(verificarSenha(admin)){
             if(!repositorioUsuarios.existeNoBanco(admin.getCpf()) && !repositorioUsuarios.existeNoBanco(admin.getNome())){
                 this.repositorioUsuarios.adicionarUsuario(admin);
             }else {
                 throw new UsuarioAlreadyRegisteredException(admin.getNome());
             }
         }
+    }
+
+    public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws TurmaNaoExisteException, IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
+        if(repositorioTurmas.turmaExiste(turma.getId())){
+            if(repositorioUsuarios.existeNoBanco(professor.getCpf())){
+                professor.adicionarTurma(turma.getId());
+                this.repositorioUsuarios.removerUsuario(professor.getNome());
+                this.repositorioUsuarios.adicionarUsuario(professor);
+            }else{
+                throw new UsuarioNotFoundException(professor.getNome());
+            }
+        }else{
+            throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
+        }
+    }
+
+    public Pessoa buscarUsuario(String nomeOuCpf) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
+        return this.repositorioUsuarios.buscarUsuario(nomeOuCpf);
     }
 
     public List<Pessoa> todosOsUsuarios() throws IOException, ClassNotFoundException {
@@ -253,17 +314,8 @@ public class NegocioAdministrador {
         }
     }
 
-    //Verifica se um professor já está cadastrado no banco (Nome ou cpf)
-    private boolean verificarCadastroUsuario(Professor professor) throws IOException, ClassNotFoundException {
-        return professor.getSenha().length() >= 8;
+    //Comportamento polimórfico?
+    private boolean verificarSenha(ILogin pessoa){
+        return pessoa.getSenha().length() >= 8;
     }
-
-    //Verifica se um admin já está cadasrtrado no banco (Nome ou cpf)
-    private boolean verificarCadastroUsuario(Administrador professor) throws IOException, ClassNotFoundException {
-        if(repositorioUsuarios.existeNoBanco(professor.getCpf()) || repositorioUsuarios.existeNoBanco(professor.getNome())){
-            return professor.getSenha().length() >= 8;
-        }
-        return false;
-    }
-
 }
