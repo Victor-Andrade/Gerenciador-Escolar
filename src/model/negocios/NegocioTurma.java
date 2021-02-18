@@ -5,8 +5,11 @@ import model.classes.excecoes.TurmaNaoExisteException;
 import model.classes.excecoes.TurmaRepetidaException;
 import model.classes.interfaces.IRepositorioAlunos;
 import model.classes.interfaces.IRepositorioTurmas;
+import model.classes.interfaces.IRepositorioUsuarios;
 import model.classes.pessoas.Aluno;
 import model.classes.excecoes.InvalidFieldException;
+import model.classes.pessoas.Pessoa;
+import model.classes.pessoas.Professor;
 import model.classes.turmas.Turma;
 
 import java.io.IOException;
@@ -21,10 +24,12 @@ import java.util.List;
 public class NegocioTurma {
     private final IRepositorioTurmas repositorioTurmas;
     private final IRepositorioAlunos repositorioAlunos;
+    private final IRepositorioUsuarios repositorioUsuarios;
 
-    public NegocioTurma(IRepositorioTurmas repositorioTurmas, IRepositorioAlunos repositorioAlunos) {
+    public NegocioTurma(IRepositorioTurmas repositorioTurmas, IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios) {
         this.repositorioTurmas = repositorioTurmas;
         this.repositorioAlunos = repositorioAlunos;
+        this.repositorioUsuarios = repositorioUsuarios;
     }
 
     /**
@@ -57,10 +62,29 @@ public class NegocioTurma {
     public void removerTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(repositorioTurmas.turmaExiste(id)){
             this.repositorioTurmas.excluirTurma(id);
+            removerTurmasDosProfessores(id);
         }else{
             throw new TurmaNaoExisteException("Não existe turma com o id " + id);
         }
     }
+
+    //############## NESSA FUNÇÃO ######################
+    private void removerTurmasDosProfessores(double id) throws IOException, ClassNotFoundException {
+        ArrayList<Pessoa> pessoas = this.repositorioUsuarios.todosOsUsuariosArray();
+        for(Pessoa pessoa: pessoas){
+            if(pessoa instanceof Professor){
+                Professor professor = ((Professor) pessoa);
+                for(double ids: professor.getTurmas()){
+                    if(ids == id){
+                        professor.removerTurmas(id);
+                        this.repositorioUsuarios.atualizarUsuario(professor.getCpf(), professor);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
     //Busca uma turma pelo Id no banco
     public Turma pegarTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
@@ -126,7 +150,7 @@ public class NegocioTurma {
 
         for(String nomeAluno : turma.getNomesAlunos()){
             for(Aluno aluno : repositorioAlunos.todosOsAlunosArray()){
-                if(aluno.getNome().toLowerCase().equals(nomeAluno.toLowerCase())){
+                if(aluno.getNome().equalsIgnoreCase(nomeAluno)){
                     alunos.add(aluno);
                 }
             }

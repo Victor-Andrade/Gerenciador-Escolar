@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * Classe responsável por realizar a funcionalidades do administrador
- * @author Victor Hugo
+ * @author Victor Hugo e Pedro Vinícius
  */
 
 public class NegocioAdministrador {
@@ -35,28 +35,6 @@ public class NegocioAdministrador {
         this.repositorioAlunos = repositorioAlunos;
         this.repositorioUsuarios = repositorioUsuarios;
         this.repositorioTurmas = repositorioTurmas;
-    }
-
-    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
-        if(verificarCampos(nome, cpf, data, email, contato)){
-            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
-                Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
-                repositorioAlunos.adicionarAluno(alunoTemp);
-            }else{
-                throw new AlunoAlredyRegisteredException(nome, cpf);
-            }
-        }
-    }
-
-    public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailResponsavel, String curso) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
-        if(verificarCampos(nome, cpf, data, email, contato)){
-            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
-                AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
-                repositorioAlunos.adicionarAluno(alunoTemp);
-            }else{
-                throw new AlunoAlredyRegisteredException(nome, cpf);
-            }
-        }
     }
 
     public ArrayList<String> todosOsAlunos() throws IOException, ClassNotFoundException {
@@ -83,6 +61,28 @@ public class NegocioAdministrador {
             pessoas.add(pessoa.getNome());
         }
         return pessoas;
+    }
+
+    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
+        if(verificarCampos(nome, cpf, data, email, contato)){
+            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
+                Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+                repositorioAlunos.adicionarAluno(alunoTemp);
+            }else{
+                throw new AlunoAlredyRegisteredException(nome, cpf);
+            }
+        }
+    }
+
+    public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailResponsavel, String curso) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
+        if(verificarCampos(nome, cpf, data, email, contato)){
+            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
+                AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
+                repositorioAlunos.adicionarAluno(alunoTemp);
+            }else{
+                throw new AlunoAlredyRegisteredException(nome, cpf);
+            }
+        }
     }
 
     //Remove aluno do repositório

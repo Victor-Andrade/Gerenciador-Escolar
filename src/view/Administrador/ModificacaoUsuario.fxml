@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -15,14 +10,14 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="listaUsuarios" prefHeight="447.0" prefWidth="331.0" />
+                  <ListView fx:id="listaUsuarios" onMouseClicked="#inicializarUsuario" prefHeight="447.0" prefWidth="331.0" />
                   <Button layoutX="8.0" layoutY="459.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="104.0" text="Voltar" />
                   <Text fx:id="aviso" fill="RED" layoutX="171.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="145.13671875" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="259.0" layoutY="379.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Salvar" />
+                  <Button layoutX="259.0" layoutY="379.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Atualizar Info" />
                   <ChoiceBox fx:id="turmas" layoutX="80.0" layoutY="227.0" prefHeight="25.0" prefWidth="214.0" />
                   <Label layoutX="19.0" layoutY="231.0" text="Turmas: " />
                   <Button layoutX="5.0" layoutY="379.0" mnemonicParsing="false" onAction="#removerTurma" prefHeight="46.0" prefWidth="120.0" text="Remover turma" />
@@ -40,6 +35,11 @@
                   <ListView fx:id="listaTurmasAdicionar" layoutX="119.0" layoutY="260.0" prefHeight="106.0" prefWidth="255.0" />
                   <Label layoutX="20.0" layoutY="260.0" prefHeight="17.0" prefWidth="104.0" text="Adicionar Turmas: " />
                   <Button layoutX="135.0" layoutY="379.0" mnemonicParsing="false" onAction="#adicionarTurma" prefHeight="46.0" prefWidth="120.0" text="Adicionar turma" />
+                  <Label layoutX="141.0" layoutY="193.0" text="Área do Professor" textFill="RED">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

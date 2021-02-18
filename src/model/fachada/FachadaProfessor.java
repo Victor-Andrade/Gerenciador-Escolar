@@ -6,6 +6,7 @@ import model.classes.pessoas.Aluno;
 import model.classes.pessoas.Professor;
 import model.cruds.CRUDAlunos;
 import model.cruds.CRUDTurma;
+import model.cruds.CRUDUsuarios;
 import model.negocios.NegocioProfessor;
 import model.negocios.NegocioTurma;
 import model.classes.turmas.Turma;
@@ -22,7 +23,7 @@ public class FachadaProfessor {
     private final NegocioProfessor negocioProfessor;
 
     public FachadaProfessor() {
-        this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
+        this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
         this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
     }
 

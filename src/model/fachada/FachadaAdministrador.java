@@ -33,7 +33,7 @@ public class FachadaAdministrador {
     public FachadaAdministrador(){
         this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
         this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios(), new CRUDTurma());
-        this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos());
+        this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
     }
 
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, UsuarioAlreadyRegisteredException, InvalidDateException, IOException {
@@ -76,12 +76,32 @@ public class FachadaAdministrador {
         return this.negocioAdministrador.buscarAluno(nomeOuCpf);
     }
 
+    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+        return  this.negocioTurma.pegarTurma(id);
+    }
+
     public List<Pessoa> getUsuariosLogin() throws IOException, ClassNotFoundException {
         return this.negocioAdministrador.todosOsUsuarios();
     }
 
     public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws ClassNotFoundException, UsuarioNotFoundException, UsuarioAlreadyRegisteredException, TurmaNaoExisteException, IOException {
         this.negocioAdministrador.adicionarTurmaEmProfessor(turma, professor);
+    }
+
+    public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
+        this.negocioTurma.adicionarAlunoEmTurma(turma, nomeOuCpf);
+    }
+
+    public void removerAlunoDaTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
+        this.negocioTurma.removerAlunoDaTurma(turma, nomeOuCpf);
+    }
+
+    public void excluirTurma(Turma turma) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+        this.negocioTurma.removerTurma(turma.getId());
+    }
+
+    public void excluirUsuario(Pessoa pessoa) throws UsuarioNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAdministrador.removerUsuario(pessoa.getNome());
     }
 
     public Turma ultimaTurmaAdicionada() throws TurmaNaoExisteException, IOException, ClassNotFoundException {

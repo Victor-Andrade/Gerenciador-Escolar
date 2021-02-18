@@ -26,7 +26,8 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
     public void removerUsuario(String nomeOuCpf) throws IOException, ClassNotFoundException {
         List<Pessoa> temp = todosOsUsuariosArray();
         for(Pessoa usuario: temp){
-            if(usuario.getNome().toLowerCase().equals(nomeOuCpf) || usuario.getCpf().equals(nomeOuCpf)){
+            //############### NESSA LINHA #####################
+            if(usuario.getNome().equalsIgnoreCase(nomeOuCpf) || usuario.getCpf().equals(nomeOuCpf)){
                 temp.remove(usuario);
                 break;
             }
@@ -63,7 +64,7 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
     @Override
     public boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException {
         for(Pessoa usuario: todosOsUsuariosArray()){
-            if(usuario.getCpf().equals(nomeOuCpf) || usuario.getNome().equals(nomeOuCpf)){
+            if(usuario.getCpf().equals(nomeOuCpf) || usuario.getNome().equalsIgnoreCase(nomeOuCpf)){
                 return true;
             }
         }

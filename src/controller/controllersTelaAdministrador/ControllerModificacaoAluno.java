@@ -135,7 +135,7 @@ public class ControllerModificacaoAluno implements Initializable {
             materias.add(materia.getNome());
         }
 
-        this.materias.getItems().addAll(FXCollections.observableArrayList(materias));
+        this.materias.getItems().setAll(FXCollections.observableArrayList(materias));
 
         this.nome.setText(this.AlunoSelecionado.getNome());
         this.email.setText(this.AlunoSelecionado.getEmail());
@@ -144,7 +144,7 @@ public class ControllerModificacaoAluno implements Initializable {
         this.emailPais.setText(this.AlunoSelecionado.getEmailPais());
         //Falta data
         if(this.AlunoSelecionado instanceof AlunoHoraExtra){
-            this.curso.getItems().add(((AlunoHoraExtra) this.AlunoSelecionado).getCurso().getNome());
+            this.curso.getItems().setAll(((AlunoHoraExtra) this.AlunoSelecionado).getCurso().getNome());
         }
     }
     /**
