@@ -15,7 +15,7 @@ import model.classes.datas.Data;
 import model.classes.excecoes.AlunoAlredyRegisteredException;
 import model.classes.excecoes.InvalidDateException;
 import model.classes.excecoes.InvalidFieldException;
-import model.classes.pessoas.Administrador;
+import model.classes.pessoas.usuarios.Administrador;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;

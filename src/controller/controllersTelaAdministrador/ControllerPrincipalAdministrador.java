@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.pessoas.Administrador;
+import model.classes.pessoas.usuarios.Administrador;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;

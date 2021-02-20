@@ -2,18 +2,15 @@ package model.negocios;
 
 import model.classes.datas.Data;
 import model.classes.excecoes.*;
-import model.classes.interfaces.ILogin;
-import model.classes.interfaces.IRepositorioTurmas;
 import model.classes.interfaces.IRepositorioUsuarios;
 import model.classes.materia.Curso;
-import model.classes.pessoas.*;
 import model.classes.interfaces.IRepositorioAlunos;
-import model.classes.turmas.Turma;
+import model.classes.pessoas.alunos.Aluno;
+import model.classes.pessoas.alunos.AlunoHoraExtra;
+import model.classes.pessoas.usuarios.Administrador;
+import model.classes.pessoas.usuarios.Professor;
+import model.classes.pessoas.usuarios.Usuario;
 import model.negocios.classesAuxiliares.Verificacao;
-import com.itextpdf.text.Document;
-
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,13 +25,12 @@ public class NegocioAdministrador {
 
     private final IRepositorioAlunos repositorioAlunos;
     private final IRepositorioUsuarios repositorioUsuarios;
-    private final IRepositorioTurmas repositorioTurmas;
 
 
-    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios, IRepositorioTurmas repositorioTurmas){
+
+    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios){
         this.repositorioAlunos = repositorioAlunos;
         this.repositorioUsuarios = repositorioUsuarios;
-        this.repositorioTurmas = repositorioTurmas;
     }
 
     public ArrayList<String> todosOsAlunos() throws IOException, ClassNotFoundException {
@@ -47,7 +43,7 @@ public class NegocioAdministrador {
 
     public ArrayList<String> todosOsProfessores() throws IOException, ClassNotFoundException {
         ArrayList<String> professores = new ArrayList<>();
-        for(Pessoa pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
+        for(Usuario pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
             if(pessoa instanceof Professor){
                 professores.add(pessoa.getNome());
             }
@@ -57,16 +53,21 @@ public class NegocioAdministrador {
 
     public ArrayList<String> todosOsUsuariosString() throws IOException, ClassNotFoundException {
         ArrayList<String> pessoas = new ArrayList<>();
-        for(Pessoa pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
+        for(Usuario pessoa: this.repositorioUsuarios.todosOsUsuariosArray()){
             pessoas.add(pessoa.getNome());
         }
         return pessoas;
     }
 
+    public List<Usuario> todosOsUsuarios() throws IOException, ClassNotFoundException {
+        return this.repositorioUsuarios.todosOsUsuariosArray();
+    }
+
+    //MÉTODOS DE ADIÇÃO NO BANCO DE DADOS
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if(verificarCampos(nome, cpf, data, email, contato)){
-            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
-                Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+            Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+            if(!this.repositorioAlunos.existeNoBanco(alunoTemp)){
                 repositorioAlunos.adicionarAluno(alunoTemp);
             }else{
                 throw new AlunoAlredyRegisteredException(nome, cpf);
@@ -76,8 +77,8 @@ public class NegocioAdministrador {
 
     public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailResponsavel, String curso) throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if(verificarCampos(nome, cpf, data, email, contato)){
-            if(!this.repositorioAlunos.existeNoBanco(nome) && !this.repositorioAlunos.existeNoBanco(cpf)){
-                AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
+            AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
+            if(!this.repositorioAlunos.existeNoBanco(alunoTemp)){
                 repositorioAlunos.adicionarAluno(alunoTemp);
             }else{
                 throw new AlunoAlredyRegisteredException(nome, cpf);
@@ -85,153 +86,10 @@ public class NegocioAdministrador {
         }
     }
 
-    //Remove aluno do repositório
-    public void removerAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
-            repositorioAlunos.removerAluno(nomeOuCpf);
-        }else{
-            throw new AlunoNotFoundException(nomeOuCpf);
-        }
-    }
-
-    //Busca um aluno específico
-    public Aluno buscarAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if(repositorioAlunos.existeNoBanco(nomeOuCpf)){
-            return repositorioAlunos.buscarAluno(nomeOuCpf);
-        }else{
-            throw new AlunoNotFoundException(nomeOuCpf);
-        }
-    }
-
-    //Atualiza informações de uma aluno
-    public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
-        if(verificarCampos(nome, cpf, data, email, contato)){
-            if(repositorioAlunos.existeNoBanco(cpf) || this.repositorioAlunos.existeNoBanco(nome)){
-                repositorioAlunos.atualizarAluno(alunoAntigo.getNome(), new Aluno(nome, cpf, data, email, contato, emailResponsavel));
-            }
-        }
-    }
-
-    //Gera um certificado de conclusão de um aluno com hora extra
-    public void gerarCertificadoDeConclusao(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if(repositorioAlunos.existeNoBanco(aluno.getCpf())){
-            Document documento = new Document();
-            try{
-                PdfWriter.getInstance(documento, new FileOutputStream("Declaração de Conlcusão.pdf"));
-                documento.open();
-
-                Font font = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-                Font font2 = new Font(Font.FontFamily.TIMES_ROMAN, 14);
-                Font font3 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD | Font.ITALIC);
-
-                //Info do aluno + nome da escola
-                Paragraph titulo = new Paragraph();
-                titulo.setAlignment(Element.ALIGN_CENTER);
-                titulo.add(new Phrase("Certificado de Conclusão de Curso", font));
-
-                documento.add(new Paragraph("\n\n\n\n"));
-
-                documento.add(titulo);
-
-                documento.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n"));
-
-                Paragraph conteudo = new Paragraph();
-
-                conteudo.add(new Phrase("Certificamos que o aluno ", font2));
-                conteudo.add(new Phrase(aluno.getNome(), font3));
-                conteudo.add(new Phrase(" concluiu o curso ", font2));
-                conteudo.add(new Phrase(aluno.getCurso().getNome(), font3));
-                conteudo.add(new Phrase(" com uma carga horária de ", font2));
-                conteudo.add(new Phrase(aluno.getCurso().getHoras() + " horas", font3));
-                conteudo.add(new Phrase(" na instituição de ensino Escola Coffe Java Orientada a Objetos no ano de 2021."));
-
-                conteudo.setAlignment(Element.ALIGN_CENTER);
-
-                documento.add(conteudo);
-
-                documento.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"));
-
-                Paragraph assinatura = new Paragraph();
-                assinatura.setAlignment(Element.ALIGN_CENTER);
-
-                assinatura.add(new Phrase("_____________________________________________________\n"));
-                assinatura.add(new Phrase("Assinatura do(a) reitor", font3));
-
-                documento.add(assinatura);
-            } catch (DocumentException | FileNotFoundException e) {
-                e.printStackTrace();
-            }finally {
-                documento.close();
-            }
-        }else {
-            throw new AlunoNotFoundException(aluno.getCpf());
-        }
-    }
-
-    //Gera um certificado de matrícula para um aluno qualquer
-    public void gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if(repositorioAlunos.existeNoBanco(aluno.getCpf())){
-            Document documento = new Document();
-            try{
-                PdfWriter.getInstance(documento, new FileOutputStream("Declaração de matrícula.pdf"));
-                documento.open();
-
-                Font font = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-                Font font2 = new Font(Font.FontFamily.TIMES_ROMAN, 14);
-                Font font3 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD | Font.ITALIC);
-
-                //Info do aluno + nome da escola
-                Paragraph titulo = new Paragraph();
-                titulo.setAlignment(Element.ALIGN_CENTER);
-                titulo.add(new Phrase("Declaração de matrícula", font));
-
-                documento.add(new Paragraph("\n\n\n\n"));
-
-                documento.add(titulo);
-
-                documento.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n"));
-
-                Paragraph conteudo = new Paragraph();
-
-                conteudo.add(new Phrase("Declaramos que o aluno ", font2));
-                conteudo.add(new Phrase(aluno.getNome(), font3));
-                conteudo.add(new Phrase(" inscrito no CPF: ", font2));
-                conteudo.add(new Phrase(aluno.getCpf(), font3));
-                conteudo.add(new Phrase(" tendo nascido em ", font2));
-                conteudo.add(new Phrase(aluno.getDataDeNascimento().formatarData(), font3));
-                conteudo.add(new Phrase(" está devidamente matriculado na instituição de ensino fundamental Escola Coffe Java Orientada a Objetos."));
-
-                conteudo.setAlignment(Element.ALIGN_CENTER);
-
-                documento.add(conteudo);
-
-                documento.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"));
-
-                documento.add(new Paragraph("Data: ___/___/______"));
-
-                Paragraph assinatura = new Paragraph();
-                assinatura.setAlignment(Element.ALIGN_CENTER);
-
-                documento.add(new Paragraph("\n\n"));
-                assinatura.add(new Phrase("_____________________________________________________\n"));
-                assinatura.add(new Phrase("Assinatura do(a) reitor", font3));
-
-                documento.add(assinatura);
-            } catch (FileNotFoundException | DocumentException e) {
-                e.printStackTrace();
-            }finally {
-                documento.close();
-            }
-        }else {
-            throw new AlunoNotFoundException(aluno.getCpf());
-        }
-    }
-
-    //Adiciona um professor no repositório
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
         Professor professor = new Professor(nome, cpf, data, email, contato, senha);
-        if(verificarSenha(professor)){
-            if(!repositorioUsuarios.existeNoBanco(professor.getCpf()) && !repositorioUsuarios.existeNoBanco(professor.getNome())){
+        if(Verificacao.verificarSenha(professor)){
+            if(!repositorioUsuarios.existeNoBanco(professor)){
                 this.repositorioUsuarios.adicionarUsuario(professor);
             }else {
                 throw new UsuarioAlreadyRegisteredException(professor.getNome());
@@ -239,11 +97,10 @@ public class NegocioAdministrador {
         }
     }
 
-    //Adiciona um administrador no repositório
-    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException, InvalidDateException {
+    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
         Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
-        if(verificarSenha(admin)){
-            if(!repositorioUsuarios.existeNoBanco(admin.getCpf()) && !repositorioUsuarios.existeNoBanco(admin.getNome())){
+        if(Verificacao.verificarSenha(admin)){
+            if(!repositorioUsuarios.existeNoBanco(admin)){
                 this.repositorioUsuarios.adicionarUsuario(admin);
             }else {
                 throw new UsuarioAlreadyRegisteredException(admin.getNome());
@@ -251,49 +108,50 @@ public class NegocioAdministrador {
         }
     }
 
-    public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws TurmaNaoExisteException, IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
-        if(repositorioTurmas.turmaExiste(turma.getId())){
-            if(repositorioUsuarios.existeNoBanco(professor.getCpf())){
-                professor.adicionarTurma(turma.getId());
-                this.repositorioUsuarios.removerUsuario(professor.getNome());
-                this.repositorioUsuarios.adicionarUsuario(professor);
-            }else{
-                throw new UsuarioNotFoundException(professor.getNome());
+    //MÉTODOS DE REMOÇÃO NO BANCO DE DADOS
+
+    public void removerAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException, InvalidDateException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            repositorioAlunos.removerAluno(aluno);
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void removerUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
+        if(repositorioUsuarios.existeNoBanco(usuario)){
+            repositorioUsuarios.removerUsuario(usuario);
+        }else{
+            throw new UsuarioNotFoundException(usuario.getNome());
+        }
+    }
+
+    //MÉTODOS DE BUSCA NO BANCO DE DADOS
+
+    public Usuario buscarUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
+        return this.repositorioUsuarios.buscarUsuario(usuario);
+    }
+
+    //MÉTODOS DE ATUALIZAÇÃO NO BANCO DE DADOS
+
+    public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
+        if(repositorioAlunos.existeNoBanco(alunoAntigo)){
+            if(verificarCampos(nome, cpf, data, email, contato)){
+                repositorioAlunos.atualizarAluno(alunoAntigo, new Aluno(nome, cpf, data, email, contato, emailResponsavel));
             }
-        }else{
-            throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
         }
     }
 
-    public Pessoa buscarUsuario(String nomeOuCpf) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
-        return this.repositorioUsuarios.buscarUsuario(nomeOuCpf);
-    }
-
-    public List<Pessoa> todosOsUsuarios() throws IOException, ClassNotFoundException {
-        return this.repositorioUsuarios.todosOsUsuariosArray();
-    }
-
-    //Remove um usuário
-    public void removerUsuario(String nomeOuCpf) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
-        if(repositorioUsuarios.existeNoBanco(nomeOuCpf)){
-            repositorioUsuarios.removerUsuario(nomeOuCpf);
+    public void confirmarJustificativaDeFalta(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(this.repositorioAlunos.existeNoBanco(aluno)){
+            aluno.removerFalta();
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
         }else{
-            throw new UsuarioNotFoundException(nomeOuCpf);
+            throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
-    //FALTA FAZER
-    public void confirmarJustificativaDeFalta(){
-
-    }
-
-    //FALTA FAZER
-    public void reportarSituacaoDoAluno(){
-
-    }
-
-
-    //Verifica os campos de um alunos, não considera se ele já se encontra no banco
+    //Verifica os dados do alunos, não considera se ele já se encontra no banco ####ADICIONAR ALGUMA REGRA NO NOME
     private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato) throws InvalidDateException, InvalidFieldException {
         if(Verificacao.verificarCpf(cpf)){
             if(Verificacao.verificarEmail(email)){
@@ -312,10 +170,5 @@ public class NegocioAdministrador {
         }else{
             throw new InvalidFieldException("CPF", cpf);
         }
-    }
-
-    //Comportamento polimórfico?
-    private boolean verificarSenha(ILogin pessoa){
-        return pessoa.getSenha().length() >= 8;
     }
 }

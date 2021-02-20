@@ -1,12 +1,13 @@
 package model.fachada;
 
 import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.excecoes.InvalidDateException;
 import model.classes.excecoes.TurmaNaoExisteException;
-import model.classes.pessoas.Aluno;
-import model.classes.pessoas.Professor;
+import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
 import model.cruds.CRUDTurma;
 import model.cruds.CRUDUsuarios;
+import model.negocios.NegocioAdministrador;
 import model.negocios.NegocioProfessor;
 import model.negocios.NegocioTurma;
 import model.classes.turmas.Turma;
@@ -21,29 +22,32 @@ import java.io.IOException;
 public class FachadaProfessor {
     private final NegocioTurma negocioTurma;
     private final NegocioProfessor negocioProfessor;
+    private final NegocioAdministrador negocioAdministrador;
 
     public FachadaProfessor() {
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
-        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos(), new CRUDTurma());
+        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos());
+        this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios());
+
     }
 
-    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+    public void gerarBoletim(Aluno aluno){
         this.negocioProfessor.gerarBoletim(aluno);
     }
 
-    public void recuperarTurmasProfessor(Professor professor) throws IOException, ClassNotFoundException {
-        this.negocioProfessor.recuperarTurmasProfessor(professor);
+    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+        this.negocioTurma.adicionarAlunoEmTurma(turma, aluno);
     }
 
-    public void recuperarAlunosTurma(Turma turma) throws IOException, ClassNotFoundException {
-        this.negocioTurma.recuperarAlunosTurma(turma);
+    public void removerAlunoDaTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+        this.negocioTurma.removerAlunoDaTurma(turma, aluno);
     }
 
-    public void adicionarAlunoEmTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
-        this.negocioTurma.adicionarAlunoEmTurma(turma, nomeOuCpf);
+    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+        return this.negocioTurma.pegarTurma(id);
     }
 
-    public void removerAlunoDaTurma(Turma turma, String nomeOuCpf) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException {
-        this.negocioTurma.removerAlunoDaTurma(turma, nomeOuCpf);
+    public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        return this.negocioProfessor.buscarAluno(aluno);
     }
 }

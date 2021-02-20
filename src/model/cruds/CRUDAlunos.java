@@ -1,7 +1,7 @@
 package model.cruds;
 
 import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.pessoas.Aluno;
+import model.classes.pessoas.alunos.Aluno;
 import model.classes.interfaces.IRepositorioAlunos;
 
 import java.io.*;
@@ -23,20 +23,6 @@ public class CRUDAlunos implements IRepositorioAlunos {
     }
 
     @Override
-    public void removerAluno(String nomeOuCpf) throws IOException, ClassNotFoundException {
-        List<Aluno> temp = todosOsAlunosArray();
-
-        for(Aluno aluno: temp){
-            if(aluno.equals(nomeOuCpf)){
-                temp.remove(aluno);
-                break;
-            }
-        }
-
-        atualizarModificacoes(temp);
-    }
-
-    @Override
     public void removerAluno(Aluno aluno) throws IOException, ClassNotFoundException {
         List<Aluno> temp = todosOsAlunosArray();
 
@@ -46,27 +32,27 @@ public class CRUDAlunos implements IRepositorioAlunos {
     }
 
     @Override
-    public Aluno buscarAluno(String nomeOuCpf) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+    public Aluno buscarAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         List<Aluno> temp = todosOsAlunosArray();
 
         for (Aluno alunoTemp: temp){
-            if(alunoTemp.equals(nomeOuCpf)){
+            if(alunoTemp.equals(aluno)){
                 return alunoTemp;
             }
         }
-        throw new AlunoNotFoundException(nomeOuCpf);
+        throw new AlunoNotFoundException(aluno.getNome());
     }
 
     @Override
-    public void atualizarAluno(String nomeOuCpf, Aluno aluno) throws IOException, ClassNotFoundException {
-        removerAluno(nomeOuCpf);
+    public void atualizarAluno(Aluno alunoAntigo, Aluno aluno) throws IOException, ClassNotFoundException {
+        removerAluno(alunoAntigo);
         adicionarAluno(aluno);
     }
 
     @Override
-    public boolean existeNoBanco(String nomeOuCpf) throws IOException, ClassNotFoundException {
-        for(Aluno aluno: todosOsAlunosArray()){
-            if(aluno.equals(nomeOuCpf)){
+    public boolean existeNoBanco(Aluno aluno) throws IOException, ClassNotFoundException {
+        for(Aluno alunoTemp: todosOsAlunosArray()){
+            if(alunoTemp.equals(aluno)){
                 return true;
             }
         }

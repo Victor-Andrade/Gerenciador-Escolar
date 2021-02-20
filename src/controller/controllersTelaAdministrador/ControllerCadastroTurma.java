@@ -11,8 +11,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.pessoas.Administrador;
-import model.classes.pessoas.Professor;
+import model.classes.datas.Data;
+import model.classes.pessoas.usuarios.Administrador;
+import model.classes.pessoas.usuarios.Professor;
 import model.classes.turmas.Turma;
 import model.fachada.FachadaAdministrador;
 
@@ -52,7 +53,7 @@ public class ControllerCadastroTurma implements Initializable {
             if(nomeProfessor != null){
                 Turma turma = this.fachadaAdministrador.ultimaTurmaAdicionada();
                 //Pode dar erro??? Conversão inválida???
-                Professor professor = (Professor) this.fachadaAdministrador.buscarUsuario(nomeProfessor);
+                Professor professor = (Professor) this.fachadaAdministrador.buscarUsuario(new Professor(nomeProfessor, nomeProfessor, new Data(2001, 1, 1),"", "", ""));
                 this.fachadaAdministrador.adicionarTurmaEmProfessor(turma, professor);
             }
             this.aviso.setText("Adicionado com sucesso");

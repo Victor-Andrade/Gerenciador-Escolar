@@ -6,6 +6,6 @@ package model.classes.excecoes;
  */
 public class UsuarioAlreadyRegisteredException extends Exception{
     public UsuarioAlreadyRegisteredException(String nome){
-        super("Usuáio " + nome + " já cadastrado no banco");
+        super("Usuário " + nome + " já cadastrado no banco");
     }
 }

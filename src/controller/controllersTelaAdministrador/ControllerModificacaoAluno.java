@@ -12,11 +12,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.classes.datas.Data;
 import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.excecoes.InvalidDateException;
 import model.classes.materia.Materia;
-import model.classes.pessoas.Administrador;
-import model.classes.pessoas.Aluno;
-import model.classes.pessoas.AlunoHoraExtra;
+import model.classes.pessoas.usuarios.Administrador;
+import model.classes.pessoas.alunos.Aluno;
+import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
@@ -81,6 +83,9 @@ public class ControllerModificacaoAluno implements Initializable {
     @FXML
     private Text m4;
 
+    @FXML
+    private Text horas;
+
     /**
      * Falta implementar
      */
@@ -115,16 +120,26 @@ public class ControllerModificacaoAluno implements Initializable {
     }
 
     @FXML
+    private void adicionarHoras(){
+
+    }
+
+    @FXML
+    private void removerHoras(){
+
+    }
+
+    @FXML
     private void inicializarAluno(){
         String aluno = this.listaAlunos.getSelectionModel().getSelectedItem();
         try{
             if(aluno != null){
-                this.AlunoSelecionado = this.fachadaAdministrador.buscarAluno(aluno);
+                this.AlunoSelecionado = this.fachadaAdministrador.buscarAluno(new Aluno(aluno, aluno, new Data(2001, 1, 1), "", "", ""));
                 inicializarLayoutAluno();
             }else{
                 this.aviso.setText("Aluno não selecionado");
             }
-        } catch (IOException | AlunoNotFoundException | ClassNotFoundException e) {
+        } catch (IOException | AlunoNotFoundException | ClassNotFoundException | InvalidDateException e) {
             this.aviso.setText(e.getMessage());
         }
     }
@@ -145,6 +160,7 @@ public class ControllerModificacaoAluno implements Initializable {
         //Falta data
         if(this.AlunoSelecionado instanceof AlunoHoraExtra){
             this.curso.getItems().setAll(((AlunoHoraExtra) this.AlunoSelecionado).getCurso().getNome());
+            this.horas.setText((Integer.toString(((AlunoHoraExtra) this.AlunoSelecionado).getCurso().getHoras())));
         }
     }
     /**

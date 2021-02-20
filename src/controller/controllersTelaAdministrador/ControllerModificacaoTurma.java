@@ -6,14 +6,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.classes.datas.Data;
 import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.excecoes.InvalidDateException;
 import model.classes.excecoes.TurmaNaoExisteException;
-import model.classes.pessoas.Administrador;
+import model.classes.pessoas.usuarios.Administrador;
+import model.classes.pessoas.alunos.Aluno;
 import model.classes.turmas.Turma;
 import model.fachada.FachadaAdministrador;
 
@@ -46,33 +48,53 @@ public class ControllerModificacaoTurma implements Initializable {
     @FXML
     private void adicionarAluno() {
         try {
-            this.fachadaAdministrador.adicionarAlunoEmTurma(this.turmaSelecionada, this.campoAluno.getText());
+            String nomeAluno = this.campoAluno.getText();
+            this.fachadaAdministrador.adicionarAlunoEmTurma(this.turmaSelecionada, new Aluno(nomeAluno, nomeAluno, new Data(2001, 1, 1), "","", ""));
             inicializarTurma();
         } catch (AlunoNotFoundException | TurmaNaoExisteException | ClassNotFoundException | IOException e) {
             this.aviso.setText(e.getMessage());
         } catch (NullPointerException e) {
             this.aviso.setText("Turma não selecionada");
+        } catch (InvalidDateException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void removerAluno() {
-        /*try {
+        try {
             String aluno = this.campoAluno.getText();
-            this.fachadaAdministrador.removerAlunoDaTurma(this.turmaSelecionada, aluno);
-            inicializarTurma();
-            this.aviso.setText("Removido com sucesso!");
+            if(aluno != null){
+                this.fachadaAdministrador.removerAlunoDaTurma(this.turmaSelecionada, new Aluno(aluno, aluno, new Data(2001, 1, 1), "", "", ""));
+                inicializarTurma();
+                this.aviso.setText("Removido com sucesso!");
+                this.campoAluno.setText("");
+            }else{
+                this.aviso.setText("Aluno não informado");
+            }
         } catch (AlunoNotFoundException | TurmaNaoExisteException | ClassNotFoundException | IOException e) {
             this.aviso.setText(e.getMessage());
         } catch (NullPointerException e){
             this.aviso.setText("Turma não selecionada");
-        }*/
+        } catch (InvalidDateException e) {
+            e.printStackTrace();
+        }
     }
 
     //Falta
     @FXML
     private void atualizarInfo() {
-
+        if(this.turmaSelecionada != null){
+            try{
+                this.fachadaAdministrador.atualizarTurma(this.turmaSelecionada, this.nomeTurma.getText(), this.turmaSelecionada.getNomesAlunos());
+                inicializarTurma();
+                this.aviso.setText("Atualizado com sucesso");
+            } catch (TurmaNaoExisteException | IOException | ClassNotFoundException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Turma não selecionada");
+        }
     }
 
     //Falta

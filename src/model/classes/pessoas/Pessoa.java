@@ -1,7 +1,6 @@
 package model.classes.pessoas;
 
 import model.classes.datas.Data;
-import model.classes.interfaces.ILogin;
 
 import java.io.Serializable;
 
@@ -14,7 +13,7 @@ import java.io.Serializable;
  * @author Victor Hugo e Pedro Vinícius
  */
 
-public abstract class Pessoa implements Serializable, ILogin {
+public abstract class Pessoa implements Serializable {
     private String nome;
     private String cpf;
     private Data dataDeNascimento;
@@ -33,14 +32,8 @@ public abstract class Pessoa implements Serializable, ILogin {
         return this.nome;
     }
 
-    //Falta definir uma regra
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    @Override
-    public String getCpf() {
-        return this.cpf;
     }
 
     public void setCpf(String cpf){
@@ -51,7 +44,6 @@ public abstract class Pessoa implements Serializable, ILogin {
         return this.dataDeNascimento;
     }
 
-    //Falta idade?
     public void setDataDeNascimento(Data dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
@@ -72,29 +64,28 @@ public abstract class Pessoa implements Serializable, ILogin {
         this.numeroParaContato = numeroParaContato;
     }
 
+    public String getCpf() {
+        return this.cpf;
+    }
+
 
     @Override
-    public boolean equals(Object nomeOuCpf){
-        if(nomeOuCpf instanceof String){
-            String info = (String) nomeOuCpf;
-            String nome = info.toLowerCase().replace(" ", "");
-            String cpf =  info.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
-            String nomeAluno = this.nome.toLowerCase().replace(" ", "");
-            String cpfAluno = this.cpf.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
-            boolean verificador;
+    public boolean equals(Object pessoa){
+        if(pessoa instanceof Pessoa){
+            Pessoa pessoaTemp = (Pessoa) pessoa;
 
-            if(nome.equals(nomeAluno) || cpf.equals(cpfAluno)){
-                verificador = true;
-            }else{
-                verificador = false;
-            }
-            return verificador;
+            String nome = pessoaTemp.getNome().replace(" ", "");
+            String cpf = pessoaTemp.getCpf().replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+
+            String nomeAluno = this.nome.replace(" ", "");
+            String cpfAluno = this.cpf.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+            return nome.equalsIgnoreCase(nomeAluno) || cpf.equals(cpfAluno);
         }
         return false;
     }
 
     @Override
-    public String getSenha(){
-        return "";
+    public String toString(){
+        return "Nome: " + this.nome + "\nCPF: " + this.cpf + "\nData de Nascimento: " + this.dataDeNascimento.formatarData() + "\nE-mail: " + this.email + "\nNúmero para contato: " + this.numeroParaContato;
     }
 }

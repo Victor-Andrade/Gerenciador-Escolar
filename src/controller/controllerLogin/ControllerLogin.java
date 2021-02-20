@@ -1,11 +1,12 @@
 package controller.controllerLogin;
 
 import controller.controllersTelaAdministrador.ControllerPrincipalAdministrador;
+import controller.controllersTelaProfessor.ControllerTelaPrincipalProfessor;
 import model.classes.interfaces.ILogin;
-import model.classes.pessoas.Administrador;
+import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.Pessoa;
-import model.classes.pessoas.Professor;
-import controller.controllersTelaProfessor.ControllerT1;
+import model.classes.pessoas.usuarios.Professor;
+import model.classes.pessoas.usuarios.Usuario;
 import model.fachada.FachadaAdministrador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,9 +70,9 @@ public class ControllerLogin {
         try{
             FXMLLoader fxmlLoader;
             if(pessoa instanceof Professor){
-                fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/T1 Professor.fxml"));
-                ControllerT1 controller = new ControllerT1();
-                controller.setParams(this.stage, (Professor) pessoa, new FachadaProfessor());
+                fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/TelaPrincipalProfessor.fxml"));
+                ControllerTelaPrincipalProfessor controller = new ControllerTelaPrincipalProfessor();
+                controller.setParametros(this.stage, (Professor) pessoa, new FachadaProfessor());
                 fxmlLoader.setController(controller);
             }else if(pessoa instanceof Administrador){
                 fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
@@ -92,7 +93,7 @@ public class ControllerLogin {
 
     private void verificarExistenciaUsuarios() {
         try {
-            List<Pessoa> usuarios =  fachadaAdministrador.getUsuariosLogin();
+            List<Usuario> usuarios =  fachadaAdministrador.getUsuariosLogin();
             if(usuarios.size() < 1){
                 System.out.println("Criando Usuário");
                 fachadaAdministrador.adicionarAdmPadrao();

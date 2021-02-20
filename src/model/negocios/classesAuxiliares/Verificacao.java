@@ -2,6 +2,7 @@ package model.negocios.classesAuxiliares;
 
 import model.classes.datas.Data;
 import model.classes.excecoes.InvalidDateException;
+import model.classes.pessoas.usuarios.Usuario;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,10 @@ public abstract class Verificacao {
             return email.contains("@") && email.contains(".com");
         }
         return false;
+    }
+
+    public static boolean verificarSenha(Usuario pessoa){
+        return pessoa.getSenha().length() >= 8;
     }
 
     public static boolean verificarDataDeNascimento(Data dataDeNascimento) throws InvalidDateException {
@@ -62,6 +67,4 @@ public abstract class Verificacao {
 
         return dado.length() == 11  && eInteiro(dado);
     }
-
-
 }

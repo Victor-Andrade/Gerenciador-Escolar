@@ -1,7 +1,8 @@
-package model.classes.pessoas;
+package model.classes.pessoas.usuarios;
 
 import model.classes.datas.Data;
 import model.classes.interfaces.ILogin;
+import model.classes.pessoas.Pessoa;
 import model.classes.turmas.Turma;
 
 import java.util.ArrayList;
@@ -13,14 +14,12 @@ import java.util.List;
  * @author Victor Hugo e Pedro Vinícius
  */
 
-public class Professor extends Pessoa implements ILogin {
+public class Professor extends Usuario {
     private List<Double> turmas;
     private List<Turma> turmasArrayList;
-    private String senha;
 
     public Professor(String nome, String cpf, Data data, String email, String contato, String senha) {
-        super(nome, cpf, data, email, contato);
-        this.senha = senha;
+        super(nome, cpf, data, email, contato, senha);
         this.turmas = new ArrayList<>();
         this.turmasArrayList = new ArrayList<>();
     }
@@ -50,11 +49,7 @@ public class Professor extends Pessoa implements ILogin {
     }
 
     @Override
-    public String getSenha() {
-        return this.senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String toString(){
+        return super.toString() + "\nSenha: " + this.getSenha();
     }
 }

@@ -1,13 +1,11 @@
 package controller.controllersTelaProfessor;
 
-import model.classes.excecoes.AlunoNotFoundException;
 import model.classes.materia.Materia;
-import model.classes.pessoas.Aluno;
-import model.classes.pessoas.Professor;
-import model.classes.turmas.Turma;
+import model.classes.pessoas.alunos.Aluno;
+import model.classes.pessoas.alunos.AlunoHoraExtra;
+import model.classes.pessoas.usuarios.Professor;
 import model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -29,13 +26,18 @@ import java.util.ResourceBundle;
  * Controller da terceira tela do Professor. Essa tela lista informações do aluno selecionado na tela 2
  */
 
-public class ControllerT3 implements Initializable {
-    private FachadaProfessor fachadaProfessor;
-    private Turma turma;
-    private Professor professor;
+public class ControllerInfoAluno implements Initializable {
     private Stage stage;
+    private Professor professor;
     private Aluno aluno;
-    ObservableList<String> materiasString;
+    private FachadaProfessor fachadaProfessor;
+
+    public void setParametros(Stage stage, Professor professor, Aluno aluno, FachadaProfessor fachadaProfessor){
+        this.stage = stage;
+        this.professor = professor;
+        this.aluno = aluno;
+        this.fachadaProfessor = fachadaProfessor;
+    }
 
     @FXML
     private Text txtNome;
@@ -43,6 +45,13 @@ public class ControllerT3 implements Initializable {
     private Text txtEmail;
     @FXML
     private Text txtContato;
+    @FXML
+    private Text curso;
+    @FXML
+    private Text horas;
+
+    @FXML
+    private Text aviso;
 
     @FXML
     private ChoiceBox<String> materias;
@@ -80,66 +89,52 @@ public class ControllerT3 implements Initializable {
     @FXML
     private CheckBox justificar;
 
+    /**
+     * Falta Fazer
+     */
     @FXML
-    public void gerarBoletim() throws IOException, ClassNotFoundException, AlunoNotFoundException {
+    public void gerarBoletim(){
         this.fachadaProfessor.gerarBoletim(this.aluno);
     }
 
     @FXML
+    private void salvarNotas(){
+
+    }
+
+    @FXML
+    private void descartarModificacoes(){
+
+    }
+    /**
+     *
+     */
+
+    @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/T2 Professor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/TelaPrincipalProfessor.fxml"));
 
-            ControllerT2 controller = new ControllerT2();
+            ControllerTelaPrincipalProfessor controller = new ControllerTelaPrincipalProfessor();
 
-            controller.setParametros(this.stage, this.fachadaProfessor, this.turma, this.professor);
+            controller.setParametros(this.stage, this.professor, this.fachadaProfessor);
             fxmlLoader.setController(controller);
 
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Turma");
+            stage.setTitle("Início");
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Turma turma, Aluno aluno, Professor professor){
-        this.stage = stage;
-        this.fachadaProfessor = fachadaProfessor;
-        this.turma = turma;
-        this.aluno = aluno;
-        this.professor = professor;
-    }
-
-    private void inicializarInfoAluno() {
-        ArrayList<String> materias = new ArrayList<>();
-        for(Materia materia : aluno.getMaterias()){
-            materias.add(materia.getNome());
-        }
-
-        this.materiasString = FXCollections.observableArrayList(materias);
-
-        txtNome.setText(aluno.getNome());
-        txtEmail.setText(aluno.getEmail());
-        txtContato.setText(aluno.getNumeroParaContato());
-        this.materias.setItems(this.materiasString);
-    }
-
     @FXML
     private void inicializarNotas(){
         String materiaString = materias.getSelectionModel().getSelectedItem();
         if(materiaString != null){
-            Materia materia = null;
-
-            for(Materia materiaTemp : this.aluno.getMaterias()){
-                if(materiaTemp.getNome().equals(materiaString)){
-                    materia = materiaTemp;
-                    break;
-                }
-            }
-
+            Materia materia = aluno.getMateria(materiaString);
             if(materia != null){
                 b1N1.setText(Double.toString(materia.getPrimeiroBimestre().getNota1()));
                 b1N2.setText(Double.toString(materia.getPrimeiroBimestre().getNota2()));
@@ -157,26 +152,37 @@ public class ControllerT3 implements Initializable {
                 m2.setText(Double.toString(materia.getMedia2Bimestre()));
                 m3.setText(Double.toString(materia.getMedia3Bimestre()));
                 m4.setText(Double.toString(materia.getMedia4Bimestre()));
+            }else{
+                this.aviso.setText("Matéria não encontrada");
             }
+        }else{
+            this.aviso.setText("Materia não selecionada");
         }
     }
 
-    @FXML
-    private void salvarNotas(){
-
-    }
-
-    @FXML
-    private void descartarModificacoes(){
-
-    }
-
-    private void inicializarLayout(){
-        inicializarInfoAluno();
+    public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Aluno aluno, Professor professor){
+        this.stage = stage;
+        this.fachadaProfessor = fachadaProfessor;
+        this.aluno = aluno;
+        this.professor = professor;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        inicializarLayout();
+        ArrayList<String> materias = new ArrayList<>();
+        for(Materia materia : aluno.getMaterias()){
+            materias.add(materia.getNome());
+        }
+
+        this.materias.setItems(FXCollections.observableArrayList(materias));
+
+        txtNome.setText(aluno.getNome());
+        txtEmail.setText(aluno.getEmail());
+        txtContato.setText(aluno.getNumeroParaContato());
+        if(this.aluno instanceof AlunoHoraExtra){
+            AlunoHoraExtra alunoHoraExtra = (AlunoHoraExtra) this.aluno;
+            this.curso.setText(alunoHoraExtra.getCurso().getNome());
+            this.horas.setText(Integer.toString(alunoHoraExtra.getCurso().getHoras()));
+        }
     }
 }

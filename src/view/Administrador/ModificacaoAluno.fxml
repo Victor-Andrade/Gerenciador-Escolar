@@ -65,6 +65,10 @@
                   <TextField fx:id="emailPais" layoutX="106.0" layoutY="114.0" prefHeight="25.0" prefWidth="243.0" promptText="Email pais" />
                   <DatePicker fx:id="data" layoutX="169.0" layoutY="139.0" />
                   <Label layoutX="46.0" layoutY="143.0" text="Data de Nascimento: " />
+                  <Label layoutX="129.0" layoutY="243.0" text="Horas: " />
+                  <Text fx:id="horas" layoutX="188.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horas" />
+                  <Button layoutX="233.0" layoutY="239.0" mnemonicParsing="false" onAction="#adicionarHoras" prefHeight="25.0" prefWidth="34.0" text="+" />
+                  <Button layoutX="268.0" layoutY="239.0" mnemonicParsing="false" onAction="#removerHoras" prefHeight="25.0" prefWidth="34.0" text="-" />
                </children>
             </AnchorPane>
         </items>

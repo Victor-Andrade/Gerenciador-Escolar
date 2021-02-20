@@ -1,6 +1,6 @@
 package model.classes.turmas;
 
-import model.classes.pessoas.Aluno;
+import model.classes.pessoas.alunos.Aluno;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class Turma implements Serializable {
 
     public void removerAluno(String nome) {
         for(String nomeTemp : this.nomesAlunos){
-            if(nome.toLowerCase().equals(nome)){
+            if(nomeTemp.equalsIgnoreCase(nome)){
                 this.nomesAlunos.remove(nomeTemp);
                 break;
             }
