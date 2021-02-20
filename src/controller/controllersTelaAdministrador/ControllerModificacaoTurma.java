@@ -81,13 +81,13 @@ public class ControllerModificacaoTurma implements Initializable {
         }
     }
 
-    //Falta
     @FXML
     private void atualizarInfo() {
         if(this.turmaSelecionada != null){
             try{
                 this.fachadaAdministrador.atualizarTurma(this.turmaSelecionada, this.nomeTurma.getText(), this.turmaSelecionada.getNomesAlunos());
                 inicializarTurma();
+                inicializarLayoutTurmas();
                 this.aviso.setText("Atualizado com sucesso");
             } catch (TurmaNaoExisteException | IOException | ClassNotFoundException e) {
                 this.aviso.setText(e.getMessage());
@@ -105,7 +105,6 @@ public class ControllerModificacaoTurma implements Initializable {
 
     @FXML
     private void excluirTurma() {
-        //############## AQUI OCORRE O ERRO ##############
         try {
             this.fachadaAdministrador.excluirTurma(this.turmaSelecionada);
             this.turmaSelecionada = null;
@@ -172,13 +171,17 @@ public class ControllerModificacaoTurma implements Initializable {
         this.fachadaAdministrador = fachada;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void inicializarLayoutTurmas(){
         try {
             ArrayList<String> turmas = this.fachadaAdministrador.todasAsTurmas();
             this.listaTurmas.setItems(FXCollections.observableArrayList(turmas));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        inicializarLayoutTurmas();
     }
 }
