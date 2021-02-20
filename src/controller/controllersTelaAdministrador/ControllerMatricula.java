@@ -11,10 +11,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoAlredyRegisteredException;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.excecoes.InvalidFieldException;
+import model.classes.Data;
+import model.excecoes.AlunoAlredyRegisteredException;
+import model.excecoes.InvalidDateException;
+import model.excecoes.InvalidFieldException;
 import model.classes.pessoas.usuarios.Administrador;
 import model.fachada.FachadaAdministrador;
 
@@ -66,9 +66,12 @@ public class ControllerMatricula implements Initializable {
             if(this.cursos.getSelectionModel().getSelectedItem() != null){
                 try{
                     Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                    this.fachadaAdministrador.matricularAlunoHoraExtra(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), emailPais.getText(), cursos.getSelectionModel().getSelectedItem());
+                    this.fachadaAdministrador.matricularAlunoHoraExtra(nome.getText(), cpf.getText(), data,
+                            email.getText(), contato.getText(), emailPais.getText(),
+                            cursos.getSelectionModel().getSelectedItem());
                     this.aviso.setText("Adicionado com sucesso!");
-                }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException | InvalidDateException |IOException e){
+                }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException
+                        | InvalidDateException |IOException e){
                     this.aviso.setText(e.getMessage());
                 }
             }else{
@@ -84,8 +87,10 @@ public class ControllerMatricula implements Initializable {
         if(dataLayout != null){
             try{
                 Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                this.fachadaAdministrador.matricularAluno(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), emailPais.getText());
-            }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException | InvalidDateException |IOException e){
+                this.fachadaAdministrador.matricularAluno(nome.getText(), cpf.getText(),
+                        data, email.getText(), contato.getText(), emailPais.getText());
+            }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException
+                    | InvalidDateException |IOException e){
                 this.aviso.setText(e.getMessage());
             }
         }else{

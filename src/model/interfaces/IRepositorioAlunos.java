@@ -1,8 +1,8 @@
-package model.classes.interfaces;
+package model.interfaces;
 
-import model.classes.excecoes.AlunoNotFoundException;
+import model.excecoes.AlunoNotFoundException;
 import model.classes.pessoas.alunos.Aluno;
-import model.classes.excecoes.AlunoAlredyRegisteredException;
+import model.excecoes.AlunoAlredyRegisteredException;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,8 +1,6 @@
 package model.classes.pessoas.usuarios;
 
-import model.classes.datas.Data;
-import model.classes.interfaces.ILogin;
-import model.classes.pessoas.Pessoa;
+import model.classes.Data;
 
 /**
  * Classe representado o administrador do sistema

@@ -1,9 +1,7 @@
 package model.classes.pessoas.usuarios;
 
-import model.classes.datas.Data;
-import model.classes.interfaces.ILogin;
-import model.classes.pessoas.Pessoa;
-import model.classes.turmas.Turma;
+import model.classes.Data;
+import model.classes.Turma;
 
 import java.util.ArrayList;
 import java.util.List;

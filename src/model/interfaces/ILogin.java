@@ -1,4 +1,4 @@
-package model.classes.interfaces;
+package model.interfaces;
 
 /**
  * Interface usada para Pessoas que usam senha (Administradores e professores)

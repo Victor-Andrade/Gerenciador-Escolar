@@ -10,10 +10,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.excecoes.InvalidFieldException;
-import model.classes.excecoes.UsuarioAlreadyRegisteredException;
+import model.classes.Data;
+import model.excecoes.InvalidDateException;
+import model.excecoes.InvalidFieldException;
+import model.excecoes.UsuarioAlreadyRegisteredException;
 import model.classes.pessoas.usuarios.Administrador;
 import model.fachada.FachadaAdministrador;
 
@@ -71,9 +71,11 @@ public class ControllerCadastroUsuario implements Initializable {
         if(dataLayout != null){
             try{
                 Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                this.fachadaAdministrador.adicionarAdministrador(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
+                this.fachadaAdministrador.adicionarAdministrador(nome.getText(), cpf.getText(), data,
+                        email.getText(), contato.getText(), senha.getText());
                 this.aviso.setText("Adicionado com sucesso!");
-            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException | InvalidFieldException e){
+            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException
+                    | ClassNotFoundException | InvalidFieldException e){
                 this.aviso.setText(e.getMessage());
             }
         }else{
@@ -86,7 +88,8 @@ public class ControllerCadastroUsuario implements Initializable {
         if(dataLayout != null){
             try{
                 Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
-                this.fachadaAdministrador.adicionarProfessor(nome.getText(), cpf.getText(), data, email.getText(), contato.getText(), senha.getText());
+                this.fachadaAdministrador.adicionarProfessor(nome.getText(), cpf.getText(), data,
+                        email.getText(), contato.getText(), senha.getText());
                 this.aviso.setText("Adicionado com sucesso!");
             }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException e){
                 this.aviso.setText(e.getMessage());

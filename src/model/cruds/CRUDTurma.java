@@ -1,8 +1,8 @@
 package model.cruds;
 
-import model.classes.excecoes.TurmaNaoExisteException;
-import model.classes.interfaces.IRepositorioTurmas;
-import model.classes.turmas.Turma;
+import model.excecoes.TurmaNaoExisteException;
+import model.interfaces.IRepositorioTurmas;
+import model.classes.Turma;
 
 import java.io.*;
 import java.util.ArrayList;

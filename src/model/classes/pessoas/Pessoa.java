@@ -1,6 +1,6 @@
 package model.classes.pessoas;
 
-import model.classes.datas.Data;
+import model.classes.Data;
 
 import java.io.Serializable;
 
@@ -75,10 +75,12 @@ public abstract class Pessoa implements Serializable {
             Pessoa pessoaTemp = (Pessoa) pessoa;
 
             String nome = pessoaTemp.getNome().replace(" ", "");
-            String cpf = pessoaTemp.getCpf().replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+            String cpf = pessoaTemp.getCpf().replace("-", "")
+                    .replace(".", "").replace(" ", "").toLowerCase();
 
             String nomeAluno = this.nome.replace(" ", "");
-            String cpfAluno = this.cpf.replace("-", "").replace(".", "").replace(" ", "").toLowerCase();
+            String cpfAluno = this.cpf.replace("-", "")
+                    .replace(".", "").replace(" ", "").toLowerCase();
             return nome.equalsIgnoreCase(nomeAluno) || cpf.equals(cpfAluno);
         }
         return false;
@@ -86,6 +88,8 @@ public abstract class Pessoa implements Serializable {
 
     @Override
     public String toString(){
-        return "Nome: " + this.nome + "\nCPF: " + this.cpf + "\nData de Nascimento: " + this.dataDeNascimento.formatarData() + "\nE-mail: " + this.email + "\nNúmero para contato: " + this.numeroParaContato;
+        return "Nome: " + this.nome + "\nCPF: " + this.cpf + "\nData de Nascimento: "
+                + this.dataDeNascimento.formatarData() + "\nE-mail: "
+                + this.email + "\nNúmero para contato: " + this.numeroParaContato;
     }
 }

@@ -2,7 +2,7 @@ package controller.controllerLogin;
 
 import controller.controllersTelaAdministrador.ControllerPrincipalAdministrador;
 import controller.controllersTelaProfessor.ControllerTelaPrincipalProfessor;
-import model.classes.interfaces.ILogin;
+import model.interfaces.ILogin;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.Pessoa;
 import model.classes.pessoas.usuarios.Professor;

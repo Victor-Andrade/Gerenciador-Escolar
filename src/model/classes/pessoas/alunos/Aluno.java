@@ -4,12 +4,10 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import model.classes.datas.Data;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.faltas.Falta;
+import model.classes.Data;
+import model.excecoes.InvalidDateException;
 import model.classes.materia.Bimestre;
 import model.classes.materia.Materia;
-import model.classes.excecoes.InvalidFieldException;
 import model.classes.pessoas.Pessoa;
 
 import java.io.FileNotFoundException;
@@ -27,7 +25,8 @@ public class Aluno extends Pessoa {
     private int faltas;
     private String emailPais;
 
-    public Aluno(String nome, String cpf, Data data, String email, String contato, String emailPais) throws InvalidDateException {
+    public Aluno(String nome, String cpf, Data data, String email, String contato, String emailPais)
+            throws InvalidDateException {
         super(nome, cpf, data, email, contato);
         this.materias =  new ArrayList<>();
         this.emailPais = emailPais;
@@ -77,10 +76,12 @@ public class Aluno extends Pessoa {
             //Info do aluno + nome da escola
             documento.add(new Paragraph(new Phrase("Escola Coffe Java Orientada a Objetos", font)));
             documento.add(new Phrase("Nome: " + this.getNome(), font2));
-            documento.add(new Phrase("   | Data de nascimento: "+ this.getDataDeNascimento().formatarData(), font2));
+            documento.add(new Phrase("   | Data de nascimento: "
+                    + this.getDataDeNascimento().formatarData(), font2));
             documento.add(new Paragraph(new Phrase("Email: " + this.getEmail(), font2)));
             documento.add(new Paragraph(new Phrase("CPF: " + this.getCpf(), font2)));
-            documento.add(new Paragraph(new Phrase("Número para contato: " + this.getNumeroParaContato(), font2)));
+            documento.add(new Paragraph(new Phrase("Número para contato: "
+                    + this.getNumeroParaContato(), font2)));
             documento.add(new Paragraph("\n"));
 
             //Nome Boletim
@@ -206,7 +207,8 @@ public class Aluno extends Pessoa {
             conteudo.add(new Phrase(this.getCpf(), font3));
             conteudo.add(new Phrase(" tendo nascido em ", font2));
             conteudo.add(new Phrase(this.getDataDeNascimento().formatarData(), font3));
-            conteudo.add(new Phrase(" está devidamente matriculado na instituição de ensino fundamental Escola Coffe Java Orientada a Objetos."));
+            conteudo.add(new Phrase(" está devidamente matriculado na instituição " +
+                    "de ensino fundamental Escola Coffe Java Orientada a Objetos."));
 
             conteudo.setAlignment(Element.ALIGN_CENTER);
 

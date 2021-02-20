@@ -1,4 +1,4 @@
-package model.classes.excecoes;
+package model.excecoes;
 
 /**
  * Excessão usada quando se tenta realizar alguma operação com um usuário não encontrado

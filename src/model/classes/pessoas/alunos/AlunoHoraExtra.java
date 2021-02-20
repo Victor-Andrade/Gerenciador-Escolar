@@ -2,8 +2,8 @@ package model.classes.pessoas.alunos;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
-import model.classes.datas.Data;
-import model.classes.excecoes.InvalidDateException;
+import model.classes.Data;
+import model.excecoes.InvalidDateException;
 import model.classes.materia.Curso;
 
 import java.io.FileNotFoundException;
@@ -17,7 +17,8 @@ import java.io.FileOutputStream;
 public class AlunoHoraExtra extends Aluno{
     private Curso curso;
 
-    public AlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailPais, Curso curso) throws InvalidDateException {
+    public AlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailPais,
+                          Curso curso) throws InvalidDateException {
         super(nome, cpf, data, email, contato, emailPais);
         this.curso = curso;
     }
@@ -51,7 +52,8 @@ public class AlunoHoraExtra extends Aluno{
             conteudo.add(new Phrase(this.curso.getNome(), font3));
             conteudo.add(new Phrase(" com uma carga horária de ", font2));
             conteudo.add(new Phrase(this.curso.getHoras() + " horas", font3));
-            conteudo.add(new Phrase(" na instituição de ensino Escola Coffe Java Orientada a Objetos no ano de 2021."));
+            conteudo.add(new Phrase(" na instituição de ensino Escola " +
+                    "Coffe Java Orientada a Objetos no ano de 2021."));
 
             conteudo.setAlignment(Element.ALIGN_CENTER);
 

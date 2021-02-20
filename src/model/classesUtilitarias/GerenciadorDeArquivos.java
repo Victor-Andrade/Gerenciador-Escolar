@@ -1,4 +1,4 @@
-package model.negocios.classesAuxiliares;
+package model.classesUtilitarias;
 
 import javafx.stage.FileChooser;
 import java.io.File;

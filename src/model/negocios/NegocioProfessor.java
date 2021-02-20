@@ -1,10 +1,10 @@
 package model.negocios;
 
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoAlredyRegisteredException;
-import model.classes.excecoes.AlunoNotFoundException;
+import model.classes.Data;
+import model.excecoes.AlunoAlredyRegisteredException;
+import model.excecoes.AlunoNotFoundException;
 import model.classes.pessoas.alunos.Aluno;
-import model.classes.interfaces.IRepositorioAlunos;
+import model.interfaces.IRepositorioAlunos;
 
 import java.io.*;
 
@@ -26,7 +26,8 @@ public class NegocioProfessor {
     }
 
     //Adiciona uma falta em um aluno e atualiza o repositorio ++++++++ FALTA IMPLEMENTAR
-    public void adicionarFalta(Aluno aluno, Data data, boolean justificar) throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
+    public void adicionarFalta(Aluno aluno, Data data, boolean justificar)
+            throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             aluno.adicionarFalta();
             repositorioAlunos.removerAluno(aluno);

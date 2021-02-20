@@ -53,7 +53,8 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void modificarAluno(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/ModificacaoAluno.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/view/Administrador/ModificacaoAluno.fxml"));
 
             ControllerModificacaoAluno controller = new ControllerModificacaoAluno();
 
@@ -71,7 +72,8 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void cadastrarUsuario(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/CadastroUsuario.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/view/Administrador/CadastroUsuario.fxml"));
 
             ControllerCadastroUsuario controller = new ControllerCadastroUsuario();
 
@@ -89,7 +91,8 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void modificarUsuario(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/ModificacaoUsuario.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/view/Administrador/ModificacaoUsuario.fxml"));
 
             ControllerModificacaoUsuario controller = new ControllerModificacaoUsuario();
 
@@ -107,7 +110,8 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void cadastrarTurma(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/CadastroTurma.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/view/Administrador/CadastroTurma.fxml"));
 
             ControllerCadastroTurma controller = new ControllerCadastroTurma();
 
@@ -126,7 +130,8 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void modificarTurma(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/ModificacaoTurma.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                    .getResource("/view/Administrador/ModificacaoTurma.fxml"));
 
             ControllerModificacaoTurma controller = new ControllerModificacaoTurma();
 

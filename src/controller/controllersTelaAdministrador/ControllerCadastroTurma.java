@@ -11,10 +11,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
+import model.classes.Data;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.usuarios.Professor;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
@@ -53,7 +53,8 @@ public class ControllerCadastroTurma implements Initializable {
             if(nomeProfessor != null){
                 Turma turma = this.fachadaAdministrador.ultimaTurmaAdicionada();
                 //Pode dar erro??? Conversão inválida???
-                Professor professor = (Professor) this.fachadaAdministrador.buscarUsuario(new Professor(nomeProfessor, nomeProfessor, new Data(2001, 1, 1),"", "", ""));
+                Professor professor = (Professor) this.fachadaAdministrador.buscarUsuario(new Professor(nomeProfessor,
+                        nomeProfessor, new Data(2001, 1, 1),"", "", ""));
                 this.fachadaAdministrador.adicionarTurmaEmProfessor(turma, professor);
             }
             this.aviso.setText("Adicionado com sucesso");
@@ -67,7 +68,8 @@ public class ControllerCadastroTurma implements Initializable {
         if(aluno != null){
             if(!alunosSelecionadosArray.contains(aluno)){
                 alunosSelecionadosArray.add(aluno);
-                this.alunosSelecionados.getItems().setAll(FXCollections.observableArrayList(this.alunosSelecionadosArray));
+                this.alunosSelecionados.getItems()
+                        .setAll(FXCollections.observableArrayList(this.alunosSelecionadosArray));
             }else{
                 this.aviso.setText("Aluno já adicionado");
             }
@@ -81,7 +83,8 @@ public class ControllerCadastroTurma implements Initializable {
         if(aluno != null){
             if(alunosSelecionadosArray.contains(aluno)){
                 alunosSelecionadosArray.remove(aluno);
-                this.alunosSelecionados.getItems().setAll(FXCollections.observableArrayList(this.alunosSelecionadosArray));
+                this.alunosSelecionados.getItems()
+                        .setAll(FXCollections.observableArrayList(this.alunosSelecionadosArray));
             }else{
                 this.aviso.setText("Aluno não adicionado");
             }

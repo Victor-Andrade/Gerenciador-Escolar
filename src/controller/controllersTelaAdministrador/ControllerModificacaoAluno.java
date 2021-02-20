@@ -12,9 +12,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.excecoes.InvalidDateException;
+import model.classes.Data;
+import model.excecoes.AlunoNotFoundException;
+import model.excecoes.InvalidDateException;
 import model.classes.materia.Materia;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
@@ -134,7 +134,8 @@ public class ControllerModificacaoAluno implements Initializable {
         String aluno = this.listaAlunos.getSelectionModel().getSelectedItem();
         try{
             if(aluno != null){
-                this.AlunoSelecionado = this.fachadaAdministrador.buscarAluno(new Aluno(aluno, aluno, new Data(2001, 1, 1), "", "", ""));
+                this.AlunoSelecionado = this.fachadaAdministrador.buscarAluno(new Aluno(aluno, aluno,
+                        new Data(2001, 1, 1), "", "", ""));
                 inicializarLayoutAluno();
             }else{
                 this.aviso.setText("Aluno não selecionado");

@@ -1,10 +1,10 @@
 package model.negocios;
 
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.faltas.Falta;
+import model.classes.Data;
+import model.excecoes.AlunoNotFoundException;
+import model.classes.Falta;
 import model.cruds.CRUDFaltas;
-import model.negocios.classesAuxiliares.GerenciadorDeArquivos;
+import model.classesUtilitarias.GerenciadorDeArquivos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

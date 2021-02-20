@@ -1,4 +1,4 @@
-package model.classes.excecoes;
+package model.excecoes;
 
 /**
  * Classe de excessão para ser utilizada se algum usuário tentar acessar ou

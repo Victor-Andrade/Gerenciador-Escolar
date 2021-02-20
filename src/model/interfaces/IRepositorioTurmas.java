@@ -1,7 +1,7 @@
-package model.classes.interfaces;
+package model.interfaces;
 
-import model.classes.excecoes.TurmaNaoExisteException;
-import model.classes.turmas.Turma;
+import model.excecoes.TurmaNaoExisteException;
+import model.classes.Turma;
 
 import java.io.IOException;
 import java.util.List;

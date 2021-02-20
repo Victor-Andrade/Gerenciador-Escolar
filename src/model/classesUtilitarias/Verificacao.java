@@ -1,7 +1,7 @@
-package model.negocios.classesAuxiliares;
+package model.classesUtilitarias;
 
-import model.classes.datas.Data;
-import model.classes.excecoes.InvalidDateException;
+import model.classes.Data;
+import model.excecoes.InvalidDateException;
 import model.classes.pessoas.usuarios.Usuario;
 
 import java.time.LocalDateTime;

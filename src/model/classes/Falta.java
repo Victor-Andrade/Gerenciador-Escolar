@@ -1,6 +1,4 @@
-package model.classes.faltas;
-
-import model.classes.datas.Data;
+package model.classes;
 
 import java.io.Serializable;
 

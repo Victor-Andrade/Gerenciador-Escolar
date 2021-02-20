@@ -1,6 +1,6 @@
-package model.classes.datas;
+package model.classes;
 
-import model.classes.excecoes.InvalidDateException;
+import model.excecoes.InvalidDateException;
 
 import java.io.Serializable;
 

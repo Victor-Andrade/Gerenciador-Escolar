@@ -1,8 +1,8 @@
 package model.cruds;
 
-import model.classes.excecoes.AlunoNotFoundException;
+import model.excecoes.AlunoNotFoundException;
 import model.classes.pessoas.alunos.Aluno;
-import model.classes.interfaces.IRepositorioAlunos;
+import model.interfaces.IRepositorioAlunos;
 
 import java.io.*;
 import java.util.ArrayList;

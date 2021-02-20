@@ -1,7 +1,7 @@
 package model.cruds;
 
-import model.classes.excecoes.UsuarioNotFoundException;
-import model.classes.interfaces.IRepositorioUsuarios;
+import model.excecoes.UsuarioNotFoundException;
+import model.interfaces.IRepositorioUsuarios;
 import model.classes.pessoas.usuarios.Usuario;
 
 import java.io.*;

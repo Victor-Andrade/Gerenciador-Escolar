@@ -1,14 +1,12 @@
-package model.classes.main;
-
-import model.classes.datas.Data;
-import model.classes.excecoes.InvalidDateException;
+import model.classes.Data;
+import model.excecoes.InvalidDateException;
 import model.classes.materia.Curso;
 import model.classes.pessoas.*;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.usuarios.Professor;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 import controller.controllerLogin.ControllerLogin;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

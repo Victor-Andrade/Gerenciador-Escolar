@@ -12,13 +12,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.excecoes.TurmaNaoExisteException;
+import model.classes.Data;
+import model.excecoes.AlunoNotFoundException;
+import model.excecoes.InvalidDateException;
+import model.excecoes.TurmaNaoExisteException;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.usuarios.Professor;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 import model.fachada.FachadaProfessor;
 
 import java.io.IOException;
@@ -52,7 +52,8 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
         String nomeAluno = this.campoAluno.getText();
         if(nomeAluno != null){
             try{
-                this.fachadaProfessor.adicionarAlunoEmTurma(this.turmaSelecionada, new Aluno(nomeAluno, nomeAluno, new Data(2001, 1, 1), "","", ""));
+                this.fachadaProfessor.adicionarAlunoEmTurma(this.turmaSelecionada,
+                        new Aluno(nomeAluno, nomeAluno, new Data(2001, 1, 1), "","", ""));
                 turmaSelecionada = this.fachadaProfessor.buscarTurma(this.turmaSelecionada.getId());
                 this.listaAlunos.setItems(FXCollections.observableArrayList(this.turmaSelecionada.getNomesAlunos()));
                 this.aviso.setText("Adicionado com sucesso");
@@ -71,7 +72,8 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
         String alunoString = this.campoAluno.getText();
         if(alunoString != null){
             try{
-                this.fachadaProfessor.removerAlunoDaTurma(this.turmaSelecionada, new Aluno(alunoString, alunoString, new Data(2001,1,1), "", "", ""));
+                this.fachadaProfessor.removerAlunoDaTurma(this.turmaSelecionada, new Aluno(alunoString, alunoString,
+                        new Data(2001,1,1), "", "", ""));
                 turmaSelecionada = this.fachadaProfessor.buscarTurma(this.turmaSelecionada.getId());
                 this.listaAlunos.setItems(FXCollections.observableArrayList(this.turmaSelecionada.getNomesAlunos()));
                 this.aviso.setText("Removido com sucesso");
@@ -146,7 +148,8 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
         String alunoString = this.listaAlunos.getSelectionModel().getSelectedItem();
         if(alunoString != null){
             try{
-                this.alunoSelecionado = this.fachadaProfessor.buscarAluno(new Aluno(alunoString, alunoString, new Data(2001, 1, 1), "", "", ""));
+                this.alunoSelecionado = this.fachadaProfessor.buscarAluno(new Aluno(alunoString, alunoString,
+                        new Data(2001, 1, 1), "", "", ""));
             } catch (InvalidDateException | IOException | ClassNotFoundException | AlunoNotFoundException e) {
                 this.aviso.setText(e.getMessage());
             }

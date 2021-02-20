@@ -1,8 +1,8 @@
 package model.fachada;
 
-import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.excecoes.TurmaNaoExisteException;
+import model.excecoes.AlunoNotFoundException;
+import model.excecoes.InvalidDateException;
+import model.excecoes.TurmaNaoExisteException;
 import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
 import model.cruds.CRUDTurma;
@@ -10,7 +10,7 @@ import model.cruds.CRUDUsuarios;
 import model.negocios.NegocioAdministrador;
 import model.negocios.NegocioProfessor;
 import model.negocios.NegocioTurma;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 
 import java.io.IOException;
 
@@ -35,11 +35,15 @@ public class FachadaProfessor {
         this.negocioProfessor.gerarBoletim(aluno);
     }
 
-    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
+            throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException,
+            IOException, InvalidDateException {
         this.negocioTurma.adicionarAlunoEmTurma(turma, aluno);
     }
 
-    public void removerAlunoDaTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+    public void removerAlunoDaTurma(Turma turma, Aluno aluno)
+            throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException,
+            IOException, InvalidDateException {
         this.negocioTurma.removerAlunoDaTurma(turma, aluno);
     }
 

@@ -1,12 +1,12 @@
 package model.fachada;
 
-import model.classes.datas.Data;
-import model.classes.excecoes.*;
+import model.classes.Data;
+import model.excecoes.*;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.usuarios.Professor;
 import model.classes.pessoas.usuarios.Usuario;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 import model.cruds.CRUDTurma;
 import model.cruds.CRUDUsuarios;
 import model.negocios.NegocioAdministrador;
@@ -36,23 +36,32 @@ public class FachadaAdministrador {
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
     }
 
-    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, UsuarioAlreadyRegisteredException, InvalidDateException, IOException {
+    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
+            throws ClassNotFoundException, InvalidFieldException, UsuarioAlreadyRegisteredException,
+            InvalidDateException, IOException {
         this.negocioAdministrador.adicionarAdministrador(nome, cpf, data, email, contato, senha);
     }
 
-    public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha) throws UsuarioAlreadyRegisteredException, IOException, ClassNotFoundException {
+    public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
+            throws UsuarioAlreadyRegisteredException, IOException, ClassNotFoundException {
         this.negocioAdministrador.adicionarProfessor(nome, cpf,  data, email, contato, senha);
     }
 
-    public void adicionarTurma(String apelido, List<String> alunos) throws InvalidFieldException, ClassNotFoundException, TurmaRepetidaException, IOException {
+    public void adicionarTurma(String apelido, List<String> alunos)
+            throws InvalidFieldException, ClassNotFoundException, TurmaRepetidaException, IOException {
         this.negocioTurma.adicionarTurma(apelido, alunos);
     }
 
-    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, AlunoAlredyRegisteredException, InvalidDateException, IOException {
+    public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel)
+            throws ClassNotFoundException, InvalidFieldException, AlunoAlredyRegisteredException,
+            InvalidDateException, IOException {
         this.negocioAdministrador.matricularAluno(nome, cpf, data, email,  contato, emailResponsavel);
     }
 
-    public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato, String emailResponsavel, String curso) throws ClassNotFoundException, InvalidFieldException, AlunoAlredyRegisteredException, InvalidDateException, IOException {
+    public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato,
+                                         String emailResponsavel, String curso) throws ClassNotFoundException,
+                                         InvalidFieldException, AlunoAlredyRegisteredException,
+                                         InvalidDateException, IOException {
         this.negocioAdministrador.matricularAlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, curso);
     }
 
@@ -72,7 +81,8 @@ public class FachadaAdministrador {
         return this.negocioAdministrador.todosOsProfessores();
     }
 
-    public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException, InvalidDateException {
+    public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException,
+            InvalidDateException {
         return this.negocioProfessor.buscarAluno(aluno);
     }
 
@@ -84,15 +94,21 @@ public class FachadaAdministrador {
         return this.negocioAdministrador.todosOsUsuarios();
     }
 
-    public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws ClassNotFoundException, UsuarioNotFoundException, UsuarioAlreadyRegisteredException, TurmaNaoExisteException, IOException, TurmaRepetidaException {
+    public void adicionarTurmaEmProfessor(Turma turma, Professor professor)
+            throws ClassNotFoundException, UsuarioNotFoundException, UsuarioAlreadyRegisteredException,
+            TurmaNaoExisteException, IOException, TurmaRepetidaException {
         this.negocioTurma.adicionarTurmaEmProfessor(turma, professor);
     }
 
-    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+    public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
+            throws ClassNotFoundException, AlunoNotFoundException,
+            TurmaNaoExisteException, IOException, InvalidDateException {
         this.negocioTurma.adicionarAlunoEmTurma(turma, aluno);
     }
 
-    public void removerAlunoDaTurma(Turma turma, Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException, IOException, InvalidDateException {
+    public void removerAlunoDaTurma(Turma turma, Aluno aluno)
+            throws ClassNotFoundException, AlunoNotFoundException,
+            TurmaNaoExisteException, IOException, InvalidDateException {
         this.negocioTurma.removerAlunoDaTurma(turma, aluno);
     }
 
@@ -100,7 +116,8 @@ public class FachadaAdministrador {
         this.negocioTurma.removerTurma(turma.getId());
     }
 
-    public void excluirUsuario(Usuario pessoa) throws UsuarioNotFoundException, IOException, ClassNotFoundException, InvalidDateException {
+    public void excluirUsuario(Usuario pessoa) throws UsuarioNotFoundException,
+            IOException, ClassNotFoundException, InvalidDateException {
         this.negocioAdministrador.removerUsuario(pessoa);
     }
 
@@ -108,11 +125,13 @@ public class FachadaAdministrador {
         return this.negocioTurma.getUltimaTurmaAdicionada();
     }
 
-    public Usuario buscarUsuario(Usuario usuario) throws UsuarioNotFoundException, IOException, ClassNotFoundException, InvalidDateException {
+    public Usuario buscarUsuario(Usuario usuario)
+            throws UsuarioNotFoundException, IOException, ClassNotFoundException, InvalidDateException {
         return this.negocioAdministrador.buscarUsuario(usuario);
     }
 
-    public void atualizarTurma(Turma turma, String apelido, List<String> alunos) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+    public void atualizarTurma(Turma turma, String apelido, List<String> alunos)
+            throws ClassNotFoundException, IOException, TurmaNaoExisteException {
         this.negocioTurma.atualizarTurma(turma.getId(), apelido, alunos);
     }
 

@@ -1,4 +1,4 @@
-package model.classes.excecoes;
+package model.excecoes;
 
 /**
  * Classe de excessão para ser utilizada se uma data for inserida incorretamente

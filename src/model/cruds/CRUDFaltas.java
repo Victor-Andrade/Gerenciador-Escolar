@@ -1,7 +1,7 @@
 package model.cruds;
 
-import model.classes.datas.Data;
-import model.classes.faltas.Falta;
+import model.classes.Data;
+import model.classes.Falta;
 
 import java.io.*;
 import java.util.ArrayList;

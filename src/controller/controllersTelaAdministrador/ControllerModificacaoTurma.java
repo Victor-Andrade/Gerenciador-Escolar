@@ -10,13 +10,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.classes.datas.Data;
-import model.classes.excecoes.AlunoNotFoundException;
-import model.classes.excecoes.InvalidDateException;
-import model.classes.excecoes.TurmaNaoExisteException;
+import model.classes.Data;
+import model.excecoes.AlunoNotFoundException;
+import model.excecoes.InvalidDateException;
+import model.excecoes.TurmaNaoExisteException;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
-import model.classes.turmas.Turma;
+import model.classes.Turma;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
@@ -49,7 +49,8 @@ public class ControllerModificacaoTurma implements Initializable {
     private void adicionarAluno() {
         try {
             String nomeAluno = this.campoAluno.getText();
-            this.fachadaAdministrador.adicionarAlunoEmTurma(this.turmaSelecionada, new Aluno(nomeAluno, nomeAluno, new Data(2001, 1, 1), "","", ""));
+            this.fachadaAdministrador.adicionarAlunoEmTurma(this.turmaSelecionada, new Aluno(nomeAluno, nomeAluno,
+                    new Data(2001, 1, 1), "","", ""));
             inicializarTurma();
         } catch (AlunoNotFoundException | TurmaNaoExisteException | ClassNotFoundException | IOException e) {
             this.aviso.setText(e.getMessage());
@@ -65,7 +66,8 @@ public class ControllerModificacaoTurma implements Initializable {
         try {
             String aluno = this.campoAluno.getText();
             if(aluno != null){
-                this.fachadaAdministrador.removerAlunoDaTurma(this.turmaSelecionada, new Aluno(aluno, aluno, new Data(2001, 1, 1), "", "", ""));
+                this.fachadaAdministrador.removerAlunoDaTurma(this.turmaSelecionada, new Aluno(aluno, aluno,
+                        new Data(2001, 1, 1), "", "", ""));
                 inicializarTurma();
                 this.aviso.setText("Removido com sucesso!");
                 this.campoAluno.setText("");
@@ -85,7 +87,8 @@ public class ControllerModificacaoTurma implements Initializable {
     private void atualizarInfo() {
         if(this.turmaSelecionada != null){
             try{
-                this.fachadaAdministrador.atualizarTurma(this.turmaSelecionada, this.nomeTurma.getText(), this.turmaSelecionada.getNomesAlunos());
+                this.fachadaAdministrador.atualizarTurma(this.turmaSelecionada,
+                        this.nomeTurma.getText(), this.turmaSelecionada.getNomesAlunos());
                 inicializarTurma();
                 inicializarLayoutTurmas();
                 this.aviso.setText("Atualizado com sucesso");

@@ -1,4 +1,4 @@
-package model.classes.turmas;
+package model.classes;
 
 import model.classes.pessoas.alunos.Aluno;
 

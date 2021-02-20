@@ -1,8 +1,7 @@
-package model.classes.interfaces;
+package model.interfaces;
 
-import model.classes.excecoes.UsuarioAlreadyRegisteredException;
-import model.classes.excecoes.UsuarioNotFoundException;
-import model.classes.pessoas.Pessoa;
+import model.excecoes.UsuarioAlreadyRegisteredException;
+import model.excecoes.UsuarioNotFoundException;
 import model.classes.pessoas.usuarios.Usuario;
 
 import java.io.IOException;
