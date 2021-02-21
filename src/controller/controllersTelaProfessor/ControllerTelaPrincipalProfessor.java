@@ -67,6 +67,7 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
             aviso.setText("Nenhum aluno foi digitado");
         }
     }
+
     @FXML
     private void remover(){
         String alunoString = this.campoAluno.getText();
@@ -87,43 +88,6 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
             }
         }else{
             aviso.setText("Nenhum aluno selecionado");
-        }
-    }
-
-    @FXML
-    private void continuar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/T3 Professor.fxml"));
-
-            ControllerInfoAluno controller = new ControllerInfoAluno();
-
-            controller.setParametros(this.stage, this.professor, this.alunoSelecionado, this.fachadaProfessor);
-            fxmlLoader.setController(controller);
-
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Aluno");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    private void voltar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaLogin/TelaLogin.fxml"));
-            Parent root = fxmlLoader.load();
-
-            ((ControllerLogin) fxmlLoader.getController()).setStage(this.stage);
-
-            Scene scene = new Scene(root);
-            this.stage.setScene(scene);
-            this.stage.setTitle("Login");
-        }catch (IOException e){
-            e.printStackTrace();
         }
     }
 
@@ -154,6 +118,43 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
                 this.aviso.setText(e.getMessage());
             }
         }
+    }
+
+    @FXML
+    private void voltar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaLogin/TelaLogin.fxml"));
+            Parent root = fxmlLoader.load();
+
+            ((ControllerLogin) fxmlLoader.getController()).setStage(this.stage);
+
+            Scene scene = new Scene(root);
+            this.stage.setScene(scene);
+            this.stage.setTitle("Login");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void continuar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/T3 Professor.fxml"));
+
+            ControllerInfoAluno controller = new ControllerInfoAluno();
+
+            controller.setParametros(this.stage, this.professor, this.alunoSelecionado, this.fachadaProfessor);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Aluno");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void setParametros(Stage stage, Professor professor, FachadaProfessor fachadaProfessor){

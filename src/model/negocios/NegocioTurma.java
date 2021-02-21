@@ -68,9 +68,7 @@ public class NegocioTurma {
      * @throws ClassNotFoundException Erro genérico para classe não compatível
      */
 
-    public void adicionarTurmaEmProfessor(Turma turma, Professor professor)
-            throws TurmaNaoExisteException, IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException,
-            UsuarioNotFoundException, TurmaRepetidaException {
+    public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws TurmaNaoExisteException, IOException, ClassNotFoundException, UsuarioNotFoundException, TurmaRepetidaException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
             if(repositorioUsuarios.existeNoBanco(professor)){
                 for(double ids: professor.getTurmas()){
@@ -79,8 +77,31 @@ public class NegocioTurma {
                     }
                 }
                 professor.adicionarTurma(turma.getId());
-                this.repositorioUsuarios.removerUsuario(professor);
-                this.repositorioUsuarios.adicionarUsuario(professor);
+                this.repositorioUsuarios.atualizarUsuario(professor, professor);
+            }else{
+                throw new UsuarioNotFoundException(professor.getNome());
+            }
+        }else{
+            throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
+        }
+    }
+
+    public void removerTurmaDoProfessor(Turma turma, Professor professor) throws IOException, ClassNotFoundException, UsuarioNotFoundException, TurmaNaoExisteException {
+        if(repositorioTurmas.turmaExiste(turma.getId())){
+            if(repositorioUsuarios.existeNoBanco(professor)){
+                boolean encontrada = false;
+                for(double ids: professor.getTurmas()){
+                    if(ids == turma.getId()){
+                        encontrada = true;
+                        break;
+                    }
+                }
+                if(encontrada){
+                    professor.removerTurmas(turma.getId());
+                    this.repositorioUsuarios.atualizarUsuario(professor, professor);
+                }else{
+                    throw new TurmaNaoExisteException("Turma não encontrada no professor");
+                }
             }else{
                 throw new UsuarioNotFoundException(professor.getNome());
             }

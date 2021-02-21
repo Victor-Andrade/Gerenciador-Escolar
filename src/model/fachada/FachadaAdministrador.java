@@ -1,7 +1,7 @@
 package model.fachada;
 
 import model.classes.Data;
-import model.excecoes.*;
+import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.usuarios.Professor;
@@ -9,6 +9,7 @@ import model.classes.pessoas.usuarios.Usuario;
 import model.classes.Turma;
 import model.cruds.CRUDTurma;
 import model.cruds.CRUDUsuarios;
+import model.excecoes.*;
 import model.negocios.NegocioAdministrador;
 import model.cruds.CRUDAlunos;
 import model.negocios.NegocioProfessor;
@@ -82,11 +83,11 @@ public class FachadaAdministrador {
     }
 
     public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException,
-            InvalidDateException {
+            InvalidDateException, AlunoNotFoundException {
         return this.negocioProfessor.buscarAluno(aluno);
     }
 
-    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException, TurmaNaoExisteException {
         return  this.negocioTurma.pegarTurma(id);
     }
 
@@ -96,7 +97,7 @@ public class FachadaAdministrador {
 
     public void adicionarTurmaEmProfessor(Turma turma, Professor professor)
             throws ClassNotFoundException, UsuarioNotFoundException, UsuarioAlreadyRegisteredException,
-            TurmaNaoExisteException, IOException, TurmaRepetidaException {
+            TurmaNaoExisteException, IOException, TurmaRepetidaException, UsuarioNotFoundException, TurmaRepetidaException {
         this.negocioTurma.adicionarTurmaEmProfessor(turma, professor);
     }
 
@@ -135,7 +136,23 @@ public class FachadaAdministrador {
         this.negocioTurma.atualizarTurma(turma.getId(), apelido, alunos);
     }
 
-    //USU DO MÉTODO?
+    public void removerTurmaDoProfessor(Turma turma, Professor professor) throws ClassNotFoundException, UsuarioNotFoundException, TurmaNaoExisteException, IOException {
+        this.negocioTurma.removerTurmaDoProfessor(turma, professor);
+    }
+
+    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        this.negocioProfessor.gerarBoletim(aluno);
+    }
+
+    public void gerarCertificadoDeMatricula(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioProfessor.gerarCertificadoDeMatricula(aluno);
+    }
+
+    public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioProfessor.gerarCertificadoDeCurso(aluno);
+    }
+
+    //USO DO MÉTODO?
     public void adicionarAdmPadrao(){
         try{
             Data data = new Data(2021, 2, 10);

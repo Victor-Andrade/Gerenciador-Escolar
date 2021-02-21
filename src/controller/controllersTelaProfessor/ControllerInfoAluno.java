@@ -1,9 +1,11 @@
 package controller.controllersTelaProfessor;
 
+import javafx.scene.control.*;
 import model.classes.materia.Materia;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.classes.pessoas.usuarios.Professor;
+import model.excecoes.AlunoNotFoundException;
 import model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -11,13 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -54,7 +53,7 @@ public class ControllerInfoAluno implements Initializable {
     private Text aviso;
 
     @FXML
-    private ChoiceBox<String> materias;
+    private ListView<String> materias;
 
     @FXML
     private TextField b1N1;
@@ -94,7 +93,11 @@ public class ControllerInfoAluno implements Initializable {
      */
     @FXML
     public void gerarBoletim(){
-        this.fachadaProfessor.gerarBoletim(this.aluno);
+        try {
+            this.fachadaProfessor.gerarBoletim(this.aluno);
+        } catch (IOException | ClassNotFoundException | AlunoNotFoundException e) {
+            this.aviso.setText(e.getMessage());
+        }
     }
 
     @FXML
@@ -109,28 +112,6 @@ public class ControllerInfoAluno implements Initializable {
     /**
      *
      */
-
-    @FXML
-    private void voltar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/telaProfessor/TelaPrincipalProfessor.fxml"));
-
-            ControllerTelaPrincipalProfessor controller = new ControllerTelaPrincipalProfessor();
-
-            controller.setParametros(this.stage, this.professor, this.fachadaProfessor);
-            fxmlLoader.setController(controller);
-
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Início");
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     private void inicializarNotas(){
         String materiaString = materias.getSelectionModel().getSelectedItem();
@@ -161,6 +142,26 @@ public class ControllerInfoAluno implements Initializable {
         }
     }
 
+    @FXML
+    private void voltar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/TelaPrincipalProfessor.fxml"));
+
+            ControllerTelaPrincipalProfessor controller = new ControllerTelaPrincipalProfessor();
+
+            controller.setParametros(this.stage, this.professor, this.fachadaProfessor);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Início");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Aluno aluno, Professor professor){
         this.stage = stage;
         this.fachadaProfessor = fachadaProfessor;
@@ -171,7 +172,7 @@ public class ControllerInfoAluno implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<String> materias = new ArrayList<>();
-        for(Materia materia : aluno.getMaterias()){
+        for(Materia materia : this.aluno.getMaterias()){
             materias.add(materia.getNome());
         }
 
@@ -180,6 +181,8 @@ public class ControllerInfoAluno implements Initializable {
         txtNome.setText(aluno.getNome());
         txtEmail.setText(aluno.getEmail());
         txtContato.setText(aluno.getNumeroParaContato());
+        this.curso.setText("");
+        this.horas.setText("");
         if(this.aluno instanceof AlunoHoraExtra){
             AlunoHoraExtra alunoHoraExtra = (AlunoHoraExtra) this.aluno;
             this.curso.setText(alunoHoraExtra.getCurso().getNome());

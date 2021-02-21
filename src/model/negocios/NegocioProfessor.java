@@ -1,6 +1,7 @@
 package model.negocios;
 
 import model.classes.Data;
+import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.excecoes.AlunoAlredyRegisteredException;
 import model.excecoes.AlunoNotFoundException;
 import model.classes.pessoas.alunos.Aluno;
@@ -38,8 +39,33 @@ public class NegocioProfessor {
     }
 
     //Gera o boletim de um aluno qualquer
-    public void gerarBoletim(Aluno aluno){
-        aluno.gerarBoletim();
+    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            alunoBanco.gerarBoletim();
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            alunoBanco.gerarCertificadoDeMatricula();
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            if(alunoBanco instanceof AlunoHoraExtra){
+                alunoBanco.gerarCertificadoDeMatricula();
+            }
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
     }
 
     //Falta implementar

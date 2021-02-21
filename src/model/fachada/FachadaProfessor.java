@@ -31,7 +31,7 @@ public class FachadaProfessor {
 
     }
 
-    public void gerarBoletim(Aluno aluno){
+    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         this.negocioProfessor.gerarBoletim(aluno);
     }
 

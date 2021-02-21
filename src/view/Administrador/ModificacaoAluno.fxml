@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,54 +9,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.45466491458607095" layoutX="272.0" layoutY="144.0" prefHeight="539.0" prefWidth="763.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <ListView fx:id="listaAlunos" layoutX="21.0" layoutY="21.0" onMouseClicked="#inicializarAluno" prefHeight="453.0" prefWidth="343.0" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Text fx:id="aviso" fill="RED" layoutX="202.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="143.0" />
-                  <Button layoutX="21.0" layoutY="477.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="110.0" text="Voltar" />
+                  <Text fx:id="aviso" fill="RED" layoutX="173.0" layoutY="553.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="143.0" />
+                  <Button layoutX="24.0" layoutY="525.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="110.0" text="Voltar" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="280.0" layoutY="437.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Salvar" />
-                  <Label layoutX="51.0" layoutY="269.0" text="1º Bimestre" />
-                  <Label layoutX="145.0" layoutY="271.0" text="2º Bimestre" />
-                  <Label layoutX="234.0" layoutY="273.0" text="3º Bimestre" />
-                  <Label layoutX="321.0" layoutY="274.0" text="4º Bimestre" />
-                  <Label layoutX="31.0" layoutY="292.0" text="N1: " />
-                  <Label layoutX="32.0" layoutY="339.0" text="N2:" />
-                  <Label layoutX="123.0" layoutY="289.0" text="N1: " />
-                  <Label layoutX="123.0" layoutY="339.0" text="N2:" />
-                  <Label layoutX="209.0" layoutY="292.0" text="N1: " />
-                  <Label layoutX="209.0" layoutY="342.0" text="N2:" />
-                  <Label layoutX="304.0" layoutY="296.0" text="N1: " />
-                  <Label layoutX="305.0" layoutY="341.0" text="N2:" />
-                  <TextField fx:id="b1N1" layoutX="61.0" layoutY="284.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b1N2" layoutX="61.0" layoutY="331.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b2N1" layoutX="152.0" layoutY="289.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b2N2" layoutX="152.0" layoutY="336.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b3N1" layoutX="241.0" layoutY="289.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b3N2" layoutX="241.0" layoutY="336.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b4N1" layoutX="335.0" layoutY="289.0" prefHeight="25.0" prefWidth="47.0" />
-                  <TextField fx:id="b4N2" layoutX="335.0" layoutY="336.0" prefHeight="25.0" prefWidth="47.0" />
-                  <Text fx:id="m1" layoutX="33.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
-                  <Text fx:id="m2" layoutX="124.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
-                  <Text fx:id="m3" layoutX="210.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
-                  <Text fx:id="m4" layoutX="306.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
-                  <ChoiceBox fx:id="materias" layoutX="180.0" layoutY="171.0" prefHeight="25.0" prefWidth="214.0" />
-                  <Label layoutX="118.0" layoutY="175.0" text="Materia: " />
-                  <Button layoutX="19.0" layoutY="491.0" mnemonicParsing="false" onAction="#gerarBoletim" prefHeight="46.0" prefWidth="120.0" text="Gerar Boletim" />
-                  <Button layoutX="21.0" layoutY="437.0" mnemonicParsing="false" onAction="#reportarConduta" prefHeight="46.0" prefWidth="120.0" text="Reportar Conduta" />
-                  <Button layoutX="147.0" layoutY="491.0" mnemonicParsing="false" onAction="#gerarCertificadoMatricula" prefHeight="46.0" prefWidth="127.0" text="Certificado Matrícula" />
-                  <Button layoutX="279.0" layoutY="491.0" mnemonicParsing="false" onAction="#gerarCertificadoCurso" prefHeight="46.0" prefWidth="120.0" text="Certificado Curso" />
-                  <Label layoutX="126.0" layoutY="210.0" text="Curso:" />
-                  <ChoiceBox fx:id="curso" layoutX="180.0" layoutY="206.0" prefHeight="25.0" prefWidth="214.0" />
-                  <Button layoutX="152.0" layoutY="437.0" mnemonicParsing="false" onAction="#removerFalta" prefHeight="46.0" prefWidth="120.0" text="Remover Falta" />
-                  <Button layoutX="280.0" layoutY="390.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: red;" text="REMOVER ALUNO" textFill="WHITE" />
+                  <Button layoutX="282.0" layoutY="486.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Salvar" />
+                  <Label layoutX="47.0" layoutY="317.0" text="1º Bimestre" />
+                  <Label layoutX="141.0" layoutY="319.0" text="2º Bimestre" />
+                  <Label layoutX="230.0" layoutY="321.0" text="3º Bimestre" />
+                  <Label layoutX="317.0" layoutY="322.0" text="4º Bimestre" />
+                  <Label layoutX="27.0" layoutY="340.0" text="N1: " />
+                  <Label layoutX="28.0" layoutY="387.0" text="N2:" />
+                  <Label layoutX="119.0" layoutY="337.0" text="N1: " />
+                  <Label layoutX="119.0" layoutY="387.0" text="N2:" />
+                  <Label layoutX="205.0" layoutY="340.0" text="N1: " />
+                  <Label layoutX="205.0" layoutY="390.0" text="N2:" />
+                  <Label layoutX="300.0" layoutY="344.0" text="N1: " />
+                  <Label layoutX="301.0" layoutY="389.0" text="N2:" />
+                  <TextField fx:id="b1N1" layoutX="57.0" layoutY="332.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b1N2" layoutX="57.0" layoutY="379.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b2N1" layoutX="148.0" layoutY="337.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b2N2" layoutX="148.0" layoutY="384.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b3N1" layoutX="237.0" layoutY="337.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b3N2" layoutX="237.0" layoutY="384.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b4N1" layoutX="331.0" layoutY="337.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="b4N2" layoutX="331.0" layoutY="384.0" prefHeight="25.0" prefWidth="47.0" />
+                  <Text fx:id="m1" layoutX="29.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
+                  <Text fx:id="m2" layoutX="120.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
+                  <Text fx:id="m3" layoutX="206.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
+                  <Text fx:id="m4" layoutX="302.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
+                  <Label layoutX="19.0" layoutY="184.0" text="Materias: " />
+                  <Button layoutX="21.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarBoletim" prefHeight="46.0" prefWidth="120.0" text="Gerar Boletim" />
+                  <Button layoutX="23.0" layoutY="486.0" mnemonicParsing="false" onAction="#reportarConduta" prefHeight="46.0" prefWidth="120.0" text="Reportar Conduta" />
+                  <Button layoutX="149.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarCertificadoMatricula" prefHeight="46.0" prefWidth="127.0" text="Certificado Matrícula" />
+                  <Button layoutX="281.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarCertificadoCurso" prefHeight="46.0" prefWidth="120.0" text="Certificado Curso" />
+                  <Label layoutX="22.0" layoutY="285.0" text="Curso:" />
+                  <Button layoutX="154.0" layoutY="486.0" mnemonicParsing="false" onAction="#removerFalta" prefHeight="46.0" prefWidth="120.0" text="Remover Falta" />
+                  <Button layoutX="282.0" layoutY="439.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: red;" text="REMOVER ALUNO" textFill="WHITE" />
                   <TextField fx:id="nome" layoutX="103.0" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" promptText="Nome" />
                   <TextField fx:id="cpf" layoutX="103.0" layoutY="39.0" prefHeight="25.0" prefWidth="243.0" promptText="CPF" />
                   <TextField fx:id="email" layoutX="106.0" layoutY="64.0" prefHeight="25.0" prefWidth="243.0" promptText="Email" />
@@ -65,10 +62,12 @@
                   <TextField fx:id="emailPais" layoutX="106.0" layoutY="114.0" prefHeight="25.0" prefWidth="243.0" promptText="Email pais" />
                   <DatePicker fx:id="data" layoutX="169.0" layoutY="139.0" />
                   <Label layoutX="46.0" layoutY="143.0" text="Data de Nascimento: " />
-                  <Label layoutX="129.0" layoutY="243.0" text="Horas: " />
-                  <Text fx:id="horas" layoutX="188.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horas" />
-                  <Button layoutX="233.0" layoutY="239.0" mnemonicParsing="false" onAction="#adicionarHoras" prefHeight="25.0" prefWidth="34.0" text="+" />
-                  <Button layoutX="268.0" layoutY="239.0" mnemonicParsing="false" onAction="#removerHoras" prefHeight="25.0" prefWidth="34.0" text="-" />
+                  <Label layoutX="233.0" layoutY="285.0" text="Horas: " />
+                  <Text fx:id="horas" layoutX="292.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horas" />
+                  <Button layoutX="337.0" layoutY="281.0" mnemonicParsing="false" onAction="#adicionarHoras" prefHeight="25.0" prefWidth="34.0" text="+" />
+                  <Button layoutX="372.0" layoutY="281.0" mnemonicParsing="false" onAction="#removerHoras" prefHeight="25.0" prefWidth="34.0" text="-" />
+                  <ListView fx:id="materias" layoutX="76.0" layoutY="164.0" onMouseClicked="#inicializarDadosMateria" prefHeight="119.0" prefWidth="192.0" />
+                  <Text fx:id="curso" layoutX="76.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso" wrappingWidth="127.0" />
                </children>
             </AnchorPane>
         </items>

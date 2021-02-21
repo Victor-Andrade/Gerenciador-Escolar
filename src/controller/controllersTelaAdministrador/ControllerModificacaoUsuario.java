@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Data;
+import model.classes.Turma;
 import model.excecoes.*;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.usuarios.Professor;
@@ -54,43 +55,98 @@ public class ControllerModificacaoUsuario implements Initializable {
      * Falta Implementar
      */
     @FXML
-    private void removerTurma(){
-
-    }
-    @FXML
-    private void adicionarTurma(){
-        //// USAR PARA CONVERTER OS PRIMEIROS CARACTERES DO ID PARA DOUBLE
-        /*if(this.professorSelecionado != null){
-            try{
-                char[] nome = this.listaTurmasAdicionar.getSelectionModel().getSelectedItem().toCharArray();
-                StringBuilder id = new StringBuilder();
-                for (int i = 0; nome[i] != ':'; i++) {
-                    id.append(nome[i]);
-                }
-                double idDouble = Double.parseDouble(id.toString());
-                Turma turma = this.fachadaAdministrador.buscarTurma(idDouble);
-                this.fachadaAdministrador.adicionarTurmaEmProfessor(turma, this.professorSelecionado);
-                this.turmas.setItems(FXCollections.observableArrayList(
-                this.fachadaAdministrador.buscarTurma(idDouble).getNomesAlunos()));
-            } catch (IOException | TurmaRepetidaException | UsuarioAlreadyRegisteredException
-            | UsuarioNotFoundException | ClassNotFoundException | TurmaNaoExisteException e) {
-                this.aviso.setText(e.getMessage());
-            }
-        }else{
-            this.aviso.setText("Usuário não é professor ou não foi selecionado");
-        }*/
-    }
-    @FXML
     private void salvar(){
 
     }
+    /**
+     *
+     */
+
+    @FXML
+    private void removerTurma(){
+        if(this.professorSelecionado != null){
+            String nomeTurma = this.turmas.getSelectionModel().getSelectedItem();
+            if(nomeTurma != null){
+                try{
+                    char[] nome = nomeTurma.toCharArray();
+                    StringBuilder id = new StringBuilder();
+                    for (int i = 0; nome[i] != ':'; i++) {
+                        id.append(nome[i]);
+                    }
+                    double idDouble = Double.parseDouble(id.toString());
+                    Turma turma = this.fachadaAdministrador.buscarTurma(idDouble);
+                    this.fachadaAdministrador.removerTurmaDoProfessor(turma, this.professorSelecionado);
+                    inicializarUsuario();
+                    iniciarDadosProfessor(this.professorSelecionado);
+                } catch (IOException | UsuarioNotFoundException | ClassNotFoundException | TurmaNaoExisteException e) {
+                    this.aviso.setText(e.getMessage());
+                }
+            }else{
+                this.aviso.setText("Turma não selecionada");
+            }
+        }else{
+            this.aviso.setText("Usuário não é professor ou não foi selecionado");
+        }
+    }
+
+    @FXML
+    private void adicionarTurma(){
+        if(this.professorSelecionado != null){
+            String nomeTurma = this.listaTurmasAdicionar.getSelectionModel().getSelectedItem();
+            if(nomeTurma != null){
+                try{
+                    char[] nome = nomeTurma.toCharArray();
+                    StringBuilder id = new StringBuilder();
+                    for (int i = 0; nome[i] != ':'; i++) {
+                        id.append(nome[i]);
+                    }
+                    double idDouble = Double.parseDouble(id.toString());
+                    Turma turma = this.fachadaAdministrador.buscarTurma(idDouble);
+                    this.fachadaAdministrador.adicionarTurmaEmProfessor(turma, this.professorSelecionado);
+                    inicializarUsuario();
+                    iniciarDadosProfessor(this.professorSelecionado);
+                } catch (IOException | TurmaRepetidaException | UsuarioAlreadyRegisteredException | UsuarioNotFoundException | ClassNotFoundException | TurmaNaoExisteException e) {
+                    this.aviso.setText(e.getMessage());
+                }
+            }else{
+                this.aviso.setText("Turma não selecionada");
+            }
+        }else{
+            this.aviso.setText("Usuário não é professor ou não foi selecionado");
+        }
+    }
+
+    @FXML
+    private void voltar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+
+            ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
+
+            controller.setParametros(this.stage, this.administrador, this.fachadaAdministrador);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Inicio");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void removerUsuario(){
         try{
             if(this.administradorSelecionado != null){
                 this.fachadaAdministrador.excluirUsuario(this.administradorSelecionado);
+                reiniciarCampos();
+                inicializarListaUsuarios();
+                this.aviso.setText("Removido com sucesso");
             }else if(this.professorSelecionado != null){
                 this.fachadaAdministrador.excluirUsuario(this.professorSelecionado);
+                inicializarListaUsuarios();
+                this.aviso.setText("Removido com sucesso");
             }else{
                 this.aviso.setText("Usuário não selecionado");
             }
@@ -122,14 +178,13 @@ public class ControllerModificacaoUsuario implements Initializable {
         }
     }
 
-    private void iniciarDadosProfessor(Professor professor)
-            throws TurmaNaoExisteException, IOException, ClassNotFoundException {
-        ArrayList<String> turmas = new ArrayList<>();
-        for(double id: professor.getTurmas()){
-            turmas.add(id+ ": " + this.fachadaAdministrador.buscarTurma(id).getApelido());
+    private void inicializarListaUsuarios(){
+        try {
+            ArrayList<String> usuarios = this.fachadaAdministrador.todosOsUsuarios();
+            this.listaUsuarios.setItems(FXCollections.observableArrayList(usuarios));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        this.turmas.setItems(FXCollections.observableArrayList(turmas));
-        this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(this.fachadaAdministrador.todasAsTurmas()));
     }
 
     private void iniciarDadosAdministrador(Usuario pessoa){
@@ -142,27 +197,25 @@ public class ControllerModificacaoUsuario implements Initializable {
         this.turmas.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(new ArrayList<>()));
     }
-    /**
-     *
-     */
 
-    @FXML
-    private void voltar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
-
-            ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
-
-            controller.setParametros(this.stage, this.administrador, this.fachadaAdministrador);
-            fxmlLoader.setController(controller);
-
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Inicio");
-        }catch (Exception e){
-            e.printStackTrace();
+    private void iniciarDadosProfessor(Professor professor) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
+        ArrayList<String> turmas = new ArrayList<>();
+        for(double id: professor.getTurmas()){
+            turmas.add(id+ ": " + this.fachadaAdministrador.buscarTurma(id).getApelido());
         }
+        this.turmas.setItems(FXCollections.observableArrayList(turmas));
+        this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(this.fachadaAdministrador.todasAsTurmas()));
+    }
+
+    private void reiniciarCampos(){
+        this.nome.setText("");
+        this.email.setText("");
+        this.contato.setText("");
+        this.senha.setText("");
+        this.cpf.setText("");
+        this.listaUsuarios.setItems(FXCollections.observableArrayList(new ArrayList<>()));
+        this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(new ArrayList<>()));
+        this.turmas.setItems(FXCollections.observableArrayList(new ArrayList<>()));
     }
 
     public void setParametros(Stage stage, Administrador administrador, FachadaAdministrador fachada){
@@ -173,11 +226,6 @@ public class ControllerModificacaoUsuario implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            ArrayList<String> usuarios = this.fachadaAdministrador.todosOsUsuarios();
-            this.listaUsuarios.setItems(FXCollections.observableArrayList(usuarios));
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        inicializarListaUsuarios();
     }
 }
