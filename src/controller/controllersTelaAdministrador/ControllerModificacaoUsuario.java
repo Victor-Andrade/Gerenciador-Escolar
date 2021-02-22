@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -21,6 +22,7 @@ import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -51,11 +53,40 @@ public class ControllerModificacaoUsuario implements Initializable {
     @FXML
     private ListView<String> listaTurmasAdicionar;
 
+    @FXML
+    private Text data;
+    @FXML
+    private DatePicker dataSelecao;
+
     /**
      * Falta Implementar
      */
     @FXML
     private void salvar(){
+        String nome = this.nome.getText();
+        String cpf = this.cpf.getText();
+        String contato = this.contato.getText();
+        String senha = this.senha.getText();
+        String email = this.email.getText();
+        try{
+            LocalDate dataTemp = this.dataSelecao.getValue();
+            Data data = new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth());
+            if(this.administradorSelecionado != null){
+                this.fachadaAdministrador.atualizarInformacoesUsuario(this.administradorSelecionado, nome, cpf, data, email, contato, senha);
+                reiniciarCampos();
+                inicializarListaUsuarios();
+                this.aviso.setText("Atualizado com sucesso!");
+            }else if(this.professorSelecionado != null){
+                this.fachadaAdministrador.atualizarInformacoesUsuario(this.professorSelecionado, nome, cpf, data, email, contato, senha);
+                reiniciarCampos();
+                inicializarListaUsuarios();
+                this.aviso.setText("Atualizado com sucesso!");
+            }else{
+                this.aviso.setText("Usuário não selecionado");
+            }
+        } catch (InvalidDateException | IOException | InvalidFieldException | ClassNotFoundException e) {
+            this.aviso.setText(e.getMessage());
+        }
 
     }
     /**
@@ -193,6 +224,7 @@ public class ControllerModificacaoUsuario implements Initializable {
         this.contato.setText(pessoa.getNumeroParaContato());
         this.cpf.setText(pessoa.getCpf());
         this.senha.setText(pessoa.getSenha());
+        this.data.setText(pessoa.getDataDeNascimento().formatarData());
 
         this.turmas.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(new ArrayList<>()));
@@ -213,6 +245,7 @@ public class ControllerModificacaoUsuario implements Initializable {
         this.contato.setText("");
         this.senha.setText("");
         this.cpf.setText("");
+        this.data.setText("");
         this.listaUsuarios.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         this.listaTurmasAdicionar.setItems(FXCollections.observableArrayList(new ArrayList<>()));
         this.turmas.setItems(FXCollections.observableArrayList(new ArrayList<>()));

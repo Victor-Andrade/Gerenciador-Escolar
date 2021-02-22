@@ -152,6 +152,21 @@ public class NegocioAdministrador {
         }
     }
 
+    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
+        if(this.repositorioUsuarios.existeNoBanco(usuario)){
+            Usuario usuarioTemp = new Usuario(nome, cpf, data, email, contato, senha);
+            if(!repositorioUsuarios.existeNoBanco(usuarioTemp)){
+                if(verificarCampos(nome, cpf, data, email, contato)){
+                    if(Verificacao.verificarSenha(usuarioTemp)){
+                        this.repositorioUsuarios.atualizarUsuario(usuario, usuarioTemp);
+                    }else{
+                        throw new InvalidFieldException(usuario.getSenha());
+                    }
+                }
+            }
+        }
+    }
+
     public void confirmarJustificativaDeFalta(Aluno aluno)
             throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if (this.repositorioAlunos.existeNoBanco(aluno)) {

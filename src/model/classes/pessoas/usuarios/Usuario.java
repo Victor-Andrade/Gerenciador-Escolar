@@ -13,7 +13,7 @@ public class Usuario extends Pessoa implements ILogin {
         this.senha = senha;
     }
 
-    private void setSenha(String senha){
+    public void setSenha(String senha){
         this.senha = senha;
     }
 

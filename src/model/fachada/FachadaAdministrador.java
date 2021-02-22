@@ -140,6 +140,10 @@ public class FachadaAdministrador {
         this.negocioTurma.removerTurmaDoProfessor(turma, professor);
     }
 
+    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException {
+        this.negocioAdministrador.atualizarInformacoesUsuario(usuario, nome, cpf, data, email, contato, senha);
+    }
+
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         this.negocioProfessor.gerarBoletim(aluno);
     }
