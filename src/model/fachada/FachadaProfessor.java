@@ -2,6 +2,7 @@ package model.fachada;
 
 import model.excecoes.AlunoNotFoundException;
 import model.excecoes.InvalidDateException;
+import model.excecoes.NotasInvalidasException;
 import model.excecoes.TurmaNaoExisteException;
 import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
@@ -53,5 +54,9 @@ public class FachadaProfessor {
 
     public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
         return this.negocioProfessor.buscarAluno(aluno);
+    }
+
+    public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
+        this.negocioAdministrador.atualizarNotasAluno(aluno);
     }
 }

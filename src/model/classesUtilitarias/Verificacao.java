@@ -1,10 +1,14 @@
 package model.classesUtilitarias;
 
 import model.classes.Data;
+import model.classes.materia.Bimestre;
+import model.classes.materia.Materia;
 import model.excecoes.InvalidDateException;
 import model.classes.pessoas.usuarios.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe utilitária para verificação de informações das Pessoas
@@ -18,6 +22,40 @@ public abstract class Verificacao {
             return email.contains("@") && email.contains(".com");
         }
         return false;
+    }
+
+    public static boolean verificarNotas(List<Materia> materias){
+        for(Materia materia: materias){
+            for(int i = 1; i <= 4; i++){
+                Bimestre bimestre = materia.getPrimeiroBimestre();
+                switch (i){
+                    case 2:
+                        bimestre = materia.getSegundoBimestre();
+                        break;
+                    case 3:
+                        bimestre = materia.getTerceiroBimestre();
+                        break;
+                    case 4:
+                        bimestre = materia.getQuartoBimestre();
+                        break;
+                }
+                if(bimestre.getNota1() < 0 || bimestre.getNota1() > 10){
+                    return false;
+                }
+                if(bimestre.getNota2() < 0 || bimestre.getNota2() > 10){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean verificarHoras(int horas){
+        if(horas >= 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static boolean verificarSenha(Usuario pessoa){

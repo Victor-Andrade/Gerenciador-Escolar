@@ -18,6 +18,8 @@ import model.classes.materia.Materia;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
+import model.excecoes.InvalidFieldException;
+import model.excecoes.NotasInvalidasException;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
@@ -84,23 +86,125 @@ public class ControllerModificacaoAluno implements Initializable {
 
     @FXML
     private Text horas;
+    @FXML
+    private Text dataString;
 
     /**
      * Falta implementar
      */
 
     @FXML
-    private void reportarConduta(){
+    private void modificar(){
+        if(this.AlunoSelecionado != null){
+            try {
+                double b1n1 = Double.parseDouble(this.b1N1.getText());
+                double b1n2 = Double.parseDouble(this.b1N2.getText());
 
-    }
-    @FXML
-    private void removerFalta(){
+                double b2n1 = Double.parseDouble(this.b2N1.getText());
+                double b2n2 = Double.parseDouble(this.b2N2.getText());
 
+                double b3n1 = Double.parseDouble(this.b3N1.getText());
+                double b3n2 = Double.parseDouble(this.b3N2.getText());
+
+                double b4n1 = Double.parseDouble(this.b4N1.getText());
+                double b4n2 = Double.parseDouble(this.b4N2.getText());
+
+                String materiaString = this.materias.getSelectionModel().getSelectedItem();
+                if(materiaString != null){
+                    Materia materia = this.AlunoSelecionado.getMateria(materiaString);
+
+                    materia.setNotasPrimeiroBimestre(b1n1, b1n2);
+                    materia.setNotasSegundoBimestre(b2n1, b2n2);
+                    materia.setNotasTerceiroBimestre(b3n1, b3n2);
+                    materia.setNotasQuartoBimestre(b4n1, b4n2);
+
+                    this.AlunoSelecionado.setMateria(materia);
+
+                    this.fachadaAdministrador.atualizarNotasAluno(this.AlunoSelecionado);
+                    this.AlunoSelecionado = null;
+                    reiniciarLayoutAluno();
+                    inicializarListaAlunos();
+                    this.aviso.setText("Atualizado com sucesso");
+                }else{
+                    this.aviso.setText("Materia não selecionada");
+                }
+            }catch (NumberFormatException  e){
+                this.aviso.setText("Valor nos campos inválido");
+            } catch (AlunoNotFoundException | NotasInvalidasException | IOException | ClassNotFoundException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Aluno não selecionado");
+        }
     }
+
     @FXML
     private void salvar(){
-
+        if(this.AlunoSelecionado != null){
+            try{
+                this.fachadaAdministrador.atualizarDadosPessoaisAluno(this.AlunoSelecionado, this.nome.getText(), this.cpf.getText(), new Data(this.data.getValue()), this.email.getText(), this.contato.getText(), this.emailPais.getText());
+                inicializarListaAlunos();
+                this.AlunoSelecionado = null;
+                reiniciarLayoutAluno();
+                this.aviso.setText("Atualizado com sucesso");
+            } catch (InvalidDateException | InvalidFieldException | ClassNotFoundException | IOException e) {
+                this.aviso.setText(e.getMessage());
+            } catch (NullPointerException e){
+                this.aviso.setText("Dados não preenchidos");
+            }
+        }
     }
+
+    @FXML
+    private void removerAluno(){
+        if(this.AlunoSelecionado != null){
+            try{
+                this.fachadaAdministrador.excluirAluno(this.AlunoSelecionado);
+                this.AlunoSelecionado = null;
+                reiniciarLayoutAluno();
+                inicializarListaAlunos();
+            } catch (AlunoNotFoundException | InvalidDateException | IOException | ClassNotFoundException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Aluno não selecionado");
+        }
+    }
+
+    @FXML
+    private void adicionarHoras(){
+        if(this.AlunoSelecionado instanceof AlunoHoraExtra){
+            try {
+                ((AlunoHoraExtra)AlunoSelecionado).getCurso().adicionarHoras();
+                this.fachadaAdministrador.atualizarNotasAluno(this.AlunoSelecionado);
+                inicializarAluno();
+                inicializarLayoutAluno();
+                this.aviso.setText("Adicionado com sucesso");
+            } catch (AlunoNotFoundException | IOException | ClassNotFoundException | NotasInvalidasException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Aluno não possui curso ou não foi selecionado");
+        }
+    }
+
+    @FXML
+    private void removerHoras(){
+        if(this.AlunoSelecionado instanceof AlunoHoraExtra){
+            try {
+                ((AlunoHoraExtra)AlunoSelecionado).getCurso().removerHoras();
+                this.fachadaAdministrador.atualizarNotasAluno(this.AlunoSelecionado);
+                inicializarAluno();
+                inicializarLayoutAluno();
+                this.aviso.setText("Removido com sucesso");
+            } catch (AlunoNotFoundException | IOException | ClassNotFoundException | NotasInvalidasException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Aluno não possui curso ou não foi selecionado");
+        }
+    }
+
     @FXML
     private void gerarBoletim() throws AlunoNotFoundException, IOException, ClassNotFoundException {
         //this.fachadaAdministrador.gerarBoletim(this.AlunoSelecionado);
@@ -111,20 +215,6 @@ public class ControllerModificacaoAluno implements Initializable {
     }
     @FXML
     private void gerarCertificadoCurso(){
-
-    }
-    @FXML
-    private void removerAluno(){
-
-    }
-
-    @FXML
-    private void adicionarHoras(){
-
-    }
-
-    @FXML
-    private void removerHoras(){
 
     }
     /**
@@ -211,6 +301,7 @@ public class ControllerModificacaoAluno implements Initializable {
         this.contato.setText(this.AlunoSelecionado.getNumeroParaContato());
         this.cpf.setText(this.AlunoSelecionado.getCpf());
         this.emailPais.setText(this.AlunoSelecionado.getEmailPais());
+        this.dataString.setText(this.AlunoSelecionado.getDataDeNascimento().formatarData());
         this.curso.setText("");
         this.horas.setText("");
         //Falta data
@@ -220,19 +311,47 @@ public class ControllerModificacaoAluno implements Initializable {
         }
     }
 
+    private void reiniciarLayoutAluno(){
+        this.nome.setText("");
+        this.cpf.setText("");
+        this.email.setText("");
+        this.emailPais.setText("");
+        this.dataString.setText("");
+        this.contato.setText("");
+        this.curso.setText("");
+        this.horas.setText("");
+        this.materias.setItems(FXCollections.observableArrayList(new ArrayList<>()));
+        this.b1N1.setText("");
+        this.b1N2.setText("");
+        this.b2N1.setText("");
+        this.b2N2.setText("");
+        this.b3N1.setText("");
+        this.b3N2.setText("");
+        this.b4N1.setText("");
+        this.b4N2.setText("");
+        this.m1.setText("");
+        this.m2.setText("");
+        this.m3.setText("");
+        this.m4.setText("");
+    }
+
     public void setParametros(Stage stage, Administrador administrador, FachadaAdministrador fachada){
         this.stage = stage;
         this.administrador = administrador;
         this.fachadaAdministrador = fachada;
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void inicializarListaAlunos(){
         try {
             ArrayList<String> alunos = this.fachadaAdministrador.todosOsAlunos();
             this.listaAlunos.setItems(FXCollections.observableArrayList(alunos));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        inicializarListaAlunos();
     }
 }

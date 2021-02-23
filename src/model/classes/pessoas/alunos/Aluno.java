@@ -242,6 +242,11 @@ public class Aluno extends Pessoa {
         return null;
     }
 
+    public void setMateria(Materia materia){
+        this.materias.remove(materia);
+        this.materias.add(materia);
+    }
+
     private void inicializarMaterias(){
         this.materias.add(new Materia("Português"));
         this.materias.add(new Materia("Matemática"));

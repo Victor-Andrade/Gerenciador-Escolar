@@ -6,6 +6,7 @@ import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.classes.pessoas.usuarios.Professor;
 import model.excecoes.AlunoNotFoundException;
+import model.excecoes.NotasInvalidasException;
 import model.fachada.FachadaProfessor;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -102,12 +103,51 @@ public class ControllerInfoAluno implements Initializable {
 
     @FXML
     private void salvarNotas(){
+        if(this.aluno != null){
+            try {
+                double b1n1 = Double.parseDouble(this.b1N1.getText());
+                double b1n2 = Double.parseDouble(this.b1N2.getText());
 
+                double b2n1 = Double.parseDouble(this.b2N1.getText());
+                double b2n2 = Double.parseDouble(this.b2N2.getText());
+
+                double b3n1 = Double.parseDouble(this.b3N1.getText());
+                double b3n2 = Double.parseDouble(this.b3N2.getText());
+
+                double b4n1 = Double.parseDouble(this.b4N1.getText());
+                double b4n2 = Double.parseDouble(this.b4N2.getText());
+
+                String materiaString = this.materias.getSelectionModel().getSelectedItem();
+                if(materiaString != null){
+                    Materia materia = this.aluno.getMateria(materiaString);
+
+                    materia.setNotasPrimeiroBimestre(b1n1, b1n2);
+                    materia.setNotasSegundoBimestre(b2n1, b2n2);
+                    materia.setNotasTerceiroBimestre(b3n1, b3n2);
+                    materia.setNotasQuartoBimestre(b4n1, b4n2);
+
+                    this.aluno.setMateria(materia);
+
+                    this.fachadaProfessor.atualizarNotasAluno(this.aluno);
+                    this.aluno = this.fachadaProfessor.buscarAluno(this.aluno);
+                    inicializarLayoutAluno();
+                    this.aviso.setText("Atualizado com sucesso");
+                }else{
+                    this.aviso.setText("Materia não selecionada");
+                }
+            }catch (NumberFormatException  e){
+                this.aviso.setText("Valor nos campos inválido");
+            } catch (AlunoNotFoundException | NotasInvalidasException | IOException | ClassNotFoundException e) {
+                this.aviso.setText(e.getMessage());
+            }
+        }else{
+            this.aviso.setText("Aluno não selecionado");
+        }
     }
 
     @FXML
     private void descartarModificacoes(){
-
+        inicializarLayoutAluno();
     }
     /**
      *
@@ -162,15 +202,7 @@ public class ControllerInfoAluno implements Initializable {
         }
     }
 
-    public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Aluno aluno, Professor professor){
-        this.stage = stage;
-        this.fachadaProfessor = fachadaProfessor;
-        this.aluno = aluno;
-        this.professor = professor;
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void inicializarLayoutAluno(){
         ArrayList<String> materias = new ArrayList<>();
         for(Materia materia : this.aluno.getMaterias()){
             materias.add(materia.getNome());
@@ -188,5 +220,17 @@ public class ControllerInfoAluno implements Initializable {
             this.curso.setText(alunoHoraExtra.getCurso().getNome());
             this.horas.setText(Integer.toString(alunoHoraExtra.getCurso().getHoras()));
         }
+    }
+
+    public void setParametros(Stage stage, FachadaProfessor fachadaProfessor, Aluno aluno, Professor professor){
+        this.stage = stage;
+        this.fachadaProfessor = fachadaProfessor;
+        this.aluno = aluno;
+        this.professor = professor;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        inicializarLayoutAluno();
     }
 }

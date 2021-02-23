@@ -22,7 +22,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="282.0" layoutY="486.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Salvar" />
+                  <Button layoutX="156.0" layoutY="486.0" mnemonicParsing="false" onAction="#salvar" prefHeight="46.0" prefWidth="120.0" text="Atualizar Info" />
                   <Label layoutX="47.0" layoutY="317.0" text="1º Bimestre" />
                   <Label layoutX="141.0" layoutY="319.0" text="2º Bimestre" />
                   <Label layoutX="230.0" layoutY="321.0" text="3º Bimestre" />
@@ -49,25 +49,25 @@
                   <Text fx:id="m4" layoutX="302.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M: " />
                   <Label layoutX="19.0" layoutY="184.0" text="Materias: " />
                   <Button layoutX="21.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarBoletim" prefHeight="46.0" prefWidth="120.0" text="Gerar Boletim" />
-                  <Button layoutX="23.0" layoutY="486.0" mnemonicParsing="false" onAction="#reportarConduta" prefHeight="46.0" prefWidth="120.0" text="Reportar Conduta" />
                   <Button layoutX="149.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarCertificadoMatricula" prefHeight="46.0" prefWidth="127.0" text="Certificado Matrícula" />
                   <Button layoutX="281.0" layoutY="540.0" mnemonicParsing="false" onAction="#gerarCertificadoCurso" prefHeight="46.0" prefWidth="120.0" text="Certificado Curso" />
                   <Label layoutX="22.0" layoutY="285.0" text="Curso:" />
-                  <Button layoutX="154.0" layoutY="486.0" mnemonicParsing="false" onAction="#removerFalta" prefHeight="46.0" prefWidth="120.0" text="Remover Falta" />
-                  <Button layoutX="282.0" layoutY="439.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: red;" text="REMOVER ALUNO" textFill="WHITE" />
+                  <Button layoutX="293.0" layoutY="438.0" mnemonicParsing="false" onAction="#modificar" prefHeight="37.0" prefWidth="110.0" text="Modificar Notas" />
+                  <Button layoutX="21.0" layoutY="486.0" mnemonicParsing="false" onAction="#removerAluno" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: red;" text="REMOVER ALUNO" textFill="WHITE" />
                   <TextField fx:id="nome" layoutX="103.0" layoutY="14.0" prefHeight="25.0" prefWidth="243.0" promptText="Nome" />
                   <TextField fx:id="cpf" layoutX="103.0" layoutY="39.0" prefHeight="25.0" prefWidth="243.0" promptText="CPF" />
                   <TextField fx:id="email" layoutX="106.0" layoutY="64.0" prefHeight="25.0" prefWidth="243.0" promptText="Email" />
                   <TextField fx:id="contato" layoutX="106.0" layoutY="89.0" prefHeight="25.0" prefWidth="243.0" promptText="Contato" />
                   <TextField fx:id="emailPais" layoutX="106.0" layoutY="114.0" prefHeight="25.0" prefWidth="243.0" promptText="Email pais" />
-                  <DatePicker fx:id="data" layoutX="169.0" layoutY="139.0" />
-                  <Label layoutX="46.0" layoutY="143.0" text="Data de Nascimento: " />
+                  <DatePicker fx:id="data" layoutX="223.0" layoutY="139.0" />
+                  <Label layoutX="6.0" layoutY="143.0" text="Data de Nascimento: " />
                   <Label layoutX="233.0" layoutY="285.0" text="Horas: " />
                   <Text fx:id="horas" layoutX="292.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horas" />
                   <Button layoutX="337.0" layoutY="281.0" mnemonicParsing="false" onAction="#adicionarHoras" prefHeight="25.0" prefWidth="34.0" text="+" />
                   <Button layoutX="372.0" layoutY="281.0" mnemonicParsing="false" onAction="#removerHoras" prefHeight="25.0" prefWidth="34.0" text="-" />
                   <ListView fx:id="materias" layoutX="76.0" layoutY="164.0" onMouseClicked="#inicializarDadosMateria" prefHeight="119.0" prefWidth="192.0" />
                   <Text fx:id="curso" layoutX="76.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso" wrappingWidth="127.0" />
+                  <Text fx:id="dataString" layoutX="138.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="data" />
                </children>
             </AnchorPane>
         </items>

@@ -152,6 +152,26 @@ public class NegocioAdministrador {
         }
     }
 
+    public void atualizarNotasAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException, NotasInvalidasException {
+        if(this.repositorioAlunos.existeNoBanco(aluno)){
+            if(Verificacao.verificarNotas(aluno.getMaterias())){
+                if(aluno instanceof AlunoHoraExtra){
+                    if(Verificacao.verificarHoras(((AlunoHoraExtra) aluno).getCurso().getHoras())){
+                        this.repositorioAlunos.atualizarAluno(aluno, aluno);
+                    }else{
+                        throw new NotasInvalidasException("Horas informadas são inválidas");
+                    }
+                }else{
+                    this.repositorioAlunos.atualizarAluno(aluno, aluno);
+                }
+            }else{
+                throw new NotasInvalidasException("Nota informada inválida");
+            }
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
     public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
         if(this.repositorioUsuarios.existeNoBanco(usuario)){
             Usuario usuarioTemp = new Usuario(nome, cpf, data, email, contato, senha);

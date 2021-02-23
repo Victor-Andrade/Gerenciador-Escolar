@@ -82,13 +82,13 @@ public class FachadaAdministrador {
         return this.negocioAdministrador.todosOsProfessores();
     }
 
-    public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException,
+    public Aluno buscarAluno(Aluno aluno) throws IOException, ClassNotFoundException,
             InvalidDateException, AlunoNotFoundException {
         return this.negocioProfessor.buscarAluno(aluno);
     }
 
-    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException, TurmaNaoExisteException {
-        return  this.negocioTurma.pegarTurma(id);
+    public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
+        return this.negocioTurma.pegarTurma(id);
     }
 
     public List<Usuario> getUsuariosLogin() throws IOException, ClassNotFoundException {
@@ -96,8 +96,8 @@ public class FachadaAdministrador {
     }
 
     public void adicionarTurmaEmProfessor(Turma turma, Professor professor)
-            throws ClassNotFoundException, UsuarioNotFoundException, UsuarioAlreadyRegisteredException,
-            TurmaNaoExisteException, IOException, TurmaRepetidaException, UsuarioNotFoundException, TurmaRepetidaException {
+            throws ClassNotFoundException, UsuarioAlreadyRegisteredException,
+            TurmaNaoExisteException, IOException, UsuarioNotFoundException, TurmaRepetidaException {
         this.negocioTurma.adicionarTurmaEmProfessor(turma, professor);
     }
 
@@ -120,6 +120,10 @@ public class FachadaAdministrador {
     public void excluirUsuario(Usuario pessoa) throws UsuarioNotFoundException,
             IOException, ClassNotFoundException, InvalidDateException {
         this.negocioAdministrador.removerUsuario(pessoa);
+    }
+
+    public void excluirAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, InvalidDateException, IOException {
+        this.negocioAdministrador.removerAluno(aluno);
     }
 
     public Turma ultimaTurmaAdicionada() throws TurmaNaoExisteException, IOException, ClassNotFoundException {
@@ -154,6 +158,14 @@ public class FachadaAdministrador {
 
     public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
         this.negocioProfessor.gerarCertificadoDeCurso(aluno);
+    }
+
+    public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
+        this.negocioAdministrador.atualizarNotasAluno(aluno);
+    }
+
+    public void atualizarDadosPessoaisAluno(Aluno aluno, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException {
+        this.negocioAdministrador.atualizarInformacoesAluno(aluno, nome, cpf, data, email, contato, emailResponsavel);
     }
 
     //USO DO MÉTODO?

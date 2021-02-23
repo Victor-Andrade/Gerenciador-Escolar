@@ -30,4 +30,8 @@ public class Curso implements Serializable {
     public void adicionarHoras() {
         this.horas += 2;
     }
+
+    public void removerHoras(){
+        this.horas -= 2;
+    }
 }

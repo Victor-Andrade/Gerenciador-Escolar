@@ -77,4 +77,13 @@ public class Materia implements Serializable {
         this.quartoBimestre.setNota1(n1);
         this.quartoBimestre.setNota2(n2);
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof Materia){
+            Materia materia = (Materia) obj;
+            return materia.getNome().equals(this.nome);
+        }
+        return false;
+    }
 }

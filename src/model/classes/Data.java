@@ -3,6 +3,7 @@ package model.classes;
 import model.excecoes.InvalidDateException;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Classe responsável por guardar uma data
@@ -19,6 +20,14 @@ public class Data implements Serializable {
             this.ano = ano;
             this.dia = dia;
             this.mes = mes;
+        }
+    }
+
+    public Data(LocalDate data) throws InvalidDateException {
+        if(verificarData(data.getYear(), data.getMonthValue(), data.getDayOfMonth())){
+            this.ano = data.getYear();
+            this.dia = data.getDayOfMonth();
+            this.mes = data.getMonthValue();
         }
     }
     public int contarDias(){
