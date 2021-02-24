@@ -10,9 +10,9 @@ import model.classes.Turma;
 import model.cruds.CRUDTurma;
 import model.cruds.CRUDUsuarios;
 import model.excecoes.*;
-import model.negocios.NegocioAdministrador;
+import model.negocios.NegocioAluno;
+import model.negocios.NegocioUsuario;
 import model.cruds.CRUDAlunos;
-import model.negocios.NegocioProfessor;
 import model.negocios.NegocioTurma;
 
 import java.io.FileOutputStream;
@@ -27,25 +27,25 @@ import java.util.List;
  * @author Victor Hugo e Pedro Vinícius
  */
 public class FachadaAdministrador {
-    private final NegocioAdministrador negocioAdministrador;
-    private final NegocioProfessor negocioProfessor;
+    private final NegocioUsuario negocioUsuario;
+    private final NegocioAluno negocioAluno;
     private final NegocioTurma negocioTurma;
 
     public FachadaAdministrador(){
-        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos());
-        this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios());
+        this.negocioAluno = new NegocioAluno(new CRUDAlunos());
+        this.negocioUsuario = new NegocioUsuario(new CRUDAlunos(), new CRUDUsuarios());
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
     }
 
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
             throws ClassNotFoundException, InvalidFieldException, UsuarioAlreadyRegisteredException,
             InvalidDateException, IOException {
-        this.negocioAdministrador.adicionarAdministrador(nome, cpf, data, email, contato, senha);
+        this.negocioUsuario.adicionarAdministrador(nome, cpf, data, email, contato, senha);
     }
 
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
             throws UsuarioAlreadyRegisteredException, IOException, ClassNotFoundException, InvalidFieldException {
-        this.negocioAdministrador.adicionarProfessor(nome, cpf,  data, email, contato, senha);
+        this.negocioUsuario.adicionarProfessor(nome, cpf,  data, email, contato, senha);
     }
 
     public void adicionarTurma(String apelido, List<String> alunos)
@@ -56,18 +56,18 @@ public class FachadaAdministrador {
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato, String emailResponsavel)
             throws ClassNotFoundException, InvalidFieldException, AlunoAlredyRegisteredException,
             InvalidDateException, IOException {
-        this.negocioAdministrador.matricularAluno(nome, cpf, data, email,  contato, emailResponsavel);
+        this.negocioAluno.matricularAluno(nome, cpf, data, email,  contato, emailResponsavel);
     }
 
     public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato,
                                          String emailResponsavel, String curso) throws ClassNotFoundException,
                                          InvalidFieldException, AlunoAlredyRegisteredException,
                                          InvalidDateException, IOException {
-        this.negocioAdministrador.matricularAlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, curso);
+        this.negocioAluno.matricularAlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, curso);
     }
 
     public ArrayList<String> todosOsAlunos() throws IOException, ClassNotFoundException {
-        return this.negocioAdministrador.todosOsAlunos();
+        return this.negocioAluno.todosOsAlunosString();
     }
 
     public ArrayList<String> todasAsTurmas() throws IOException, ClassNotFoundException {
@@ -75,16 +75,16 @@ public class FachadaAdministrador {
     }
 
     public ArrayList<String> todosOsUsuarios() throws IOException, ClassNotFoundException {
-        return this.negocioAdministrador.todosOsUsuariosString();
+        return this.negocioUsuario.todosOsUsuariosString();
     }
 
     public ArrayList<String> todosOsProfessores() throws IOException, ClassNotFoundException {
-        return this.negocioAdministrador.todosOsProfessores();
+        return this.negocioUsuario.todosOsProfessores();
     }
 
     public Aluno buscarAluno(Aluno aluno) throws IOException, ClassNotFoundException,
             InvalidDateException, AlunoNotFoundException {
-        return this.negocioProfessor.buscarAluno(aluno);
+        return this.negocioAluno.buscarAluno(aluno);
     }
 
     public Turma buscarTurma(double id) throws ClassNotFoundException, IOException, TurmaNaoExisteException {
@@ -92,7 +92,7 @@ public class FachadaAdministrador {
     }
 
     public List<Usuario> getUsuariosLogin() throws IOException, ClassNotFoundException {
-        return this.negocioAdministrador.todosOsUsuarios();
+        return this.negocioUsuario.todosOsUsuarios();
     }
 
     public void adicionarTurmaEmProfessor(Turma turma, Professor professor)
@@ -119,11 +119,11 @@ public class FachadaAdministrador {
 
     public void excluirUsuario(Usuario pessoa) throws UsuarioNotFoundException,
             IOException, ClassNotFoundException, InvalidDateException {
-        this.negocioAdministrador.removerUsuario(pessoa);
+        this.negocioUsuario.removerUsuario(pessoa);
     }
 
     public void excluirAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, InvalidDateException, IOException {
-        this.negocioAdministrador.removerAluno(aluno);
+        this.negocioAluno.removerAluno(aluno);
     }
 
     public Turma ultimaTurmaAdicionada() throws TurmaNaoExisteException, IOException, ClassNotFoundException {
@@ -132,7 +132,7 @@ public class FachadaAdministrador {
 
     public Usuario buscarUsuario(Usuario usuario)
             throws UsuarioNotFoundException, IOException, ClassNotFoundException, InvalidDateException {
-        return this.negocioAdministrador.buscarUsuario(usuario);
+        return this.negocioUsuario.buscarUsuario(usuario);
     }
 
     public void atualizarTurma(Turma turma, String apelido, List<String> alunos)
@@ -145,27 +145,27 @@ public class FachadaAdministrador {
     }
 
     public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
-        this.negocioAdministrador.atualizarInformacoesUsuario(usuario, nome, cpf, data, email, contato, senha);
+        this.negocioUsuario.atualizarInformacoesUsuario(usuario, nome, cpf, data, email, contato, senha);
     }
 
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        this.negocioProfessor.gerarBoletim(aluno);
+        this.negocioAluno.gerarBoletim(aluno);
     }
 
     public void gerarCertificadoDeMatricula(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        this.negocioProfessor.gerarCertificadoDeMatricula(aluno);
+        this.negocioAluno.gerarCertificadoDeMatricula(aluno);
     }
 
     public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        this.negocioProfessor.gerarCertificadoDeCurso(aluno);
+        this.negocioAluno.gerarCertificadoDeCurso(aluno);
     }
 
     public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
-        this.negocioAdministrador.atualizarNotasAluno(aluno);
+        this.negocioAluno.atualizarNotasAluno(aluno);
     }
 
     public void atualizarDadosPessoaisAluno(Aluno aluno, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException, AlunoAlredyRegisteredException, AlunoNotFoundException {
-        this.negocioAdministrador.atualizarInformacoesAluno(aluno, nome, cpf, data, email, contato, emailResponsavel);
+        this.negocioAluno.atualizarInformacoesAluno(aluno, nome, cpf, data, email, contato, emailResponsavel);
     }
 
     //USO DO MÉTODO?

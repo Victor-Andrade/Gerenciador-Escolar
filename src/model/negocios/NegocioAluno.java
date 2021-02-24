@@ -1,39 +1,26 @@
 package model.negocios;
 
 import model.classes.Data;
-import model.excecoes.*;
-import model.interfaces.IRepositorioUsuarios;
+import model.classes.faltas.Falta;
+import model.classes.faltas.FaltaJustificada;
 import model.classes.materia.Curso;
-import model.interfaces.IRepositorioAlunos;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
-import model.classes.pessoas.usuarios.Administrador;
-import model.classes.pessoas.usuarios.Professor;
-import model.classes.pessoas.usuarios.Usuario;
 import model.classesUtilitarias.Verificacao;
+import model.excecoes.*;
+import model.interfaces.IRepositorioAlunos;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Classe responsável por realizar a funcionalidades do administrador
- *
- * @author Victor Hugo e Pedro Vinícius
- */
+public class NegocioAluno {
+    private IRepositorioAlunos repositorioAlunos;
 
-public class NegocioAdministrador {
-
-    private final IRepositorioAlunos repositorioAlunos;
-    private final IRepositorioUsuarios repositorioUsuarios;
-
-
-    public NegocioAdministrador(IRepositorioAlunos repositorioAlunos, IRepositorioUsuarios repositorioUsuarios) {
+    public NegocioAluno(IRepositorioAlunos repositorioAlunos ){
         this.repositorioAlunos = repositorioAlunos;
-        this.repositorioUsuarios = repositorioUsuarios;
     }
 
-    public ArrayList<String> todosOsAlunos() throws IOException, ClassNotFoundException {
+    public ArrayList<String> todosOsAlunosString() throws IOException, ClassNotFoundException {
         ArrayList<String> alunos = new ArrayList<>();
         for (Aluno aluno : this.repositorioAlunos.todosOsAlunosArray()) {
             alunos.add(aluno.getNome());
@@ -41,29 +28,6 @@ public class NegocioAdministrador {
         return alunos;
     }
 
-    public ArrayList<String> todosOsProfessores() throws IOException, ClassNotFoundException {
-        ArrayList<String> professores = new ArrayList<>();
-        for (Usuario pessoa : this.repositorioUsuarios.todosOsUsuariosArray()) {
-            if (pessoa instanceof Professor) {
-                professores.add(pessoa.getNome());
-            }
-        }
-        return professores;
-    }
-
-    public ArrayList<String> todosOsUsuariosString() throws IOException, ClassNotFoundException {
-        ArrayList<String> pessoas = new ArrayList<>();
-        for (Usuario pessoa : this.repositorioUsuarios.todosOsUsuariosArray()) {
-            pessoas.add(pessoa.getNome());
-        }
-        return pessoas;
-    }
-
-    public List<Usuario> todosOsUsuarios() throws IOException, ClassNotFoundException {
-        return this.repositorioUsuarios.todosOsUsuariosArray();
-    }
-
-    //MÉTODOS DE ADIÇÃO NO BANCO DE DADOS
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato,
                                 String emailResponsavel) throws IOException, ClassNotFoundException,
             AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
@@ -91,35 +55,9 @@ public class NegocioAdministrador {
         }
     }
 
-    public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
-            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
-        Professor professor = new Professor(nome, cpf, data, email, contato, senha);
-        if (Verificacao.verificarSenha(professor)) {
-            if (!repositorioUsuarios.existeNoBanco(professor)) {
-                this.repositorioUsuarios.adicionarUsuario(professor);
-            } else {
-                throw new UsuarioAlreadyRegisteredException(professor.getNome());
-            }
-        }else{
-            throw new InvalidFieldException("Senha", senha);
-        }
+    public Aluno buscarAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        return repositorioAlunos.buscarAluno(aluno);
     }
-
-    public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
-            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
-        Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
-        if (Verificacao.verificarSenha(admin)) {
-            if (!repositorioUsuarios.existeNoBanco(admin)) {
-                this.repositorioUsuarios.adicionarUsuario(admin);
-            } else {
-                throw new UsuarioAlreadyRegisteredException(admin.getNome());
-            }
-        }else{
-            throw new InvalidFieldException("Senha", senha);
-        }
-    }
-
-    //MÉTODOS DE REMOÇÃO NO BANCO DE DADOS
 
     public void removerAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException,
             InvalidDateException {
@@ -129,22 +67,6 @@ public class NegocioAdministrador {
             throw new AlunoNotFoundException(aluno.getNome());
         }
     }
-
-    public void removerUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
-        if (repositorioUsuarios.existeNoBanco(usuario)) {
-            repositorioUsuarios.removerUsuario(usuario);
-        } else {
-            throw new UsuarioNotFoundException(usuario.getNome());
-        }
-    }
-
-    //MÉTODOS DE BUSCA NO BANCO DE DADOS
-
-    public Usuario buscarUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
-        return this.repositorioUsuarios.buscarUsuario(usuario);
-    }
-
-    //MÉTODOS DE ATUALIZAÇÃO NO BANCO DE DADOS
 
     public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email,
                                           String contato, String emailResponsavel)
@@ -160,6 +82,36 @@ public class NegocioAdministrador {
             }
         }else{
             throw new AlunoNotFoundException(alunoAntigo.getNome());
+        }
+    }
+
+    //Gera o boletim de um aluno qualquer
+    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            alunoBanco.gerarBoletim();
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            alunoBanco.gerarCertificadoDeMatricula();
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
+            if(alunoBanco instanceof AlunoHoraExtra){
+                alunoBanco.gerarCertificadoDeMatricula();
+            }
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
@@ -183,34 +135,45 @@ public class NegocioAdministrador {
         }
     }
 
-    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
-        if(this.repositorioUsuarios.existeNoBanco(usuario)){
-            Usuario usuarioTemp = new Usuario(nome, cpf, data, email, contato, senha);
-            if(!repositorioUsuarios.existeNoBanco(usuarioTemp)){
-                if(verificarCampos(nome, cpf, data, email, contato)){
-                    if(Verificacao.verificarSenha(usuarioTemp)){
-                        this.repositorioUsuarios.atualizarUsuario(usuario, usuarioTemp);
-                    }else{
-                        throw new InvalidFieldException("Senha", usuario.getSenha());
-                    }
+    public ArrayList<String> todosAlunosComFaltasJustificadas() throws IOException, ClassNotFoundException {
+        ArrayList<String> alunos = new ArrayList<>();
+        for(Aluno aluno: this.repositorioAlunos.todosOsAlunosArray()){
+            for(Falta falta: aluno.getFaltas()){
+                if(falta instanceof FaltaJustificada){
+                    alunos.add(aluno.getNome());
                 }
-            }else{
-                throw new UsuarioAlreadyRegisteredException(usuario.getNome());
             }
+        }
+        return alunos;
+    }
+
+    public void adicionarFalta(Aluno aluno, String mensagem, Data data) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            aluno.adicionarFalta(new Falta(data, mensagem, encontrarIdFalta(aluno)));
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
         }else{
-            throw new UsuarioNotFoundException(usuario.getNome());
+            throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
-    /*public void confirmarJustificativaDeFalta(Aluno aluno)
-            throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        if (this.repositorioAlunos.existeNoBanco(aluno)) {
-            aluno.removerFalta();
+    public void adicionarFaltaJustificada(Aluno aluno, String mensagem, Data data, String caminho) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            aluno.adicionarFalta(new FaltaJustificada(data, mensagem, caminho, encontrarIdFalta(aluno)));
             this.repositorioAlunos.atualizarAluno(aluno, aluno);
-        } else {
+        }else{
             throw new AlunoNotFoundException(aluno.getNome());
         }
-    }*/
+    }
+
+    public int encontrarIdFalta(Aluno aluno){
+        int maior = 0;
+        for(Falta falta: aluno.getFaltas()){
+            if(falta.getId()> maior){
+                maior = falta.getId();
+            }
+        }
+        return maior+1;
+    }
 
     //Verifica os dados do alunos, não considera se ele já se encontra no banco ####ADICIONAR ALGUMA REGRA NO NOME
     private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato)

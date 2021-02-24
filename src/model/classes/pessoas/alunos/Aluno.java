@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import model.classes.Data;
+import model.classes.Situacao;
 import model.classes.faltas.Falta;
 import model.excecoes.InvalidDateException;
 import model.classes.materia.Bimestre;
@@ -24,7 +25,8 @@ import java.util.List;
 public class Aluno extends Pessoa {
     private final List<Materia> materias;
     private String emailPais;
-    private List<Falta> faltas;
+    private final List<Falta> faltas;
+    private final List<Situacao> situacoes;
 
     public Aluno(String nome, String cpf, Data data, String email, String contato, String emailPais)
             throws InvalidDateException {
@@ -32,6 +34,7 @@ public class Aluno extends Pessoa {
         this.materias =  new ArrayList<>();
         this.emailPais = emailPais;
         this.faltas = new ArrayList<>();
+        this.situacoes = new ArrayList<>();
         inicializarMaterias();
     }
 
@@ -59,6 +62,15 @@ public class Aluno extends Pessoa {
         return this.faltas;
     }
 
+    public Falta getFalta(int id){
+        for(Falta falta: this.faltas){
+            if(falta.getId() == id){
+                return falta;
+            }
+        }
+        return null;
+    }
+
     public int[] contarFaltas(){
         int contadorJustificadas = 0;
         int contadorNaoJustificadas = 0;
@@ -70,6 +82,27 @@ public class Aluno extends Pessoa {
             }
         }
         return new int[]{contadorJustificadas, contadorNaoJustificadas};
+    }
+
+    public void adicionarSituacao(Situacao situacao){
+        this.situacoes.add(situacao);
+    }
+
+    public void removerSituacao(Situacao situacao){
+        this.situacoes.remove(situacao);
+    }
+
+    public List<Situacao> getSituacoes(){
+        return this.situacoes;
+    }
+
+    public Situacao getSituacao(int id){
+        for(Situacao situacao: this.situacoes){
+            if(situacao.getId() == id){
+                return situacao;
+            }
+        }
+        return null;
     }
 
     public void gerarBoletim(){

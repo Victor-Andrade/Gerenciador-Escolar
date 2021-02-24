@@ -11,16 +11,14 @@ import java.io.Serializable;
  */
 
 public class Falta implements Serializable, IFalta {
+    private int id;
     private Data data;
-    private String cpf;
+    private String mensagem;
 
-    public Falta(Data data, String cpf) {
+    public Falta(Data data, String mensagem, int id) {
         this.data = data;
-        this.cpf = cpf;
-    }
-
-    public String getCpf(){
-        return this.cpf;
+        this.mensagem = mensagem;
+        this.id = id;
     }
 
     public Data getData(){
@@ -31,15 +29,26 @@ public class Falta implements Serializable, IFalta {
         this.data = data;
     }
 
-    public void setCpf(String cpf){
-        this.cpf = cpf;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Data){
-            Data comp = (Data) obj;
-            return comp.equals(this.data);
+        if(obj instanceof Falta){
+            return ((Falta) obj).getId() == this.id;
         }
         return false;
     }

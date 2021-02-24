@@ -5,8 +5,8 @@ import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
 import model.cruds.CRUDTurma;
 import model.cruds.CRUDUsuarios;
-import model.negocios.NegocioAdministrador;
-import model.negocios.NegocioProfessor;
+import model.negocios.NegocioAluno;
+import model.negocios.NegocioUsuario;
 import model.negocios.NegocioTurma;
 import model.classes.Turma;
 
@@ -19,18 +19,18 @@ import java.io.IOException;
  */
 public class FachadaProfessor {
     private final NegocioTurma negocioTurma;
-    private final NegocioProfessor negocioProfessor;
-    private final NegocioAdministrador negocioAdministrador;
+    private final NegocioAluno negocioAluno;
+    private final NegocioUsuario negocioUsuario;
 
     public FachadaProfessor() {
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
-        this.negocioProfessor = new NegocioProfessor(new CRUDAlunos());
-        this.negocioAdministrador = new NegocioAdministrador(new CRUDAlunos(), new CRUDUsuarios());
+        this.negocioAluno = new NegocioAluno(new CRUDAlunos());
+        this.negocioUsuario = new NegocioUsuario(new CRUDAlunos(), new CRUDUsuarios());
 
     }
 
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        this.negocioProfessor.gerarBoletim(aluno);
+        this.negocioAluno.gerarBoletim(aluno);
     }
 
     public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
@@ -50,10 +50,10 @@ public class FachadaProfessor {
     }
 
     public Aluno buscarAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        return this.negocioProfessor.buscarAluno(aluno);
+        return this.negocioAluno.buscarAluno(aluno);
     }
 
     public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
-        this.negocioAdministrador.atualizarNotasAluno(aluno);
+        this.negocioAluno.atualizarNotasAluno(aluno);
     }
 }
