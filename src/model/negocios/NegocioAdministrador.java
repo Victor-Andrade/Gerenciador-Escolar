@@ -92,7 +92,7 @@ public class NegocioAdministrador {
     }
 
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
-            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
+            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
         Professor professor = new Professor(nome, cpf, data, email, contato, senha);
         if (Verificacao.verificarSenha(professor)) {
             if (!repositorioUsuarios.existeNoBanco(professor)) {
@@ -100,11 +100,13 @@ public class NegocioAdministrador {
             } else {
                 throw new UsuarioAlreadyRegisteredException(professor.getNome());
             }
+        }else{
+            throw new InvalidFieldException("Senha", senha);
         }
     }
 
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
-            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException {
+            throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
         Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
         if (Verificacao.verificarSenha(admin)) {
             if (!repositorioUsuarios.existeNoBanco(admin)) {
@@ -112,6 +114,8 @@ public class NegocioAdministrador {
             } else {
                 throw new UsuarioAlreadyRegisteredException(admin.getNome());
             }
+        }else{
+            throw new InvalidFieldException("Senha", senha);
         }
     }
 
@@ -144,11 +148,18 @@ public class NegocioAdministrador {
 
     public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email,
                                           String contato, String emailResponsavel)
-            throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
+            throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, AlunoAlredyRegisteredException, AlunoNotFoundException {
         if (repositorioAlunos.existeNoBanco(alunoAntigo)) {
-            if (verificarCampos(nome, cpf, data, email, contato)) {
-                repositorioAlunos.atualizarAluno(alunoAntigo, new Aluno(nome, cpf, data, email, contato, emailResponsavel));
+            Aluno aluno = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+            if(!repositorioAlunos.existeNoBanco(aluno) || (alunoAntigo.getCpf().equalsIgnoreCase(aluno.getCpf()) && alunoAntigo.getNome().equalsIgnoreCase(aluno.getNome()))){
+                if (verificarCampos(nome, cpf, data, email, contato)) {
+                    repositorioAlunos.atualizarAluno(alunoAntigo, aluno);
+                }
+            }else{
+                throw new AlunoAlredyRegisteredException(aluno.getNome(), aluno.getCpf());
             }
+        }else{
+            throw new AlunoNotFoundException(alunoAntigo.getNome());
         }
     }
 
@@ -172,7 +183,7 @@ public class NegocioAdministrador {
         }
     }
 
-    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException {
+    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
         if(this.repositorioUsuarios.existeNoBanco(usuario)){
             Usuario usuarioTemp = new Usuario(nome, cpf, data, email, contato, senha);
             if(!repositorioUsuarios.existeNoBanco(usuarioTemp)){
@@ -180,14 +191,18 @@ public class NegocioAdministrador {
                     if(Verificacao.verificarSenha(usuarioTemp)){
                         this.repositorioUsuarios.atualizarUsuario(usuario, usuarioTemp);
                     }else{
-                        throw new InvalidFieldException(usuario.getSenha());
+                        throw new InvalidFieldException("Senha", usuario.getSenha());
                     }
                 }
+            }else{
+                throw new UsuarioAlreadyRegisteredException(usuario.getNome());
             }
+        }else{
+            throw new UsuarioNotFoundException(usuario.getNome());
         }
     }
 
-    public void confirmarJustificativaDeFalta(Aluno aluno)
+    /*public void confirmarJustificativaDeFalta(Aluno aluno)
             throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if (this.repositorioAlunos.existeNoBanco(aluno)) {
             aluno.removerFalta();
@@ -195,7 +210,7 @@ public class NegocioAdministrador {
         } else {
             throw new AlunoNotFoundException(aluno.getNome());
         }
-    }
+    }*/
 
     //Verifica os dados do alunos, não considera se ele já se encontra no banco ####ADICIONAR ALGUMA REGRA NO NOME
     private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato)

@@ -1,7 +1,7 @@
 package model.cruds;
 
 import model.classes.Data;
-import model.classes.Falta;
+import model.classes.faltas.Falta;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class CRUDFaltas {
     public void justificarFalta(Data data, String documento) throws ClassNotFoundException, IOException {
         for (Falta falta : this.faltas) {
             if(data.equals(falta.getData())){
-                falta.justificar(documento);
+                //falta.justificar(documento);
                 this.salvarAlteracoes();
                 return;
             }

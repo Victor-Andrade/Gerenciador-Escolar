@@ -75,7 +75,7 @@ public class ControllerLogin {
                 controller.setParametros(this.stage, (Professor) pessoa, new FachadaProfessor());
                 fxmlLoader.setController(controller);
             }else if(pessoa instanceof Administrador){
-                fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
                 ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
                 controller.setParametros(this.stage, (Administrador) pessoa, new FachadaAdministrador());
                 fxmlLoader.setController(controller);

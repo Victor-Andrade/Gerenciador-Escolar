@@ -27,7 +27,7 @@ public class NegocioProfessor {
     }
 
     //Adiciona uma falta em um aluno e atualiza o repositorio ++++++++ FALTA IMPLEMENTAR
-    public void adicionarFalta(Aluno aluno, Data data, boolean justificar)
+    /*public void adicionarFalta(Aluno aluno, Data data, boolean justificar)
             throws AlunoNotFoundException, IOException, ClassNotFoundException, AlunoAlredyRegisteredException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             aluno.adicionarFalta();
@@ -36,7 +36,7 @@ public class NegocioProfessor {
         }else{
             throw new AlunoNotFoundException(aluno.getCpf());
         }
-    }
+    }*/
 
     //Gera o boletim de um aluno qualquer
     public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {

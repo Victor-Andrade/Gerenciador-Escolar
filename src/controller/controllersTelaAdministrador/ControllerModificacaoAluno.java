@@ -12,14 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Data;
-import model.excecoes.AlunoNotFoundException;
-import model.excecoes.InvalidDateException;
+import model.excecoes.*;
 import model.classes.materia.Materia;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
-import model.excecoes.InvalidFieldException;
-import model.excecoes.NotasInvalidasException;
 import model.fachada.FachadaAdministrador;
 
 import java.io.IOException;
@@ -147,7 +144,7 @@ public class ControllerModificacaoAluno implements Initializable {
                 this.AlunoSelecionado = null;
                 reiniciarLayoutAluno();
                 this.aviso.setText("Atualizado com sucesso");
-            } catch (InvalidDateException | InvalidFieldException | ClassNotFoundException | IOException e) {
+            } catch (InvalidDateException | InvalidFieldException | ClassNotFoundException | IOException | AlunoNotFoundException | AlunoAlredyRegisteredException e) {
                 this.aviso.setText(e.getMessage());
             } catch (NullPointerException e){
                 this.aviso.setText("Dados não preenchidos");
@@ -225,7 +222,7 @@ public class ControllerModificacaoAluno implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

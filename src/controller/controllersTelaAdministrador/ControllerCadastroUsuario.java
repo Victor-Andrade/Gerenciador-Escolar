@@ -91,7 +91,7 @@ public class ControllerCadastroUsuario implements Initializable {
                 this.fachadaAdministrador.adicionarProfessor(nome.getText(), cpf.getText(), data,
                         email.getText(), contato.getText(), senha.getText());
                 this.aviso.setText("Adicionado com sucesso!");
-            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException e){
+            }catch(InvalidDateException | IOException | UsuarioAlreadyRegisteredException | ClassNotFoundException | InvalidFieldException e){
                 this.aviso.setText(e.getMessage());
             }
         }else{
@@ -116,7 +116,7 @@ public class ControllerCadastroUsuario implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

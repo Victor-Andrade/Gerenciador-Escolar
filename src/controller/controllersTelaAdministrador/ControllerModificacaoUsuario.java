@@ -70,24 +70,27 @@ public class ControllerModificacaoUsuario implements Initializable {
         String email = this.email.getText();
         try{
             LocalDate dataTemp = this.dataSelecao.getValue();
-            Data data = new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth());
-            if(this.administradorSelecionado != null){
-                this.fachadaAdministrador.atualizarInformacoesUsuario(this.administradorSelecionado, nome, cpf, data, email, contato, senha);
-                reiniciarCampos();
-                inicializarListaUsuarios();
-                this.aviso.setText("Atualizado com sucesso!");
-            }else if(this.professorSelecionado != null){
-                this.fachadaAdministrador.atualizarInformacoesUsuario(this.professorSelecionado, nome, cpf, data, email, contato, senha);
-                reiniciarCampos();
-                inicializarListaUsuarios();
-                this.aviso.setText("Atualizado com sucesso!");
+            if(dataTemp != null){
+                Data data = new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth());
+                if(this.administradorSelecionado != null){
+                    this.fachadaAdministrador.atualizarInformacoesUsuario(this.administradorSelecionado, nome, cpf, data, email, contato, senha);
+                    reiniciarCampos();
+                    inicializarListaUsuarios();
+                    this.aviso.setText("Atualizado com sucesso!");
+                }else if(this.professorSelecionado != null){
+                    this.fachadaAdministrador.atualizarInformacoesUsuario(this.professorSelecionado, nome, cpf, data, email, contato, senha);
+                    reiniciarCampos();
+                    inicializarListaUsuarios();
+                    this.aviso.setText("Atualizado com sucesso!");
+                }else{
+                    this.aviso.setText("Usuário não selecionado");
+                }
             }else{
-                this.aviso.setText("Usuário não selecionado");
+                this.aviso.setText("Data não selecionada");
             }
-        } catch (InvalidDateException | IOException | InvalidFieldException | ClassNotFoundException e) {
+        } catch (UsuarioNotFoundException | UsuarioAlreadyRegisteredException  |InvalidDateException | IOException | InvalidFieldException | ClassNotFoundException e) {
             this.aviso.setText(e.getMessage());
         }
-
     }
     /**
      *
@@ -136,6 +139,7 @@ public class ControllerModificacaoUsuario implements Initializable {
                     this.fachadaAdministrador.adicionarTurmaEmProfessor(turma, this.professorSelecionado);
                     inicializarUsuario();
                     iniciarDadosProfessor(this.professorSelecionado);
+                    this.aviso.setText("Adicionada com sucesso");
                 } catch (IOException | TurmaRepetidaException | UsuarioAlreadyRegisteredException | UsuarioNotFoundException | ClassNotFoundException | TurmaNaoExisteException e) {
                     this.aviso.setText(e.getMessage());
                 }
@@ -150,7 +154,7 @@ public class ControllerModificacaoUsuario implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

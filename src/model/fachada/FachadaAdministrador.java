@@ -44,7 +44,7 @@ public class FachadaAdministrador {
     }
 
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
-            throws UsuarioAlreadyRegisteredException, IOException, ClassNotFoundException {
+            throws UsuarioAlreadyRegisteredException, IOException, ClassNotFoundException, InvalidFieldException {
         this.negocioAdministrador.adicionarProfessor(nome, cpf,  data, email, contato, senha);
     }
 
@@ -103,7 +103,7 @@ public class FachadaAdministrador {
 
     public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
             throws ClassNotFoundException, AlunoNotFoundException,
-            TurmaNaoExisteException, IOException, InvalidDateException {
+            TurmaNaoExisteException, IOException, InvalidDateException, AlunoAlredyRegisteredException {
         this.negocioTurma.adicionarAlunoEmTurma(turma, aluno);
     }
 
@@ -144,7 +144,7 @@ public class FachadaAdministrador {
         this.negocioTurma.removerTurmaDoProfessor(turma, professor);
     }
 
-    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException {
+    public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
         this.negocioAdministrador.atualizarInformacoesUsuario(usuario, nome, cpf, data, email, contato, senha);
     }
 
@@ -164,7 +164,7 @@ public class FachadaAdministrador {
         this.negocioAdministrador.atualizarNotasAluno(aluno);
     }
 
-    public void atualizarDadosPessoaisAluno(Aluno aluno, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException {
+    public void atualizarDadosPessoaisAluno(Aluno aluno, String nome, String cpf, Data data, String email, String contato, String emailResponsavel) throws ClassNotFoundException, InvalidFieldException, InvalidDateException, IOException, AlunoAlredyRegisteredException, AlunoNotFoundException {
         this.negocioAdministrador.atualizarInformacoesAluno(aluno, nome, cpf, data, email, contato, emailResponsavel);
     }
 

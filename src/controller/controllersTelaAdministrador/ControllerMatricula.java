@@ -89,6 +89,7 @@ public class ControllerMatricula implements Initializable {
                 Data data = new Data(dataLayout.getYear(), dataLayout.getMonthValue(), dataLayout.getDayOfMonth());
                 this.fachadaAdministrador.matricularAluno(nome.getText(), cpf.getText(),
                         data, email.getText(), contato.getText(), emailPais.getText());
+                this.aviso.setText("Adicionado com sucesso");
             }catch(ClassNotFoundException | InvalidFieldException | AlunoAlredyRegisteredException
                     | InvalidDateException |IOException e){
                 this.aviso.setText(e.getMessage());
@@ -114,7 +115,7 @@ public class ControllerMatricula implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

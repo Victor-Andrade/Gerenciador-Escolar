@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Data;
+import model.excecoes.AlunoAlredyRegisteredException;
 import model.excecoes.AlunoNotFoundException;
 import model.excecoes.InvalidDateException;
 import model.excecoes.TurmaNaoExisteException;
@@ -60,7 +61,7 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
                 this.campoAluno.setText("");
             }catch (ClassNotFoundException | IOException e){
                 aviso.setText("Erro interno no banco");
-            }catch(AlunoNotFoundException | TurmaNaoExisteException | InvalidDateException e){
+            }catch(AlunoAlredyRegisteredException | AlunoNotFoundException | TurmaNaoExisteException | InvalidDateException e){
                 aviso.setText(e.getMessage());
             }
         }else{
@@ -139,7 +140,7 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
     @FXML
     private void continuar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/T3 Professor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/InfoAluno.fxml"));
 
             ControllerInfoAluno controller = new ControllerInfoAluno();
 

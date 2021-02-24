@@ -2,7 +2,7 @@ package model.negocios;
 
 import model.classes.Data;
 import model.excecoes.AlunoNotFoundException;
-import model.classes.Falta;
+import model.classes.faltas.Falta;
 import model.cruds.CRUDFaltas;
 import model.classesUtilitarias.GerenciadorDeArquivos;
 
@@ -26,10 +26,10 @@ public class NegocioFaltas {
         return GerenciadorDeArquivos.existe(crud.getEndereco());
     }
 
-    public void adicionarFalta(String cpf, Data d, boolean justificada, String caminhoDocumento) throws IOException {
+    /*public void adicionarFalta(String cpf, Data d, boolean justificada, String caminhoDocumento) throws IOException {
         Falta falta = new Falta(d, justificada, caminhoDocumento);
         crudFaltas.adicionarFalta(falta);
-    }
+    }*/
 
     public void removerFalta(String cpf, Data d) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(cpf.equals(crudFaltas.getCpfAluno()) ){

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="461.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="87.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="77.0" text=" Boletim" />
+      <Button layoutX="173.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="146.0" text="Certificado de Matrícula" />
+      <Button layoutX="325.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="124.0" text="Certificado de curso" />
+      <Text fx:id="nome" layoutX="21.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" textAlignment="CENTER" wrappingWidth="422.619140625" />
+      <Text fx:id="email" layoutX="21.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="422.619140625" />
+      <CheckBox fx:id="enviarEmail" layoutX="319.0" layoutY="140.0" mnemonicParsing="false" text="Enviar por email" />
+      <Text layoutX="19.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrador, note que seu email deve estar previamente autorizado para realização do envio por email" wrappingWidth="182.12890625" />
+      <Label layoutX="38.0" layoutY="81.0" text="Mensagem: " />
+      <TextField fx:id="mensagem" layoutX="110.0" layoutY="77.0" prefHeight="25.0" prefWidth="334.0" />
+      <Button layoutX="14.0" layoutY="198.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="65.0" text="Voltar" />
+   </children>
+</AnchorPane>

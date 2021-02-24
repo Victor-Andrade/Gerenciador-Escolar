@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import model.classes.Data;
+import model.classes.faltas.Falta;
 import model.excecoes.InvalidDateException;
 import model.classes.materia.Bimestre;
 import model.classes.materia.Materia;
@@ -22,15 +23,15 @@ import java.util.List;
 
 public class Aluno extends Pessoa {
     private final List<Materia> materias;
-    private int faltas;
     private String emailPais;
+    private List<Falta> faltas;
 
     public Aluno(String nome, String cpf, Data data, String email, String contato, String emailPais)
             throws InvalidDateException {
         super(nome, cpf, data, email, contato);
         this.materias =  new ArrayList<>();
         this.emailPais = emailPais;
-        this.faltas = 0;
+        this.faltas = new ArrayList<>();
         inicializarMaterias();
     }
 
@@ -46,16 +47,29 @@ public class Aluno extends Pessoa {
         return this.materias;
     }
 
-    public void adicionarFalta(){
-        this.faltas++;
+    public void adicionarFalta(Falta falta){
+        this.faltas.add(falta);
     }
 
-    public void removerFalta(){
-        this.faltas--;
+    public void removerFalta(Falta falta){
+        this.faltas.remove(falta);
     }
 
-    public int getFaltas(){
+    public List<Falta> getFaltas(){
         return this.faltas;
+    }
+
+    public int[] contarFaltas(){
+        int contadorJustificadas = 0;
+        int contadorNaoJustificadas = 0;
+        for(Falta falta: this.faltas){
+            if(falta.isConfirmada()){
+                contadorJustificadas++;
+            }else{
+                contadorNaoJustificadas++;
+            }
+        }
+        return new int[]{contadorJustificadas, contadorNaoJustificadas};
     }
 
     public void gerarBoletim(){

@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Data;
+import model.excecoes.AlunoAlredyRegisteredException;
 import model.excecoes.AlunoNotFoundException;
 import model.excecoes.InvalidDateException;
 import model.excecoes.TurmaNaoExisteException;
@@ -52,11 +53,11 @@ public class ControllerModificacaoTurma implements Initializable {
             this.fachadaAdministrador.adicionarAlunoEmTurma(this.turmaSelecionada, new Aluno(nomeAluno, nomeAluno,
                     new Data(2001, 1, 1), "","", ""));
             inicializarTurma();
-        } catch (AlunoNotFoundException | TurmaNaoExisteException | ClassNotFoundException | IOException e) {
+        } catch (AlunoAlredyRegisteredException | AlunoNotFoundException | TurmaNaoExisteException | ClassNotFoundException | IOException e) {
             this.aviso.setText(e.getMessage());
         } catch (NullPointerException e) {
             this.aviso.setText("Turma não selecionada");
-        } catch (InvalidDateException e) {
+        } catch (InvalidDateException  e) {
             e.printStackTrace();
         }
     }
@@ -151,7 +152,7 @@ public class ControllerModificacaoTurma implements Initializable {
     @FXML
     private void voltar() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Principal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

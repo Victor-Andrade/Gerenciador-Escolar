@@ -1,9 +1,6 @@
 package model.fachada;
 
-import model.excecoes.AlunoNotFoundException;
-import model.excecoes.InvalidDateException;
-import model.excecoes.NotasInvalidasException;
-import model.excecoes.TurmaNaoExisteException;
+import model.excecoes.*;
 import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
 import model.cruds.CRUDTurma;
@@ -38,7 +35,7 @@ public class FachadaProfessor {
 
     public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
             throws ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException,
-            IOException, InvalidDateException {
+            IOException, InvalidDateException, AlunoAlredyRegisteredException {
         this.negocioTurma.adicionarAlunoEmTurma(turma, aluno);
     }
 
