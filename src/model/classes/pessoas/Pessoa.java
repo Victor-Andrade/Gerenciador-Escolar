@@ -1,6 +1,7 @@
 package model.classes.pessoas;
 
 import model.classes.Data;
+import model.classesUtilitarias.Formatador;
 
 import java.io.Serializable;
 
@@ -66,6 +67,10 @@ public abstract class Pessoa implements Serializable {
 
     public String getCpf() {
         return this.cpf;
+    }
+
+    public String getCpfFormatado(){
+        return Formatador.formatarCpf(this.cpf);
     }
 
 

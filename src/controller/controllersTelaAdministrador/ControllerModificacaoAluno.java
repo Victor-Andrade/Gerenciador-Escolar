@@ -296,7 +296,7 @@ public class ControllerModificacaoAluno implements Initializable {
         this.nome.setText(this.AlunoSelecionado.getNome());
         this.email.setText(this.AlunoSelecionado.getEmail());
         this.contato.setText(this.AlunoSelecionado.getNumeroParaContato());
-        this.cpf.setText(this.AlunoSelecionado.getCpf());
+        this.cpf.setText(this.AlunoSelecionado.getCpfFormatado());
         this.emailPais.setText(this.AlunoSelecionado.getEmailPais());
         this.dataString.setText(this.AlunoSelecionado.getDataDeNascimento().formatarData());
         this.curso.setText("");

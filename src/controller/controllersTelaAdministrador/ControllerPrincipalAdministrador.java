@@ -188,7 +188,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.nome.setText("Nome: " + this.administrador.getNome());
-        this.cpf.setText("CPF: " + this.administrador.getCpf());
+        this.cpf.setText("CPF: " + this.administrador.getCpfFormatado());
         this.dataNascimento.setText("Nascimento: " + this.administrador.getDataDeNascimento().formatarData());
         this.email.setText("E-mail: " + this.administrador.getEmail());
         this.numero.setText("Número: " + this.administrador.getNumeroParaContato());

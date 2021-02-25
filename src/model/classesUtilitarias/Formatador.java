@@ -3,8 +3,7 @@ package model.classesUtilitarias;
 
 public abstract class Formatador {
     public static String removerCaracteresCpf(String cpf){
-        return cpf.replace("-", "").replace(".", "")
-                .replace(" ", "").toLowerCase();
+        return cpf.replaceAll("[\\p{P}\\p{S}]", "").toLowerCase();
     }
 
     public static String removerCaracteresNome(String nome){
@@ -12,8 +11,7 @@ public abstract class Formatador {
     }
 
     public static String removerCaracteresNumero(String numero){
-        return numero.replace("(", "").replace(")", "").replace(" ", "")
-                .replace("-", "");
+        return numero.replaceAll("[\\p{P}\\p{S}]", "");
     }
 
     public static String formatarCpf(String cpf){

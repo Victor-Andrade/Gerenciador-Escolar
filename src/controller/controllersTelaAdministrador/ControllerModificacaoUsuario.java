@@ -226,7 +226,7 @@ public class ControllerModificacaoUsuario implements Initializable {
         this.nome.setText(pessoa.getNome());
         this.email.setText(pessoa.getEmail());
         this.contato.setText(pessoa.getNumeroParaContato());
-        this.cpf.setText(pessoa.getCpf());
+        this.cpf.setText(pessoa.getCpfFormatado());
         this.senha.setText(pessoa.getSenha());
         this.data.setText(pessoa.getDataDeNascimento().formatarData());
 

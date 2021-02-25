@@ -1,6 +1,7 @@
 package model.negocios;
 
 import model.classes.Data;
+import model.classesUtilitarias.Formatador;
 import model.excecoes.*;
 import model.interfaces.IRepositorioUsuarios;
 import model.classes.materia.Curso;
@@ -61,7 +62,9 @@ public class NegocioUsuario {
 
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
             throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
-        Professor professor = new Professor(nome, cpf, data, email, contato, senha);
+        String nomeMaiusculo = nome.toUpperCase();
+        String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+        Professor professor = new Professor(nomeMaiusculo, DigitosCpf, data, email, contato, senha);
         if (Verificacao.verificarSenha(professor)) {
             if (!repositorioUsuarios.existeNoBanco(professor)) {
                 this.repositorioUsuarios.adicionarUsuario(professor);
@@ -75,7 +78,9 @@ public class NegocioUsuario {
 
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
             throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
-        Administrador admin = new Administrador(nome, cpf, data, email, contato, senha);
+        String nomeMaiusculo = nome.toUpperCase();
+        String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+        Administrador admin = new Administrador(nomeMaiusculo, DigitosCpf, data, email, contato, senha);
         if (Verificacao.verificarSenha(admin)) {
             if (!repositorioUsuarios.existeNoBanco(admin)) {
                 this.repositorioUsuarios.adicionarUsuario(admin);
@@ -101,7 +106,9 @@ public class NegocioUsuario {
 
     public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
         if(this.repositorioUsuarios.existeNoBanco(usuario)){
-            Usuario usuarioTemp = new Usuario(nome, cpf, data, email, contato, senha);
+            String nomeMaiusculo = nome.toUpperCase();
+            String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+            Usuario usuarioTemp = new Usuario(nomeMaiusculo, DigitosCpf, data, email, contato, senha);
             if(!repositorioUsuarios.existeNoBanco(usuarioTemp)){
                 if(verificarCampos(nome, cpf, data, email, contato)){
                     if(Verificacao.verificarSenha(usuarioTemp)){

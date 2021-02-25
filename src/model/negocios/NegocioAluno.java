@@ -6,6 +6,7 @@ import model.classes.faltas.FaltaJustificada;
 import model.classes.materia.Curso;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
+import model.classesUtilitarias.Formatador;
 import model.classesUtilitarias.Verificacao;
 import model.excecoes.*;
 import model.interfaces.IRepositorioAlunos;
@@ -32,7 +33,9 @@ public class NegocioAluno {
                                 String emailResponsavel) throws IOException, ClassNotFoundException,
             AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
         if (verificarCampos(nome, cpf, data, email, contato)) {
-            Aluno alunoTemp = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+            String nomeMaiusculo = nome.toUpperCase();
+            String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+            Aluno alunoTemp = new Aluno(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel);
             if (!this.repositorioAlunos.existeNoBanco(alunoTemp)) {
                 repositorioAlunos.adicionarAluno(alunoTemp);
             } else {
@@ -46,7 +49,9 @@ public class NegocioAluno {
             throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException,
             InvalidFieldException, InvalidDateException {
         if (verificarCampos(nome, cpf, data, email, contato)) {
-            AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nome, cpf, data, email, contato, emailResponsavel, new Curso(curso));
+            String nomeMaiusculo = nome.toUpperCase();
+            String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+            AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel, new Curso(curso));
             if (!this.repositorioAlunos.existeNoBanco(alunoTemp)) {
                 repositorioAlunos.adicionarAluno(alunoTemp);
             } else {
@@ -72,7 +77,9 @@ public class NegocioAluno {
                                           String contato, String emailResponsavel)
             throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, AlunoAlredyRegisteredException, AlunoNotFoundException {
         if (repositorioAlunos.existeNoBanco(alunoAntigo)) {
-            Aluno aluno = new Aluno(nome, cpf, data, email, contato, emailResponsavel);
+            String nomeMaiusculo = nome.toUpperCase();
+            String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
+            Aluno aluno = new Aluno(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel);
             if(!repositorioAlunos.existeNoBanco(aluno) || (alunoAntigo.getCpf().equalsIgnoreCase(aluno.getCpf()) && alunoAntigo.getNome().equalsIgnoreCase(aluno.getNome()))){
                 if (verificarCampos(nome, cpf, data, email, contato)) {
                     repositorioAlunos.atualizarAluno(alunoAntigo, aluno);
