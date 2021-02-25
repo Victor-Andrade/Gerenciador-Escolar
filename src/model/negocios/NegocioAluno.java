@@ -7,10 +7,13 @@ import model.classes.faltas.FaltaJustificada;
 import model.classes.materia.Curso;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
+import model.classes.pessoas.usuarios.Usuario;
+import model.classesUtilitarias.Email;
 import model.classesUtilitarias.Formatador;
 import model.classesUtilitarias.Verificacao;
 import model.excecoes.*;
 import model.interfaces.IRepositorioAlunos;
+import org.apache.commons.mail.EmailException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -93,30 +96,32 @@ public class NegocioAluno {
         }
     }
 
-    //Gera o boletim de um aluno qualquer
-    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+
+    public String gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
-            alunoBanco.gerarBoletim();
+            return alunoBanco.gerarBoletim();
         }else{
             throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
-    public void gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+    public String gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
-            alunoBanco.gerarCertificadoDeMatricula();
+            return alunoBanco.gerarCertificadoDeMatricula();
         }else{
             throw new AlunoNotFoundException(aluno.getNome());
         }
     }
 
-    public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+    public String gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
             if(alunoBanco instanceof AlunoHoraExtra){
-                alunoBanco.gerarCertificadoDeMatricula();
+                return ((AlunoHoraExtra) alunoBanco).gerarCertificadoDeCurso();
+            }else{
+                throw new AlunoNotFoundException(aluno.getNome());
             }
         }else{
             throw new AlunoNotFoundException(aluno.getNome());
@@ -210,6 +215,41 @@ public class NegocioAluno {
             }
         }
         return maior+1;
+    }
+
+    public void enviarEmail(Usuario usuario, String destinatario, String mensagem, String data) throws EmailException {
+        Email.enviarEmail(usuario.getEmail(), usuario.getSenha(), destinatario, mensagem, data);
+    }
+
+    public void enviarEmailAnexo(Usuario usuario, String destinatario, String mensagem, String caminho) throws EmailException {
+        Email.enviarEmailComAnexo(usuario.getEmail(), usuario.getSenha(), caminho, destinatario, mensagem);
+    }
+
+    public void removerFalta(Aluno aluno, Falta falta) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if (this.repositorioAlunos.existeNoBanco(aluno)) {
+            aluno.removerFalta(falta);
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void removerSituacao(Aluno aluno, Situacao situacao) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if (this.repositorioAlunos.existeNoBanco(aluno)) {
+            aluno.removerSituacao(situacao);
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    public void mudarStatusFalta(Aluno aluno, Falta falta) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if (this.repositorioAlunos.existeNoBanco(aluno)) {
+            aluno.getFalta(falta.getId()).alterarStatus();
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
     }
 
     //Verifica os dados do alunos, não considera se ele já se encontra no banco ####ADICIONAR ALGUMA REGRA NO NOME

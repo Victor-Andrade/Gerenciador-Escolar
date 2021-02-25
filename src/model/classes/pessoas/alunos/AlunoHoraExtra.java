@@ -3,6 +3,7 @@ package model.classes.pessoas.alunos;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import model.classes.Data;
+import model.classesUtilitarias.GerenciadorDeArquivos;
 import model.excecoes.InvalidDateException;
 import model.classes.materia.Curso;
 
@@ -23,10 +24,11 @@ public class AlunoHoraExtra extends Aluno{
         this.curso = curso;
     }
 
-    public void gerarCertificadoDeCurso(){
+    public String gerarCertificadoDeCurso(){
         Document documento = new Document();
+        String caminho = GerenciadorDeArquivos.selecionarPasta();
         try{
-            PdfWriter.getInstance(documento, new FileOutputStream("Declaração de Conlcusão.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream(caminho+"/Declaração de Conlcusão.pdf"));
             documento.open();
 
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
@@ -73,6 +75,7 @@ public class AlunoHoraExtra extends Aluno{
         }finally {
             documento.close();
         }
+        return caminho+"/Declaração de Conlcusão.pdf";
     }
 
     public Curso getCurso() {

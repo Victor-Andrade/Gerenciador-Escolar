@@ -10,6 +10,6 @@
     <orderEntry type="library" name="lib" level="application" />
     <orderEntry type="library" name="itextpdf-5.5.13.2" level="application" />
     <orderEntry type="library" name="javax.mail" level="application" />
-    <orderEntry type="library" name="commons-email-1" level="application" />
+    <orderEntry type="library" name="commons-email-1.5" level="application" />
   </component>
 </module>

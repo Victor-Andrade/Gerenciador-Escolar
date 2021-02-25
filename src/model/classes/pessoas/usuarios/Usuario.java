@@ -21,6 +21,4 @@ public class Usuario extends Pessoa implements ILogin {
     public String getSenha() {
         return this.senha;
     }
-
-
 }

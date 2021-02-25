@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import model.classes.Data;
 import model.classes.Situacao;
 import model.classes.faltas.Falta;
+import model.classesUtilitarias.GerenciadorDeArquivos;
 import model.excecoes.InvalidDateException;
 import model.classes.materia.Bimestre;
 import model.classes.materia.Materia;
@@ -105,13 +106,14 @@ public class Aluno extends Pessoa {
         return null;
     }
 
-    public void gerarBoletim(){
+    public String gerarBoletim(){
         Document documento = new Document();
         documento.setPageSize(PageSize.A4.rotate());
+        String caminho = GerenciadorDeArquivos.selecionarPasta();
 
 
         try {
-            PdfWriter.getInstance(documento, new FileOutputStream("documento.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream(caminho + "/boletim.pdf"));
             documento.open();
 
             String[] cabecalho  = {" ", "1º Bimestre", "2º Bimestre", "3º Bimestre", "4º Bimestre"};
@@ -218,17 +220,21 @@ public class Aluno extends Pessoa {
                     }
                 }
             }
+            int[] faltas = contarFaltas();
+            documento.add(new Paragraph(new Phrase("Faltas justificadas: " + faltas[0] + "             Faltas não justificadas: " + faltas[1], font2)));
         } catch (FileNotFoundException | DocumentException e) {
             e.printStackTrace();
         } finally {
             documento.close();
         }
+        return caminho + "/boletim.pdf";
     }
 
-    public void gerarCertificadoDeMatricula(){
+    public String gerarCertificadoDeMatricula(){
         Document documento = new Document();
+        String caminho = GerenciadorDeArquivos.selecionarPasta();
         try{
-            PdfWriter.getInstance(documento, new FileOutputStream("Declaração de matrícula.pdf"));
+            PdfWriter.getInstance(documento, new FileOutputStream(caminho + "/Declaração de matrícula.pdf"));
             documento.open();
 
             Font font = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
@@ -278,6 +284,7 @@ public class Aluno extends Pessoa {
         }finally {
             documento.close();
         }
+        return caminho + "/Declaração de matrícula.pdf";
     }
 
     public Materia getMateria(String nomeDaMateria) {

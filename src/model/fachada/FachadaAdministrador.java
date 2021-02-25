@@ -1,6 +1,8 @@
 package model.fachada;
 
 import model.classes.Data;
+import model.classes.Situacao;
+import model.classes.faltas.Falta;
 import model.classes.pessoas.alunos.AlunoHoraExtra;
 import model.classes.pessoas.usuarios.Administrador;
 import model.classes.pessoas.alunos.Aluno;
@@ -14,6 +16,7 @@ import model.negocios.NegocioAluno;
 import model.negocios.NegocioUsuario;
 import model.cruds.CRUDAlunos;
 import model.negocios.NegocioTurma;
+import org.apache.commons.mail.EmailException;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -148,16 +151,16 @@ public class FachadaAdministrador {
         this.negocioUsuario.atualizarInformacoesUsuario(usuario, nome, cpf, data, email, contato, senha);
     }
 
-    public void gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
-        this.negocioAluno.gerarBoletim(aluno);
+    public String gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        return this.negocioAluno.gerarBoletim(aluno);
     }
 
-    public void gerarCertificadoDeMatricula(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        this.negocioAluno.gerarCertificadoDeMatricula(aluno);
+    public String gerarCertificadoDeMatricula(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        return this.negocioAluno.gerarCertificadoDeMatricula(aluno);
     }
 
-    public void gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        this.negocioAluno.gerarCertificadoDeCurso(aluno);
+    public String gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        return this.negocioAluno.gerarCertificadoDeCurso(aluno);
     }
 
     public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
@@ -174,6 +177,26 @@ public class FachadaAdministrador {
 
     public ArrayList<String> todosAlunosFaltaJustificada() throws IOException, ClassNotFoundException {
         return this.negocioAluno.todosAlunosComFaltasJustificadas();
+    }
+
+    public void enviarEmail(Usuario usuario, String destinatario, String mensagem, String data) throws EmailException {
+        this.negocioAluno.enviarEmail(usuario, destinatario, mensagem, data);
+    }
+
+    public void enviarEmailAnexo(Usuario usuario, String destinatario, String mensagem, String caminho) throws EmailException {
+        this.negocioAluno.enviarEmailAnexo(usuario, destinatario, mensagem, caminho);
+    }
+
+    public void removerSituacao(Aluno aluno, Situacao situacao) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.removerSituacao(aluno, situacao);
+    }
+
+    public void removerFalta(Aluno aluno, Falta falta) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.removerFalta(aluno, falta);
+    }
+
+    public void mudarStatusFalta(Aluno aluno, Falta falta) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.mudarStatusFalta(aluno, falta);
     }
 
     //USO DO MÉTODO?

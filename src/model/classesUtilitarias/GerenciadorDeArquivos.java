@@ -3,6 +3,7 @@ package model.classesUtilitarias;
 import javafx.stage.FileChooser;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,7 +22,6 @@ public abstract class GerenciadorDeArquivos {
                 new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
         File selectedFile = fileChooser.showOpenDialog(null);
         if(selectedFile != null){
-            System.out.println(selectedFile);
             return selectedFile.toString();
         }else{
             throw new IOException("Arquivo Não encontrado");
@@ -54,6 +54,10 @@ public abstract class GerenciadorDeArquivos {
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         f.showSaveDialog(null);
 
-        return  f.toString();
+        return  f.getSelectedFile().getAbsolutePath();
+    }
+
+    public static void abrirArquivos(String caminho) throws IOException {
+        Desktop.getDesktop().open(new File(caminho));
     }
 }

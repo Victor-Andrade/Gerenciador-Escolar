@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.mail.EmailException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,7 +88,8 @@ public class ControllerInfoAluno implements Initializable {
     @FXML
     private DatePicker dataPicker;
     @FXML
-    private CheckBox justificar;
+    private CheckBox enviarEmail;
+
 
     /**
      * Falta Fazer
@@ -95,8 +97,13 @@ public class ControllerInfoAluno implements Initializable {
     @FXML
     public void gerarBoletim(){
         try {
-            this.fachadaProfessor.gerarBoletim(this.aluno);
-        } catch (IOException | ClassNotFoundException | AlunoNotFoundException e) {
+            String caminho = this.fachadaProfessor.gerarBoletim(this.aluno);
+            this.aviso.setText("Salvo com sucesso");
+            if(this.enviarEmail.isSelected()){
+                this.fachadaProfessor.enviarEmailAnexo(this.professor, this.aluno.getEmail(), "", caminho);
+                this.aviso.setText("Salvo e enviado com sucesso");
+            }
+        } catch (IOException | ClassNotFoundException | AlunoNotFoundException | EmailException e) {
             this.aviso.setText(e.getMessage());
         }
     }

@@ -203,16 +203,26 @@ public class ControllerModificacaoAluno implements Initializable {
     }
 
     @FXML
-    private void gerarBoletim() throws AlunoNotFoundException, IOException, ClassNotFoundException {
-        //this.fachadaAdministrador.gerarBoletim(this.AlunoSelecionado);
-    }
-    @FXML
-    private void gerarCertificadoMatricula(){
+    private void documentos(){
+        if(this.AlunoSelecionado != null){
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/GeracaoDocumentos.fxml"));
 
-    }
-    @FXML
-    private void gerarCertificadoCurso(){
+                ControllerGeracaoDocumentos controller = new ControllerGeracaoDocumentos();
 
+                controller.setParametros(this.stage, this.AlunoSelecionado, this.administrador, this.fachadaAdministrador);
+                fxmlLoader.setController(controller);
+
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Documentos");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            this.aviso.setText("Aluno não selecionado");
+        }
     }
     /**
      *

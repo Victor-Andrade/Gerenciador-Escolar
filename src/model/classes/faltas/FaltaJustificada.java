@@ -22,12 +22,13 @@ public class FaltaJustificada extends Falta implements Serializable, IFalta {
         this.caminho = caminho;
     }
 
-    public void setConfirmada(boolean confirmada) {
-        this.confirmada = confirmada;
-    }
-
     @Override
     public boolean isConfirmada() {
         return confirmada;
+    }
+
+    @Override
+    public void alterarStatus(){
+        this.confirmada = !confirmada;
     }
 }

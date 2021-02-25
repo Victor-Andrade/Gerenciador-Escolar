@@ -7,7 +7,6 @@ import model.excecoes.InvalidDateException;
 import model.classes.pessoas.usuarios.Usuario;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,11 +50,7 @@ public abstract class Verificacao {
     }
 
     public static boolean verificarHoras(int horas){
-        if(horas >= 0){
-            return true;
-        }else{
-            return false;
-        }
+        return horas >= 0;
     }
 
     public static boolean verificarSenha(Usuario pessoa){

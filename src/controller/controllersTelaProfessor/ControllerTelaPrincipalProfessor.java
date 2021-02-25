@@ -139,23 +139,26 @@ public class ControllerTelaPrincipalProfessor implements Initializable {
 
     @FXML
     private void continuar(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/InfoAluno.fxml"));
+        if(this.alunoSelecionado != null){
+            try{
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/InfoAluno.fxml"));
 
-            ControllerInfoAluno controller = new ControllerInfoAluno();
+                ControllerInfoAluno controller = new ControllerInfoAluno();
 
-            controller.setParametros(this.stage, this.professor, this.alunoSelecionado, this.fachadaProfessor);
-            fxmlLoader.setController(controller);
+                controller.setParametros(this.stage, this.professor, this.alunoSelecionado, this.fachadaProfessor);
+                fxmlLoader.setController(controller);
 
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Aluno");
+                Parent root = fxmlLoader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Aluno");
 
-        }catch (Exception e){
-            e.printStackTrace();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            this.aviso.setText("Aluno não selecionado");
         }
-
     }
 
     public void setParametros(Stage stage, Professor professor, FachadaProfessor fachadaProfessor){

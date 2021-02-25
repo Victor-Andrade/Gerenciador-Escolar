@@ -1,16 +1,20 @@
 package controller.controllersTelaAdministrador;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Situacao;
-import model.classes.faltas.Falta;
-import model.classes.faltas.FaltaJustificada;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.usuarios.Administrador;
+import model.excecoes.AlunoNotFoundException;
 import model.fachada.FachadaAdministrador;
+import org.apache.commons.mail.EmailException;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,17 +37,42 @@ public class ControllerTelaInfoSituacoes implements Initializable {
 
     @FXML
     private void voltar(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaSituacoes.fxml"));
 
+            ControllerTelaSituacoes controller = new ControllerTelaSituacoes();
+
+            controller.setParametros(this.administrador, this.stage, this.fachadaAdministrador);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Falta");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void relatar(){
-
+        try {
+            this.fachadaAdministrador.enviarEmail(this.administrador, this.aluno.getEmailPais(), this.mensagem.getText(), this.data.getText());
+            this.aviso.setText("Enviado com sucesso!");
+        } catch (EmailException e) {
+            this.aviso.setText(e.getMessage());
+        }
     }
 
     @FXML
     private void resolvida(){
-
+        try{
+            this.fachadaAdministrador.removerSituacao(this.aluno, this.situacao);
+            this.aviso.setText("Removida com sucesso");
+            voltar();
+        } catch (IOException | ClassNotFoundException | AlunoNotFoundException e) {
+            this.aviso.setText(e.getMessage());
+        }
     }
 
     public void setParametros(Aluno aluno, Stage stage, FachadaAdministrador fachadaAdministrador, Administrador administrador, int id){

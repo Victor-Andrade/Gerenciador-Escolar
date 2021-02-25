@@ -80,12 +80,14 @@ public class ControllerAdicionarFalta implements Initializable {
                     if(caminho != null){
                         try{
                             this.fachadaProfessor.adicionarFaltaJustificada(this.aluno, mensagem, new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth()), caminho);
+                            this.aviso.setText("Adicionado com sucesso");
                         } catch (InvalidDateException | IOException | ClassNotFoundException | AlunoNotFoundException e) {
                             this.aviso.setText(e.getMessage());
                         }
                     }else{
                         try{
                             this.fachadaProfessor.adicionarFalta(this.aluno, mensagem, new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth()));
+                            this.aviso.setText("Adicionado com sucesso");
                         } catch (InvalidDateException | IOException | ClassNotFoundException | AlunoNotFoundException e) {
                             this.aviso.setText(e.getMessage());
                         }

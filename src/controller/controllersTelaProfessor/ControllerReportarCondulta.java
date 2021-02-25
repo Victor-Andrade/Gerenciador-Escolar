@@ -17,6 +17,7 @@ import model.classes.pessoas.usuarios.Professor;
 import model.excecoes.AlunoNotFoundException;
 import model.excecoes.InvalidDateException;
 import model.fachada.FachadaProfessor;
+import org.apache.commons.mail.EmailException;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,8 +66,14 @@ public class ControllerReportarCondulta implements Initializable {
             String mensagem = this.mensagem.getText();
             if(mensagem != null){
                 try{
-                    this.fachadaProfessor.reportarSituacao(this.aluno, mensagem, new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth()));
-                } catch (InvalidDateException | IOException | ClassNotFoundException | AlunoNotFoundException e) {
+                    Data data = new Data(dataTemp.getYear(), dataTemp.getMonthValue(), dataTemp.getDayOfMonth());
+                    this.fachadaProfessor.reportarSituacao(this.aluno, mensagem, data);
+                    this.aviso.setText("Adicionado com sucesso");
+                    if(this.enviarEmail.isSelected()){
+                        this.fachadaProfessor.enviarEmail(this.professor, this.aluno.getEmailPais(), mensagem, data.formatarData());
+                        this.aviso.setText("Adicionado com sucesso e relatado aos pais");
+                    }
+                } catch (InvalidDateException | IOException | ClassNotFoundException | AlunoNotFoundException | EmailException e) {
                     this.aviso.setText(e.getMessage());
                 }
             }else{
@@ -86,6 +93,5 @@ public class ControllerReportarCondulta implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

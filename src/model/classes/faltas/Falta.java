@@ -46,6 +46,11 @@ public class Falta implements Serializable, IFalta {
     }
 
     @Override
+    public void alterarStatus(){
+
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(obj instanceof Falta){
             return ((Falta) obj).getId() == this.id;
