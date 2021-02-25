@@ -1,6 +1,8 @@
 package model.classesUtilitarias;
 
 import javafx.stage.FileChooser;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -44,5 +46,17 @@ public abstract class GerenciadorDeArquivos {
     public static boolean existe(String endereco){
         java.io.File file = new File(endereco);
         return file.exists();
+    }
+
+    public static String selecionarPasta(){
+
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        f.showSaveDialog(null);
+
+        System.out.println(f.getCurrentDirectory());
+        System.out.println(f.getSelectedFile());
+        System.out.println(f.toString());
+        return  f.toString();
     }
 }
