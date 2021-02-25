@@ -9,8 +9,8 @@ public class FaltaJustificada extends Falta implements Serializable, IFalta {
     private String caminho;
     private boolean confirmada;
 
-    public FaltaJustificada(Data data, String cpf, String caminho, int id) {
-        super(data, cpf, id);
+    public FaltaJustificada(Data data, String mensagem, String caminho, int id) {
+        super(data, mensagem, id);
         this.caminho = caminho;
     }
 

@@ -1,6 +1,7 @@
 package model.negocios;
 
 import model.classes.Data;
+import model.classes.Situacao;
 import model.classes.faltas.Falta;
 import model.classes.faltas.FaltaJustificada;
 import model.classes.materia.Curso;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class NegocioAluno {
-    private IRepositorioAlunos repositorioAlunos;
+    private final IRepositorioAlunos repositorioAlunos;
 
     public NegocioAluno(IRepositorioAlunos repositorioAlunos ){
         this.repositorioAlunos = repositorioAlunos;
@@ -172,10 +173,39 @@ public class NegocioAluno {
         }
     }
 
-    public int encontrarIdFalta(Aluno aluno){
+    public ArrayList<String> todosAlunosComSituacoes() throws IOException, ClassNotFoundException {
+        ArrayList<String> alunos = new ArrayList<>();
+        for(Aluno aluno: this.repositorioAlunos.todosOsAlunosArray()){
+            if(!aluno.getSituacoes().isEmpty()){
+                alunos.add(aluno.getNome());
+            }
+        }
+        return alunos;
+    }
+
+    public void adicionarSituacao(Aluno aluno, Data data, String mensagem) throws IOException, ClassNotFoundException, AlunoNotFoundException {
+        if(repositorioAlunos.existeNoBanco(aluno)){
+            aluno.adicionarSituacao(new Situacao(mensagem, data, encontrarIdSituacao(aluno)));
+            this.repositorioAlunos.atualizarAluno(aluno, aluno);
+        }else{
+            throw new AlunoNotFoundException(aluno.getNome());
+        }
+    }
+
+    private int encontrarIdSituacao(Aluno aluno){
+        int maior = 0;
+        for(Situacao situacao: aluno.getSituacoes()){
+            if(situacao.getId() > maior){
+                maior = situacao.getId();
+            }
+        }
+        return maior+1;
+    }
+
+    private int encontrarIdFalta(Aluno aluno){
         int maior = 0;
         for(Falta falta: aluno.getFaltas()){
-            if(falta.getId()> maior){
+            if(falta.getId() > maior){
                 maior = falta.getId();
             }
         }

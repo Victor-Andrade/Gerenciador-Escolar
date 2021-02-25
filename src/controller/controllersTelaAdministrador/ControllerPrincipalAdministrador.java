@@ -153,11 +153,39 @@ public class ControllerPrincipalAdministrador implements Initializable {
      */
     @FXML
     private void situacoesReportadas(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaSituacoes.fxml"));
 
+            ControllerTelaSituacoes controller = new ControllerTelaSituacoes();
+
+            controller.setParametros(this.administrador, this.stage, this.fachadaAdministrador);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Situações reportadas");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     @FXML
     private void faltas(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaFaltas.fxml"));
 
+            ControllerTelaFaltas controller = new ControllerTelaFaltas();
+
+            controller.setParametros(this.administrador, this.stage, this.fachadaAdministrador);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Faltas Justificadas");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     /**
      *

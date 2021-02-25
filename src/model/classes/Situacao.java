@@ -1,6 +1,8 @@
 package model.classes;
 
-public class Situacao {
+import java.io.Serializable;
+
+public class Situacao implements Serializable {
     private int id;
     private String mensagem;
     private Data data;

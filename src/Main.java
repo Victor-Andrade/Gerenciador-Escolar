@@ -1,4 +1,7 @@
 import model.classes.Data;
+import model.classes.Situacao;
+import model.classes.faltas.Falta;
+import model.classes.faltas.FaltaJustificada;
 import model.excecoes.InvalidDateException;
 import model.classes.materia.Curso;
 import model.classes.pessoas.*;
@@ -32,6 +35,13 @@ public class Main extends Application {
         Aluno aluno4 = new Aluno("Erica Soares", "456.876.101-03", new Data(2003, 6, 3), "teste@gmail.com", "(87)98122-4321", "pais3@gmail.com");
         AlunoHoraExtra aluno5 = new AlunoHoraExtra("Junior melo", "342.867.259-87", new Data(2002, 4, 15), "outro@gmail.com", "(87)98752-1270", "pais6@gmail.com", new Curso("Inglês"));
 
+        aluno1.adicionarSituacao(new Situacao("Aluno apresentou mal comportamento com a professora", new Data(2001, 1, 1), 1));
+        aluno5.adicionarSituacao(new Situacao("Aluno apresentou mal comportamento com a professora", new Data(2001, 1, 1), 1));
+
+        aluno1.adicionarFalta(new Falta(new Data(2001, 1, 1), "Aluno faltou a aula de ingLes", 1));
+        aluno3.adicionarFalta(new Falta(new Data(2001, 1, 1), "Aluno faltou a aula de ingLes", 1));
+        aluno1.adicionarFalta(new FaltaJustificada(new Data(2001, 1, 1), "Aluno faltou a aula de ingLes", "C:///", 2));
+        aluno5.adicionarFalta(new FaltaJustificada(new Data(2001, 1, 1), "Aluno faltou a aula de ingLes", "C:///", 2));
         Aluno outraTurma = new Aluno("Teste da Silva", "734.891.342-11", new Data(2005, 4, 29), "outroteste@gmail.com", "(87)98752-1270", "pais6@gmail.com");
 
         Turma turma2 = new Turma(2, "2º Ano");

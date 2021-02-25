@@ -10,8 +10,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="voltar" layoutX="39.0" layoutY="294.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="118.0" text="Voltar" />
-      <Button fx:id="adicionar" layoutX="335.0" layoutY="294.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="118.0" text="Adicionar" />
+      <Button layoutX="39.0" layoutY="294.0" mnemonicParsing="false" onAction="#voltar" prefHeight="59.0" prefWidth="118.0" text="Voltar" />
+      <Button layoutX="335.0" layoutY="294.0" mnemonicParsing="false" onAction="#adicionar" prefHeight="59.0" prefWidth="118.0" text="Adicionar" />
       <DatePicker fx:id="data" layoutX="80.0" layoutY="60.0" />
       <Label layoutX="39.0" layoutY="64.0" text="Data:" />
       <Label layoutX="32.0" layoutY="124.0" text="Mensagem:" />

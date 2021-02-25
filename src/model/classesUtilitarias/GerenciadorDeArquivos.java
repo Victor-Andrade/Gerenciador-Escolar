@@ -54,9 +54,6 @@ public abstract class GerenciadorDeArquivos {
         f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         f.showSaveDialog(null);
 
-        System.out.println(f.getCurrentDirectory());
-        System.out.println(f.getSelectedFile());
-        System.out.println(f.toString());
         return  f.toString();
     }
 }

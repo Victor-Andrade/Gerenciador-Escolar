@@ -1,5 +1,6 @@
 package model.fachada;
 
+import model.classes.Data;
 import model.excecoes.*;
 import model.classes.pessoas.alunos.Aluno;
 import model.cruds.CRUDAlunos;
@@ -55,5 +56,17 @@ public class FachadaProfessor {
 
     public void atualizarNotasAluno(Aluno aluno) throws ClassNotFoundException, AlunoNotFoundException, NotasInvalidasException, IOException {
         this.negocioAluno.atualizarNotasAluno(aluno);
+    }
+
+    public void adicionarFalta(Aluno aluno, String mensagem, Data data) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.adicionarFalta(aluno, mensagem, data);
+    }
+
+    public void adicionarFaltaJustificada(Aluno aluno, String mensagem, Data data, String caminho) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.adicionarFaltaJustificada(aluno, mensagem, data, caminho);
+    }
+
+    public void reportarSituacao(Aluno aluno, String mensagem, Data data) throws AlunoNotFoundException, IOException, ClassNotFoundException {
+        this.negocioAluno.adicionarSituacao(aluno, data, mensagem);
     }
 }

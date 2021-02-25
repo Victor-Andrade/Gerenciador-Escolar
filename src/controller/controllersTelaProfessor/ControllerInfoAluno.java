@@ -146,8 +146,41 @@ public class ControllerInfoAluno implements Initializable {
     }
 
     @FXML
-    private void descartarModificacoes(){
-        inicializarLayoutAluno();
+    private void adicionarFalta(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/AdicaoDeFaltas.fxml"));
+
+            ControllerAdicionarFalta controller = new ControllerAdicionarFalta();
+
+            controller.setParametros(this.aluno, this.stage, this.professor, this.fachadaProfessor);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Adicionar Falta");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void reportarSituacao(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telaProfessor/ReportarCondulta.fxml"));
+
+            ControllerReportarCondulta controller = new ControllerReportarCondulta();
+
+            controller.setParametros(this.aluno, this.stage, this.professor, this.fachadaProfessor);
+            fxmlLoader.setController(controller);
+
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Reportar Condulta");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     /**
      *
@@ -196,7 +229,6 @@ public class ControllerInfoAluno implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Início");
-
         }catch (Exception e){
             e.printStackTrace();
         }

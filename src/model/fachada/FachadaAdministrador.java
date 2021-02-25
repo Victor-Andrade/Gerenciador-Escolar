@@ -168,6 +168,14 @@ public class FachadaAdministrador {
         this.negocioAluno.atualizarInformacoesAluno(aluno, nome, cpf, data, email, contato, emailResponsavel);
     }
 
+    public ArrayList<String> todosAlunosComSituacoes() throws IOException, ClassNotFoundException {
+        return this.negocioAluno.todosAlunosComSituacoes();
+    }
+
+    public ArrayList<String> todosAlunosFaltaJustificada() throws IOException, ClassNotFoundException {
+        return this.negocioAluno.todosAlunosComFaltasJustificadas();
+    }
+
     //USO DO MÉTODO?
     public void adicionarAdmPadrao(){
         try{
