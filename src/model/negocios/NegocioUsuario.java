@@ -98,7 +98,7 @@ public class NegocioUsuario {
             String nomeMaiusculo = nome.toUpperCase();
             String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
             Usuario usuarioTemp = new Usuario(nomeMaiusculo, DigitosCpf, data, email, contato, senha);
-            if(!repositorioUsuarios.existeNoBanco(usuarioTemp)){
+            if(repositorioUsuarios.existeNoBanco(usuarioTemp)){
                 if(verificarCampos(cpf, data, email, contato)){
                     if(Verificacao.verificarSenha(usuarioTemp)){
                         this.repositorioUsuarios.atualizarUsuario(usuario, usuarioTemp);

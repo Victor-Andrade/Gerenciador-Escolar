@@ -143,7 +143,8 @@ public class ControllerModificacaoAluno implements Initializable {
             } catch (InvalidDateException | InvalidFieldException | ClassNotFoundException | IOException | AlunoNotFoundException | AlunoAlredyRegisteredException e) {
                 this.aviso.setText(e.getMessage());
             } catch (NullPointerException e){
-                this.aviso.setText("Dados não preenchidos");
+                this.aviso.setText("Preencha todos os campos");
+                e.printStackTrace();
             }
         }
     }

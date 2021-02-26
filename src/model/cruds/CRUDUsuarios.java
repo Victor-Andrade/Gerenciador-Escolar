@@ -44,14 +44,15 @@ public class CRUDUsuarios implements IRepositorioUsuarios {
 
     @Override
     public void atualizarUsuario(Usuario usuarioAntigo, Usuario usuario) throws IOException, ClassNotFoundException {
-        removerUsuario(usuarioAntigo);
-        usuarioAntigo.setNome(usuario.getNome());
-        usuarioAntigo.setCpf(usuario.getCpf());
-        usuarioAntigo.setDataDeNascimento(usuario.getDataDeNascimento());
-        usuarioAntigo.setEmail(usuario.getEmail());
-        usuarioAntigo.setNumeroParaContato(usuario.getNumeroParaContato());
-        usuarioAntigo.setSenha(usuario.getSenha());
-        adicionarUsuario(usuarioAntigo);
+        List<Usuario> temp = todosOsUsuariosArray();
+        int index = temp.indexOf(usuarioAntigo);
+        temp.get(index).setSenha(usuario.getSenha());
+        temp.get(index).setCpf(usuario.getCpf());
+        temp.get(index).setEmail(usuario.getEmail());
+        temp.get(index).setNome(usuario.getNome());
+        temp.get(index).setDataDeNascimento(usuario.getDataDeNascimento());
+        temp.get(index).setNumeroParaContato(usuario.getNumeroParaContato());
+        atualizarModificacoes(temp);
     }
 
     @Override

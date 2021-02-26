@@ -89,7 +89,9 @@ public class NegocioAluno {
             String nomeMaiusculo = nome.toUpperCase();
             String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
             Aluno aluno = new Aluno(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel);
-            if(!repositorioAlunos.existeNoBanco(aluno) || (alunoAntigo.getCpf().equalsIgnoreCase(aluno.getCpf()) && alunoAntigo.getNome().equalsIgnoreCase(aluno.getNome()))){
+            if(repositorioAlunos.existeNoBanco(aluno)
+                    || (alunoAntigo.getCpf().equalsIgnoreCase(aluno.getCpf())
+                    && alunoAntigo.getNome().equalsIgnoreCase(aluno.getNome()))){
                 if (verificarCampos(cpf, data, email, contato)) {
                     repositorioAlunos.atualizarAluno(alunoAntigo, aluno);
                 }

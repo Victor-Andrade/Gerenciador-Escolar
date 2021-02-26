@@ -45,8 +45,16 @@ public class CRUDAlunos implements IRepositorioAlunos {
 
     @Override
     public void atualizarAluno(Aluno alunoAntigo, Aluno aluno) throws IOException, ClassNotFoundException {
-        removerAluno(alunoAntigo);
-        adicionarAluno(aluno);
+        List<Aluno> temp = todosOsAlunosArray();
+        int index = temp.indexOf(alunoAntigo);
+        temp.set(index, aluno);
+        atualizarModificacoes(temp);
+//        temp.get(index).setEmailPais(aluno.getEmailPais());
+//        temp.get(index).setEmail(aluno.getEmail());
+//        temp.get(index).setDataDeNascimento(aluno.getDataDeNascimento());
+//        temp.get(index).setNumeroParaContato(aluno.getNumeroParaContato());
+        //removerAluno(alunoAntigo);
+        //adicionarAluno(aluno);
     }
 
     @Override
