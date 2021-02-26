@@ -37,6 +37,6 @@ public class Professor extends Usuario {
 
     @Override
     public String toString(){
-        return super.toString() + "\nSenha: " + this.getSenha();
+        return super.toString() + "\nSenha: " + this.getSenha() + "\nQuantidade de turmas: " + this.turmas.size();
     }
 }
