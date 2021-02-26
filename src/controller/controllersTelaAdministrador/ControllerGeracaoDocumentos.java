@@ -40,7 +40,7 @@ public class ControllerGeracaoDocumentos implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/ModificacaoAluno.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/ModificacaoAluno.fxml"));
 
             ControllerModificacaoAluno controller = new ControllerModificacaoAluno();
 

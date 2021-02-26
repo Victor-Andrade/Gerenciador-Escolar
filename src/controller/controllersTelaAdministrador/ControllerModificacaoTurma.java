@@ -43,9 +43,6 @@ public class ControllerModificacaoTurma implements Initializable {
     @FXML
     private TextField campoAluno;
 
-    /**
-     * Falta implementar
-     */
     @FXML
     private void adicionarAluno() {
         try {
@@ -101,10 +98,9 @@ public class ControllerModificacaoTurma implements Initializable {
         }
     }
 
-    //Falta mas opcional
+
     @FXML
     private void mostrarEstatisticas() {
-
     }
 
     @FXML
@@ -145,14 +141,10 @@ public class ControllerModificacaoTurma implements Initializable {
         }
     }
 
-    /**
-     *
-     */
-
     @FXML
     private void voltar() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

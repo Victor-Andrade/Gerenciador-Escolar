@@ -4,6 +4,14 @@ import model.classes.Data;
 import model.interfaces.ILogin;
 import model.classes.pessoas.Pessoa;
 
+/**
+ * Classe pai da hierarquia de usuários do projeto.
+ * Escolhemos tal hierarquia pois foi observado que todos os objetos
+ * administrador e professor detem da caracteristica senha.
+ *
+ * @author Victor Hugo e Pedro Vinícius
+ */
+
 public class Usuario extends Pessoa implements ILogin {
     private String senha;
 

@@ -48,9 +48,6 @@ public class ControllerMatricula implements Initializable {
     @FXML
     private Text aviso;
 
-    /**
-     * Falta Implementar
-     */
     @FXML
     private void adicionar(){
         if(this.comCurso.isSelected()){
@@ -109,13 +106,11 @@ public class ControllerMatricula implements Initializable {
         this.comCurso.setSelected(false);
         this.cursos.setValue(null);
     }
-    /**
-     *
-     */
+
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

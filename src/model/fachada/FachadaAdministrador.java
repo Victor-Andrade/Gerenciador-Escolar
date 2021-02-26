@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Fachada responsável por gerenciar informações do administrador, ela atende as solicitações do controller e reponde
+ * Fachada responsável por gerenciar dados pelo administrador, ela atende as solicitações do controller e reponde
  * de acordo com as regras de negócio tanto da turma quanto do professor.
  * @author Victor Hugo e Pedro Vinícius
  */
@@ -36,7 +36,7 @@ public class FachadaAdministrador {
 
     public FachadaAdministrador(){
         this.negocioAluno = new NegocioAluno(new CRUDAlunos());
-        this.negocioUsuario = new NegocioUsuario(new CRUDAlunos(), new CRUDUsuarios());
+        this.negocioUsuario = new NegocioUsuario(new CRUDUsuarios());
         this.negocioTurma = new NegocioTurma(new CRUDTurma(), new CRUDAlunos(), new CRUDUsuarios());
     }
 
@@ -200,7 +200,7 @@ public class FachadaAdministrador {
     }
 
     //USO DO MÉTODO?
-    public void adicionarAdmPadrao(){
+    /*public void adicionarAdmPadrao(){
         try{
             Data data = new Data(2021, 2, 10);
             Administrador adm = new Administrador("admin", "12345678910", data
@@ -214,5 +214,5 @@ public class FachadaAdministrador {
         } catch (InvalidDateException | IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

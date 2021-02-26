@@ -2,6 +2,12 @@ package model.classes;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por guardar dados de uma condunta indesejada do aluno
+ * reportada pelo professor.
+ * @author : Pedro Vinicius
+ */
+
 public class Situacao implements Serializable {
     private int id;
     private String mensagem;

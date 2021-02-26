@@ -86,10 +86,6 @@ public class ControllerModificacaoAluno implements Initializable {
     @FXML
     private Text dataString;
 
-    /**
-     * Falta implementar
-     */
-
     @FXML
     private void modificar(){
         if(this.AlunoSelecionado != null){
@@ -206,7 +202,7 @@ public class ControllerModificacaoAluno implements Initializable {
     private void documentos(){
         if(this.AlunoSelecionado != null){
             try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/GeracaoDocumentos.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/GeracaoDocumentos.fxml"));
 
                 ControllerGeracaoDocumentos controller = new ControllerGeracaoDocumentos();
 
@@ -224,15 +220,11 @@ public class ControllerModificacaoAluno implements Initializable {
             this.aviso.setText("Aluno não selecionado");
         }
     }
-    /**
-     *
-     */
-
 
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

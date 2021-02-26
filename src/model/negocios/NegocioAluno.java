@@ -18,6 +18,11 @@ import org.apache.commons.mail.EmailException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe responsável por realizar as funcionalidades e manipulação de objetos de alunos
+ * @author Pedro Vinícius
+ */
+
 public class NegocioAluno {
     private final IRepositorioAlunos repositorioAlunos;
 
@@ -36,7 +41,7 @@ public class NegocioAluno {
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato,
                                 String emailResponsavel) throws IOException, ClassNotFoundException,
             AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
-        if (verificarCampos(nome, cpf, data, email, contato)) {
+        if (verificarCampos(cpf, data, email, contato)) {
             String nomeMaiusculo = nome.toUpperCase();
             String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
             Aluno alunoTemp = new Aluno(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel);
@@ -52,7 +57,7 @@ public class NegocioAluno {
                                          String emailResponsavel, String curso)
             throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException,
             InvalidFieldException, InvalidDateException {
-        if (verificarCampos(nome, cpf, data, email, contato)) {
+        if (verificarCampos(cpf, data, email, contato)) {
             String nomeMaiusculo = nome.toUpperCase();
             String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
             AlunoHoraExtra alunoTemp = new AlunoHoraExtra(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel, new Curso(curso));
@@ -85,7 +90,7 @@ public class NegocioAluno {
             String DigitosCpf = Formatador.removerCaracteresCpf(cpf);
             Aluno aluno = new Aluno(nomeMaiusculo, DigitosCpf, data, email, contato, emailResponsavel);
             if(!repositorioAlunos.existeNoBanco(aluno) || (alunoAntigo.getCpf().equalsIgnoreCase(aluno.getCpf()) && alunoAntigo.getNome().equalsIgnoreCase(aluno.getNome()))){
-                if (verificarCampos(nome, cpf, data, email, contato)) {
+                if (verificarCampos(cpf, data, email, contato)) {
                     repositorioAlunos.atualizarAluno(alunoAntigo, aluno);
                 }
             }else{
@@ -252,8 +257,7 @@ public class NegocioAluno {
         }
     }
 
-    //Verifica os dados do alunos, não considera se ele já se encontra no banco ####ADICIONAR ALGUMA REGRA NO NOME
-    private boolean verificarCampos(String nome, String cpf, Data data, String email, String contato)
+    private boolean verificarCampos(String cpf, Data data, String email, String contato)
             throws InvalidDateException, InvalidFieldException {
         if (Verificacao.verificarCpf(cpf)) {
             if (Verificacao.verificarEmail(email)) {

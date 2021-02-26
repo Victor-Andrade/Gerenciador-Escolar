@@ -1,6 +1,5 @@
 package controller.controllersTelaAdministrador;
 
-import controller.controllersTelaProfessor.ControllerInfoAluno;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +39,7 @@ public class ControllerTelaFaltas implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 
@@ -62,7 +61,7 @@ public class ControllerTelaFaltas implements Initializable {
             String id = this.faltas.getSelectionModel().getSelectedItem();
             if(id != null){
                 try{
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaInfoFaltas.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaInfoFaltas.fxml"));
 
                     ControllerTelaInfoFaltas controller = new ControllerTelaInfoFaltas();
 

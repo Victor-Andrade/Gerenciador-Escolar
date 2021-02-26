@@ -8,17 +8,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fx:id="mensagem" layoutX="179.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mensagem" textAlignment="CENTER" />
-      <Text fx:id="data" layoutX="196.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data" textAlignment="CENTER" />
+      <Text fx:id="mensagem" layoutX="8.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mensagem" textAlignment="CENTER" wrappingWidth="388.619140625" />
+      <Text fx:id="data" layoutX="92.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data" textAlignment="CENTER" wrappingWidth="213.69140625" />
       <Button layoutX="142.0" layoutY="292.0" mnemonicParsing="false" onAction="#relatar" prefHeight="45.0" prefWidth="115.0" text="Relatar aos Pais" />
       <Button layoutX="258.0" layoutY="292.0" mnemonicParsing="false" onAction="#resolvida" prefHeight="45.0" prefWidth="115.0" text="Resolvida" />
-      <Label layoutX="96.0" layoutY="14.0" text="Informação da condulta" textFill="RED">
+      <Label layoutX="71.0" layoutY="14.0" text="Informações da situação" textFill="RED">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
-      <Text fx:id="nome" layoutX="192.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" textAlignment="CENTER" />
-      <Text fx:id="aviso" fill="RED" layoutX="188.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="nome" layoutX="4.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome" textAlignment="CENTER" wrappingWidth="388.619140625" />
+      <Text fx:id="aviso" fill="RED" layoutX="138.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="124.13671875" />
       <Button layoutX="23.0" layoutY="292.0" mnemonicParsing="false" onAction="#voltar" prefHeight="45.0" prefWidth="115.0" text="Voltar" />
    </children>
 </AnchorPane>

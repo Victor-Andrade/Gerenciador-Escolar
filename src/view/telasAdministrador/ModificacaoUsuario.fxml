@@ -19,7 +19,7 @@
                <children>
                   <ListView fx:id="listaUsuarios" onMouseClicked="#inicializarUsuario" prefHeight="447.0" prefWidth="331.0" />
                   <Button layoutX="8.0" layoutY="459.0" mnemonicParsing="false" onAction="#voltar" prefHeight="46.0" prefWidth="104.0" text="Voltar" />
-                  <Text fx:id="aviso" fill="RED" layoutX="171.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" textAlignment="CENTER" wrappingWidth="145.13671875" />
+                  <Text fx:id="aviso" fill="RED" layoutX="123.0" layoutY="486.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="193.13671875" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

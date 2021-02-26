@@ -17,7 +17,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="229.0">
                <children>
                   <ListView fx:id="listaTurmas" onMouseClicked="#inicializarTurma" prefHeight="493.0" prefWidth="237.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Text fx:id="aviso" fill="RED" layoutX="104.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" />
+                  <Text fx:id="aviso" fill="RED" layoutX="15.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " textAlignment="CENTER" wrappingWidth="207.287109375" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="557.0" prefWidth="315.0">

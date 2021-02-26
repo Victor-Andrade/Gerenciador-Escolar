@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Text;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.classes.pessoas.usuarios.Administrador;
 import model.fachada.FachadaAdministrador;
@@ -21,21 +21,13 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private FachadaAdministrador fachadaAdministrador;
 
     @FXML
-    private Text nome;
-    @FXML
-    private Text cpf;
-    @FXML
-    private Text dataNascimento;
-    @FXML
-    private Text email;
-    @FXML
-    private Text numero;
+    private TextArea infoAdmin;
 
 
     @FXML
     private void matricula(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/Matricula.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/Matricula.fxml"));
 
             ControllerMatricula controller = new ControllerMatricula();
 
@@ -54,7 +46,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private void modificarAluno(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/Administrador/ModificacaoAluno.fxml"));
+                    .getResource("/view/telasAdministrador/ModificacaoAluno.fxml"));
 
             ControllerModificacaoAluno controller = new ControllerModificacaoAluno();
 
@@ -73,7 +65,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private void cadastrarUsuario(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/Administrador/CadastroUsuario.fxml"));
+                    .getResource("/view/telasAdministrador/CadastroUsuario.fxml"));
 
             ControllerCadastroUsuario controller = new ControllerCadastroUsuario();
 
@@ -92,7 +84,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private void modificarUsuario(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/Administrador/ModificacaoUsuario.fxml"));
+                    .getResource("/view/telasAdministrador/ModificacaoUsuario.fxml"));
 
             ControllerModificacaoUsuario controller = new ControllerModificacaoUsuario();
 
@@ -111,7 +103,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private void cadastrarTurma(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/Administrador/CadastroTurma.fxml"));
+                    .getResource("/view/telasAdministrador/CadastroTurma.fxml"));
 
             ControllerCadastroTurma controller = new ControllerCadastroTurma();
 
@@ -131,7 +123,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     private void modificarTurma(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass()
-                    .getResource("/view/Administrador/ModificacaoTurma.fxml"));
+                    .getResource("/view/telasAdministrador/ModificacaoTurma.fxml"));
 
             ControllerModificacaoTurma controller = new ControllerModificacaoTurma();
 
@@ -148,13 +140,10 @@ public class ControllerPrincipalAdministrador implements Initializable {
 
     }
 
-    /**
-     * Falta implementar
-     */
     @FXML
     private void situacoesReportadas(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaSituacoes.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaSituacoes.fxml"));
 
             ControllerTelaSituacoes controller = new ControllerTelaSituacoes();
 
@@ -172,7 +161,7 @@ public class ControllerPrincipalAdministrador implements Initializable {
     @FXML
     private void faltas(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaFaltas.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaFaltas.fxml"));
 
             ControllerTelaFaltas controller = new ControllerTelaFaltas();
 
@@ -187,9 +176,6 @@ public class ControllerPrincipalAdministrador implements Initializable {
             e.printStackTrace();
         }
     }
-    /**
-     *
-     */
 
     @FXML
     private void voltar(){
@@ -215,10 +201,6 @@ public class ControllerPrincipalAdministrador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.nome.setText("Nome: " + this.administrador.getNome());
-        this.cpf.setText("CPF: " + this.administrador.getCpfFormatado());
-        this.dataNascimento.setText("Nascimento: " + this.administrador.getDataDeNascimento().formatarData());
-        this.email.setText("E-mail: " + this.administrador.getEmail());
-        this.numero.setText("Número: " + this.administrador.getNumeroParaContato());
+        this.infoAdmin.setText(this.administrador.toString());
     }
 }

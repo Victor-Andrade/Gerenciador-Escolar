@@ -1,8 +1,8 @@
 package model.excecoes;
 
 /**
- * Classe de excessão para ser utilizada quando um campo for inválido
- * @author: Pedro Vinicius
+ * Classe de excessão para ser utilizada quando um dado das pessoas for inválido
+ * @author : Pedro Vinicius
  */
 public class InvalidFieldException extends Exception{
     public InvalidFieldException(String dado) {

@@ -58,9 +58,6 @@ public class ControllerModificacaoUsuario implements Initializable {
     @FXML
     private DatePicker dataSelecao;
 
-    /**
-     * Falta Implementar
-     */
     @FXML
     private void salvar(){
         String nome = this.nome.getText();
@@ -92,9 +89,6 @@ public class ControllerModificacaoUsuario implements Initializable {
             this.aviso.setText(e.getMessage());
         }
     }
-    /**
-     *
-     */
 
     @FXML
     private void removerTurma(){
@@ -154,7 +148,7 @@ public class ControllerModificacaoUsuario implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

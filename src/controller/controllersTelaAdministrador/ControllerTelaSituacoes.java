@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.classes.Data;
 import model.classes.Situacao;
-import model.classes.faltas.Falta;
 import model.classes.pessoas.alunos.Aluno;
 import model.classes.pessoas.usuarios.Administrador;
 import model.excecoes.AlunoNotFoundException;
@@ -43,7 +42,7 @@ public class ControllerTelaSituacoes implements Initializable {
             String id = this.situacoes.getSelectionModel().getSelectedItem();
             if (id != null) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaInfoSituacao.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaInfoSituacao.fxml"));
 
                     ControllerTelaInfoSituacoes controller = new ControllerTelaInfoSituacoes();
 
@@ -94,7 +93,7 @@ public class ControllerTelaSituacoes implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

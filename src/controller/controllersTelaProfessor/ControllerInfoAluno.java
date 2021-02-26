@@ -90,17 +90,13 @@ public class ControllerInfoAluno implements Initializable {
     @FXML
     private CheckBox enviarEmail;
 
-
-    /**
-     * Falta Fazer
-     */
     @FXML
     public void gerarBoletim(){
         try {
             String caminho = this.fachadaProfessor.gerarBoletim(this.aluno);
             this.aviso.setText("Salvo com sucesso");
             if(this.enviarEmail.isSelected()){
-                this.fachadaProfessor.enviarEmailAnexo(this.professor, this.aluno.getEmail(), "", caminho);
+                this.fachadaProfessor.enviarEmailAnexo(this.professor, this.aluno.getEmail(), "Boletim do Aluno", caminho);
                 this.aviso.setText("Salvo e enviado com sucesso");
             }
         } catch (IOException | ClassNotFoundException | AlunoNotFoundException | EmailException e) {
@@ -189,9 +185,7 @@ public class ControllerInfoAluno implements Initializable {
             e.printStackTrace();
         }
     }
-    /**
-     *
-     */
+
     @FXML
     private void inicializarNotas(){
         String materiaString = materias.getSelectionModel().getSelectedItem();

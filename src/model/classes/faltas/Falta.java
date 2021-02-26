@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * Classe responsável por armazenar os dados de uma falta de um aluno
- * @author Pedro Vinícius
+ * @author Pedro Vinícius e Victor Hugo
  */
 
 public class Falta implements Serializable, IFalta {

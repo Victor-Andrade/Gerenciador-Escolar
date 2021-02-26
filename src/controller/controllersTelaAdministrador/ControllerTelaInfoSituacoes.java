@@ -38,7 +38,7 @@ public class ControllerTelaInfoSituacoes implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaSituacoes.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaSituacoes.fxml"));
 
             ControllerTelaSituacoes controller = new ControllerTelaSituacoes();
 

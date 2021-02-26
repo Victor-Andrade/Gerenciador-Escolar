@@ -4,6 +4,10 @@ import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
 
+/**
+ * Classe responsável por fazer os envios dos emails
+ * @author : Pedro Vinicius
+ */
 public abstract class Email {
     public static void enviarEmailComAnexo(String emailUsuario, String senha, String caminhoArquivo, String destinatario, String mensagem) throws EmailException {
         //Dados padrão do email
@@ -55,5 +59,7 @@ public abstract class Email {
         email.setSubject("Condulta indesejada do aluno");
         email.setMsg(data + "\n" + mensagem);
         email.addTo(destinatario);
+
+        email.send();
     }
 }

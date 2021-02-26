@@ -1,5 +1,9 @@
 package model.classesUtilitarias;
 
+/**
+ * Classe responsável por fazer as formatações de dados das pessoas do repositório
+ * @author: Victor Hugo
+ */
 
 public abstract class Formatador {
     public static String removerCaracteresCpf(String cpf){

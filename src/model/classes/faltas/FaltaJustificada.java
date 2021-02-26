@@ -5,6 +5,11 @@ import model.interfaces.IFalta;
 
 import java.io.Serializable;
 
+/**
+ * Classe responsável por armazenar os dados de uma falta justificada de um aluno
+ * @author Pedro Vinícius e Victor Hugo
+ */
+
 public class FaltaJustificada extends Falta implements Serializable, IFalta {
     private String caminho;
     private boolean confirmada;

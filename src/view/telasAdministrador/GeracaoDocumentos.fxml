@@ -19,6 +19,6 @@
       <Label layoutX="38.0" layoutY="81.0" text="Mensagem: " />
       <TextField fx:id="mensagem" layoutX="110.0" layoutY="77.0" prefHeight="25.0" prefWidth="334.0" />
       <Button layoutX="14.0" layoutY="198.0" mnemonicParsing="false" onAction="#voltar" prefHeight="40.0" prefWidth="65.0" text="Voltar" />
-      <Text fx:id="aviso" fill="RED" layoutX="302.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="aviso" fill="RED" layoutX="255.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="171.0" />
    </children>
 </AnchorPane>

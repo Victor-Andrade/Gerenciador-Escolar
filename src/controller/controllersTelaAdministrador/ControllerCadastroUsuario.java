@@ -47,9 +47,6 @@ public class ControllerCadastroUsuario implements Initializable {
     @FXML
     private Text aviso;
 
-    /**
-     * Falta Implementar
-     */
     @FXML
     private void adicionar(){
         String tipo = this.tipo.getValue();
@@ -109,14 +106,11 @@ public class ControllerCadastroUsuario implements Initializable {
         this.senha.setText("");
         this.tipo.setValue(null);
     }
-    /**
-     *
-     */
 
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 

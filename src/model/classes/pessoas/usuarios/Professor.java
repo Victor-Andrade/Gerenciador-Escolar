@@ -1,7 +1,6 @@
 package model.classes.pessoas.usuarios;
 
 import model.classes.Data;
-import model.classes.Turma;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +13,10 @@ import java.util.List;
 
 public class Professor extends Usuario {
     private List<Double> turmas;
-    private List<Turma> turmasArrayList;
 
     public Professor(String nome, String cpf, Data data, String email, String contato, String senha) {
         super(nome, cpf, data, email, contato, senha);
         this.turmas = new ArrayList<>();
-        this.turmasArrayList = new ArrayList<>();
     }
 
     public List<Double> getTurmas() {
@@ -36,14 +33,6 @@ public class Professor extends Usuario {
 
     public void removerTurmas(double id){
         this.turmas.remove(id);
-    }
-
-    public List<Turma> getTurmasArrayList() {
-        return this.turmasArrayList;
-    }
-
-    public void setTurmasArrayList(ArrayList<Turma> turmaArrayList) {
-        this.turmasArrayList = turmaArrayList;
     }
 
     @Override

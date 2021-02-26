@@ -14,7 +14,6 @@ import model.classes.pessoas.usuarios.Administrador;
 import model.classesUtilitarias.GerenciadorDeArquivos;
 import model.excecoes.AlunoNotFoundException;
 import model.fachada.FachadaAdministrador;
-import model.fachada.FachadaProfessor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +41,7 @@ public class ControllerTelaInfoFaltas implements Initializable {
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaFaltas.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaFaltas.fxml"));
 
             ControllerTelaFaltas controller = new ControllerTelaFaltas();
 

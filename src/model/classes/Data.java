@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 /**
  * Classe responsável por guardar uma data
- * @author: Pedro Vinicius
+ * @author : Pedro Vinicius
  */
 
 public class Data implements Serializable {
@@ -30,51 +30,6 @@ public class Data implements Serializable {
             this.mes = data.getMonthValue();
         }
     }
-    public int contarDias(){
-        int mes31 = 0, mes30 = 0, mes28 = 0, mes29 = 0;
-
-        if(determinarMetade(this.mes)){
-            for(int i = 1; i < this.mes; i++){
-                if(i%2 == 1){
-                    mes31++;
-                }else{
-                    if(i == 2){
-                        if (eBissexto(this.ano)) {
-                            mes29++;
-                        } else {
-                            mes28++;
-                        }
-                    }else{
-                        mes30++;
-                    }
-                }
-            }
-        }else{
-            for(int i = 1; i <= 7; i++){
-                if(i%2 == 1){
-                    mes31++;
-                }else{
-                    if(i == 2){
-                        if (eBissexto(this.ano)) {
-                            mes29++;
-                        } else {
-                            mes28++;
-                        }
-                    }else{
-                        mes30++;
-                    }
-                }
-            }
-            for(int i = 8; i < this.mes; i++){
-                if(i%2 == 1){
-                    mes31++;
-                }else{
-                    mes30++;
-                }
-            }
-        }
-        return mes30 * 30 + mes31 * 31 + mes28 * 28 + mes29 * 29 + this.dia;
-    }
 
     public boolean vemAntes(Data dataComparar){
         if (ano < dataComparar.ano){
@@ -94,7 +49,7 @@ public class Data implements Serializable {
     }
 
     public String formatarData(){
-        return this.dia + "/" + (mes >= 10 ? this.mes : "0" + this.mes) + "/" + this.ano;
+        return (dia >= 10 ? this.dia: "0" + this.dia) + "/" + (mes >= 10 ? this.mes : "0" + this.mes) + "/" + this.ano;
     }
 
     private boolean verificarData(int ano, int mes, int dia) throws InvalidDateException{

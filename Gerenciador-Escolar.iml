@@ -7,9 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="application" />
-    <orderEntry type="library" name="itextpdf-5.5.13.2" level="application" />
-    <orderEntry type="library" name="javax.mail" level="application" />
-    <orderEntry type="library" name="commons-email-1.5" level="application" />
+    <orderEntry type="library" exported="" name="lib" level="application" />
+    <orderEntry type="library" exported="" name="itextpdf-5.5.13.2" level="application" />
+    <orderEntry type="library" exported="" name="javax.mail" level="application" />
+    <orderEntry type="library" exported="" name="commons-email-1.5" level="application" />
+    <orderEntry type="library" name="activation-1.1.1" level="application" />
   </component>
 </module>

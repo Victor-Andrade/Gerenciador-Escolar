@@ -43,7 +43,7 @@ public class ControllerLogin {
     }
 
     public void realizarLogin() throws IOException, ClassNotFoundException {
-        verificarExistenciaUsuarios();
+        //verificarExistenciaUsuarios();
         if(verificarCampos()){
             boolean encontrada = false;
 
@@ -75,7 +75,7 @@ public class ControllerLogin {
                 controller.setParametros(this.stage, (Professor) pessoa, new FachadaProfessor());
                 fxmlLoader.setController(controller);
             }else if(pessoa instanceof Administrador){
-                fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
                 ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
                 controller.setParametros(this.stage, (Administrador) pessoa, new FachadaAdministrador());
                 fxmlLoader.setController(controller);
@@ -91,7 +91,7 @@ public class ControllerLogin {
         }
     }
 
-    private void verificarExistenciaUsuarios() {
+    /*private void verificarExistenciaUsuarios() {
         try {
             List<Usuario> usuarios =  fachadaAdministrador.getUsuariosLogin();
             if(usuarios.size() < 1){
@@ -102,7 +102,7 @@ public class ControllerLogin {
             System.out.println("Erro, criando usuário");
             fachadaAdministrador.adicionarAdmPadrao();
         }
-    }
+    }*/
 
     //Remove caracteres especiais no CPF
     private String removerCaracteres(String cpf){

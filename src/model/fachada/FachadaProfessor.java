@@ -15,9 +15,9 @@ import org.apache.commons.mail.EmailException;
 import java.io.IOException;
 
 /**
- * Fachada usada para lidar com as requisições do Professor,
- * retorna informações com base no negócios de Turma e professor
- * @author Victor Hugo
+ * Fachada usada para lidar com as requisições do Professor, retorna informações com base
+ * no negócios de Turma e professor.
+ * @author Victor Hugo e Pedro Vinícius
  */
 public class FachadaProfessor {
     private final NegocioTurma negocioTurma;

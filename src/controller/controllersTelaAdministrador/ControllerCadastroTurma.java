@@ -40,9 +40,6 @@ public class ControllerCadastroTurma implements Initializable {
 
     private ArrayList<String> alunosSelecionadosArray;
 
-    /**
-     * Falta implementar
-     */
     @FXML
     private void adicionar(){
         try{
@@ -92,14 +89,11 @@ public class ControllerCadastroTurma implements Initializable {
             this.aviso.setText("Aluno não selecionado");
         }
     }
-    /**
-     *
-     */
 
     @FXML
     private void voltar(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Administrador/TelaPrincipalAdministrador.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/telasAdministrador/TelaPrincipalAdministrador.fxml"));
 
             ControllerPrincipalAdministrador controller = new ControllerPrincipalAdministrador();
 
