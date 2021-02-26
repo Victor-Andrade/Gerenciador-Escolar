@@ -73,8 +73,8 @@ public class Main extends Application {
 
         turma2.adicionarAluno("TESTE DA SILVA");
 
-        Professor professor = new Professor("CLEYTON AMANDO", "23412345645", new Data(2001, 10, 25), "admin@gmail.com", "(87)98132-0560", "admin1234");
-        Administrador administrador = new Administrador("ARDOMIRO ERENO", "45678923454", new Data(2001, 10, 25), "ardomiro@gmail.com", "(87)98132-4570", "admin1234");
+        Professor professor = new Professor("CLEYTON AMANDO", "23412345645", new Data(2001, 10, 25), "josealvessobralteste@gmail.com", "(87)98132-0560", "P@ssAlun0");
+        Administrador administrador = new Administrador("JOSE ALVES SOBRAL", "45678923454", new Data(2001, 10, 25), "josealvessobralteste@gmail.com", "(87)98132-4570", "P@ssAlun0");
 
 
 
