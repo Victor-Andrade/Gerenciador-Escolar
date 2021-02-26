@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Classe responsável por realizar as funcionalidades e manipulação de objetos de turma
- * @author Pedro Vinícius
+ * @author Victor Hugo
  */
 
 public class NegocioTurma {
@@ -30,6 +30,10 @@ public class NegocioTurma {
         this.repositorioUsuarios = repositorioUsuarios;
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todasAsTurmas() throws IOException, ClassNotFoundException {
         ArrayList<String> turmas = new ArrayList<>();
         for(Turma turma: this.repositorioTurmas.listarTurmas()){
@@ -39,6 +43,12 @@ public class NegocioTurma {
         return turmas;
     }
 
+    /**
+     * @throws InvalidFieldException Trata que nenhum dado da turma esteja inválido
+     * @throws TurmaRepetidaException Trata para que não exista uma turma igual no repositório
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public void adicionarTurma(String apelido, List<String> alunos)
             throws InvalidFieldException, TurmaRepetidaException, IOException, ClassNotFoundException {
         if(apelido.isBlank()){
@@ -51,6 +61,13 @@ public class NegocioTurma {
         this.repositorioTurmas.adicionarTurma(novaTurma);
     }
 
+    /**
+     * @throws TurmaRepetidaException Trata para que não exista uma turma igual no professor
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws TurmaNaoExisteException Informa que a turma especificada não foi encontrada no banco
+     * @throws UsuarioNotFoundException Informa que o professor que está sendo adicionado a turma não foi encontrado
+     */
     public void adicionarTurmaEmProfessor(Turma turma, Professor professor) throws TurmaNaoExisteException, IOException, ClassNotFoundException, UsuarioNotFoundException, TurmaRepetidaException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
             if(repositorioUsuarios.existeNoBanco(professor)){
@@ -69,6 +86,12 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws TurmaNaoExisteException Informa que a turma especificada não foi encontrada no banco
+     * @throws UsuarioNotFoundException Informa que o professor que está sendo removido a turma não foi encontrado
+     */
     public void removerTurmaDoProfessor(Turma turma, Professor professor) throws IOException, ClassNotFoundException, UsuarioNotFoundException, TurmaNaoExisteException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
             if(repositorioUsuarios.existeNoBanco(professor)){
@@ -93,6 +116,13 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws AlunoNotFoundException Informa que o aluno que está tentando ser adicionado não foi encontrado no repositório
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws TurmaNaoExisteException Informa que a turma especificada não foi encontrada no repositório
+     * @throws AlunoAlredyRegisteredException Trata para que não exista nenhum aluno igual cadastrado na mesma turma
+     */
     public void adicionarAlunoEmTurma(Turma turma, Aluno aluno)
             throws TurmaNaoExisteException, IOException, ClassNotFoundException, AlunoNotFoundException, AlunoAlredyRegisteredException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
@@ -113,6 +143,12 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws TurmaNaoExisteException Informa que a turma a ser removida não foi encontrada
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
+
     public void removerTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(repositorioTurmas.turmaExiste(id)){
             this.repositorioTurmas.excluirTurma(id);
@@ -122,6 +158,10 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     private void removerTurmasDosProfessores(double id) throws IOException, ClassNotFoundException {
         ArrayList<Usuario> pessoas = this.repositorioUsuarios.todosOsUsuariosArray();
         for(Usuario pessoa: pessoas){
@@ -138,6 +178,12 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws TurmaNaoExisteException Informa que a turma a ser removida não foi encontrada
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que o aluno a ser removido da turma não foi encontrado
+     */
     public void removerAlunoDaTurma(Turma turma, Aluno aluno)
             throws IOException, ClassNotFoundException, AlunoNotFoundException, TurmaNaoExisteException {
         if(repositorioTurmas.turmaExiste(turma.getId())){
@@ -151,7 +197,11 @@ public class NegocioTurma {
             throw new TurmaNaoExisteException("Turma com o id : " + turma.getId() + " não existe");
         }
     }
-
+    /**
+     * @throws TurmaNaoExisteException Informa que a turma buscada não foi encontrada
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public Turma pegarTurma(double id) throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         if(repositorioTurmas.turmaExiste(id)){
             return this.repositorioTurmas.getTurma(id);
@@ -159,7 +209,11 @@ public class NegocioTurma {
             throw new TurmaNaoExisteException("Não existe turma com o id " + id);
         }
     }
-
+    /**
+     * @throws TurmaNaoExisteException Informa que a turma a ser modificada não foi encontrada
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public void atualizarTurma(double id, String apelido, List<String> alunos)
             throws TurmaNaoExisteException, IOException, ClassNotFoundException {
         Turma nova = new Turma(id, apelido, alunos);
@@ -170,6 +224,11 @@ public class NegocioTurma {
         }
     }
 
+    /**
+     * @throws TurmaNaoExisteException Informa que a turma a buscada não foi encontrada
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public Turma getUltimaTurmaAdicionada() throws IOException, ClassNotFoundException, TurmaNaoExisteException {
         double id = encontrarID() - 1;
         return this.repositorioTurmas.getTurma(id);

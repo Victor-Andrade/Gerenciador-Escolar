@@ -26,6 +26,10 @@ public class NegocioUsuario {
         this.repositorioUsuarios = repositorioUsuarios;
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todosOsProfessores() throws IOException, ClassNotFoundException {
         ArrayList<String> professores = new ArrayList<>();
         for (Usuario pessoa : this.repositorioUsuarios.todosOsUsuariosArray()) {
@@ -36,6 +40,10 @@ public class NegocioUsuario {
         return professores;
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todosOsUsuariosString() throws IOException, ClassNotFoundException {
         ArrayList<String> pessoas = new ArrayList<>();
         for (Usuario pessoa : this.repositorioUsuarios.todosOsUsuariosArray()) {
@@ -44,11 +52,21 @@ public class NegocioUsuario {
         return pessoas;
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public List<Usuario> todosOsUsuarios() throws IOException, ClassNotFoundException {
         return this.repositorioUsuarios.todosOsUsuariosArray();
     }
 
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws UsuarioAlreadyRegisteredException Trata para que não exista usuários iguais cadastrados no banco
+     * @throws InvalidFieldException Faz o tratamento para que não existam informações inválidas do professor
+     */
     public void adicionarProfessor(String nome, String cpf, Data data, String email, String contato, String senha)
             throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
         String nomeMaiusculo = nome.toUpperCase();
@@ -65,6 +83,12 @@ public class NegocioUsuario {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws UsuarioAlreadyRegisteredException Trata para que não exista usuários iguais cadastrados no banco
+     * @throws InvalidFieldException Faz o tratamento para que não existam informações inválidas do professor
+     */
     public void adicionarAdministrador(String nome, String cpf, Data data, String email, String contato, String senha)
             throws IOException, ClassNotFoundException, UsuarioAlreadyRegisteredException, InvalidFieldException {
         String nomeMaiusculo = nome.toUpperCase();
@@ -81,6 +105,11 @@ public class NegocioUsuario {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws UsuarioNotFoundException Informa que o usuário a ser removido não foi encontrado
+     */
     public void removerUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
         if (repositorioUsuarios.existeNoBanco(usuario)) {
             repositorioUsuarios.removerUsuario(usuario);
@@ -89,10 +118,23 @@ public class NegocioUsuario {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws UsuarioNotFoundException Informa que o usuário buscado não foi encontrado
+     */
     public Usuario buscarUsuario(Usuario usuario) throws IOException, ClassNotFoundException, UsuarioNotFoundException {
         return this.repositorioUsuarios.buscarUsuario(usuario);
     }
 
+    /**
+     * @throws IOException Faz o tratamento para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws InvalidFieldException Garante que nenhuma informação do usuário seja inválida
+     * @throws InvalidDateException Informa que a data é inválida
+     * @throws UsuarioAlreadyRegisteredException Trata para que não existam usuários repetidos ao atualizar
+     * @throws UsuarioNotFoundException Informa que o usuário a ser atualizado não foi encontrado
+     */
     public void atualizarInformacoesUsuario(Usuario usuario, String nome, String cpf, Data data, String email, String contato, String senha) throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, UsuarioAlreadyRegisteredException, UsuarioNotFoundException {
         if(this.repositorioUsuarios.existeNoBanco(usuario)){
             String nomeMaiusculo = nome.toUpperCase();

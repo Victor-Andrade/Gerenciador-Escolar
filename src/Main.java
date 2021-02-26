@@ -18,10 +18,10 @@ import java.io.IOException;
 public class Main extends Application {
     public Main() throws IOException, InvalidDateException, InvalidFieldException, UsuarioAlreadyRegisteredException, ClassNotFoundException {
 
-        /// USADO PARA ADICIONAR UM ADMINISTRAR NO BANCO, DEVE SER COMENTADO DEPOIS DA PRIMEIRA INICIALIZAÇÃO
-        FachadaAdministrador fachadaAdministrador = new FachadaAdministrador();
+        /// USADO PARA ADICIONAR UM ADMINISTRADOR NO BANCO, DEVE SER COMENTADO DEPOIS DA PRIMEIRA INICIALIZAÇÃO
+        /*FachadaAdministrador fachadaAdministrador = new FachadaAdministrador();
 
-        fachadaAdministrador.adicionarAdministrador("José Cleyton da Silva", "123.535.524-00", new Data(2001, 1, 1), "josealvessobralteste@gmail.com", "(87)98102-2345", "P@ssAlun0");
+        fachadaAdministrador.adicionarAdministrador("José Cleyton da Silva", "123.535.524-00", new Data(2001, 1, 1), "josealvessobralteste@gmail.com", "(87)98102-2345", "P@ssAlun0");*/
     }
 
     @Override

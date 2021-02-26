@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -14,7 +11,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="334.0">
                <children>
                   <Button layoutX="24.0" layoutY="420.0" mnemonicParsing="false" onAction="#voltar" prefHeight="50.0" prefWidth="98.0" text="Voltar" />
-                  <Text fx:id="aviso" fill="RED" layoutX="197.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aviso" />
+                  <Text fx:id="aviso" fill="RED" layoutX="157.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="134.0" />
                   <ListView fx:id="alunos" onMouseClicked="#inicializarAluno" prefHeight="408.0" prefWidth="334.0" />
                </children>
             </AnchorPane>

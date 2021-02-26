@@ -30,6 +30,10 @@ public class NegocioAluno {
         this.repositorioAlunos = repositorioAlunos;
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o trtatamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todosOsAlunosString() throws IOException, ClassNotFoundException {
         ArrayList<String> alunos = new ArrayList<>();
         for (Aluno aluno : this.repositorioAlunos.todosOsAlunosArray()) {
@@ -38,6 +42,13 @@ public class NegocioAluno {
         return alunos;
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoAlredyRegisteredException Garante que não exista mais de um usuário igual cadastrado no repositório
+     * @throws InvalidFieldException Trata que os dados do aluno sejam válidos
+     * @throws InvalidDateException Faz o tratamento para que a data não seja inválida
+     */
     public void matricularAluno(String nome, String cpf, Data data, String email, String contato,
                                 String emailResponsavel) throws IOException, ClassNotFoundException,
             AlunoAlredyRegisteredException, InvalidFieldException, InvalidDateException {
@@ -53,6 +64,13 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoAlredyRegisteredException Garante que não exista mais de um usuário igual cadastrado no repositório
+     * @throws InvalidFieldException Trata que os dados do aluno sejam válidos
+     * @throws InvalidDateException Faz o tratamento para que a data não seja inválida
+     */
     public void matricularAlunoHoraExtra(String nome, String cpf, Data data, String email, String contato,
                                          String emailResponsavel, String curso)
             throws IOException, ClassNotFoundException, AlunoAlredyRegisteredException,
@@ -69,10 +87,20 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado
+     */
     public Aluno buscarAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         return repositorioAlunos.buscarAluno(aluno);
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que o aluno a ser removido foi encontrado
+     */
     public void removerAluno(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException,
             InvalidDateException {
         if (repositorioAlunos.existeNoBanco(aluno)) {
@@ -82,6 +110,13 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o trtatamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoAlredyRegisteredException Garante que não exista mais de um usuário igual cadastrado ao atualizar informações
+     * @throws InvalidFieldException Trata que os dados do aluno sejam válidos
+     * @throws InvalidDateException Faz o tratamento para que a data não seja inválida
+     */
     public void atualizarInformacoesAluno(Aluno alunoAntigo, String nome, String cpf, Data data, String email,
                                           String contato, String emailResponsavel)
             throws IOException, ClassNotFoundException, InvalidFieldException, InvalidDateException, AlunoAlredyRegisteredException, AlunoNotFoundException {
@@ -103,7 +138,11 @@ public class NegocioAluno {
         }
     }
 
-
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado e não gera o pdf
+     */
     public String gerarBoletim(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
@@ -113,6 +152,11 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado e não gera o pdf
+     */
     public String gerarCertificadoDeMatricula(Aluno aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
@@ -122,6 +166,11 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado e não gera o pdf
+     */
     public String gerarCertificadoDeCurso(AlunoHoraExtra aluno) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             Aluno alunoBanco = this.repositorioAlunos.buscarAluno(aluno);
@@ -135,6 +184,12 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado
+     * @throws NotasInvalidasException Informa caso alguma nota esteja inválida
+     */
     public void atualizarNotasAluno(Aluno aluno) throws AlunoNotFoundException, IOException, ClassNotFoundException, NotasInvalidasException {
         if(this.repositorioAlunos.existeNoBanco(aluno)){
             if(Verificacao.verificarNotas(aluno.getMaterias())){
@@ -155,6 +210,10 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todosAlunosComFaltasJustificadas() throws IOException, ClassNotFoundException {
         ArrayList<String> alunos = new ArrayList<>();
         for(Aluno aluno: this.repositorioAlunos.todosOsAlunosArray()){
@@ -167,6 +226,11 @@ public class NegocioAluno {
         return alunos;
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado
+     */
     public void adicionarFalta(Aluno aluno, String mensagem, Data data) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             aluno.adicionarFalta(new Falta(data, mensagem, encontrarIdFalta(aluno)));
@@ -176,6 +240,11 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado
+     */
     public void adicionarFaltaJustificada(Aluno aluno, String mensagem, Data data, String caminho) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             aluno.adicionarFalta(new FaltaJustificada(data, mensagem, caminho, encontrarIdFalta(aluno)));
@@ -185,6 +254,10 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     */
     public ArrayList<String> todosAlunosComSituacoes() throws IOException, ClassNotFoundException {
         ArrayList<String> alunos = new ArrayList<>();
         for(Aluno aluno: this.repositorioAlunos.todosOsAlunosArray()){
@@ -195,6 +268,11 @@ public class NegocioAluno {
         return alunos;
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado
+     */
     public void adicionarSituacao(Aluno aluno, Data data, String mensagem) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if(repositorioAlunos.existeNoBanco(aluno)){
             aluno.adicionarSituacao(new Situacao(mensagem, data, encontrarIdSituacao(aluno)));
@@ -224,14 +302,25 @@ public class NegocioAluno {
         return maior+1;
     }
 
+    /**
+     * @throws EmailException Faz o tratamento de erros relacionado a envio de emails (Exemplo: dados inválidos, senha inválida)
+     */
     public void enviarEmail(Usuario usuario, String destinatario, String mensagem, String data) throws EmailException {
         Email.enviarEmail(usuario.getEmail(), usuario.getSenha(), destinatario, mensagem, data);
     }
 
+    /**
+     * @throws EmailException Faz o tratamento de erros relacionado a envio de emails (Exemplo: dados inválidos, senha inválida)
+     */
     public void enviarEmailAnexo(Usuario usuario, String destinatario, String mensagem, String caminho) throws EmailException {
         Email.enviarEmailComAnexo(usuario.getEmail(), usuario.getSenha(), caminho, destinatario, mensagem);
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado para remoção de falta
+     */
     public void removerFalta(Aluno aluno, Falta falta) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if (this.repositorioAlunos.existeNoBanco(aluno)) {
             aluno.removerFalta(falta);
@@ -241,6 +330,11 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado para remoção de situação
+     */
     public void removerSituacao(Aluno aluno, Situacao situacao) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if (this.repositorioAlunos.existeNoBanco(aluno)) {
             aluno.removerSituacao(situacao);
@@ -250,6 +344,12 @@ public class NegocioAluno {
         }
     }
 
+    /**
+     * @throws IOException Faz o tratamento de erro para caso o arquivo não seja encontrado
+     * @throws ClassNotFoundException Faz o tratamento para caso a classe do arquivo não seja do tipo esperado
+     * @throws AlunoNotFoundException Informa que nenhum aluno com os dados informados foi encontrado para alteração
+     * de status da falta
+     */
     public void mudarStatusFalta(Aluno aluno, Falta falta) throws IOException, ClassNotFoundException, AlunoNotFoundException {
         if (this.repositorioAlunos.existeNoBanco(aluno)) {
             aluno.getFalta(falta.getId()).alterarStatus();
