@@ -7,7 +7,8 @@ import model.classes.pessoas.Pessoa;
 /**
  * Classe pai da hierarquia de usuários do projeto.
  * Escolhemos tal hierarquia pois foi observado que todos os objetos
- * administrador e professor detem da caracteristica senha.
+ * administrador e professor detem da caracteristica senha o qual faria mais sentido para aplicação
+ * de polimorfismo nos negócios.
  *
  * @author Victor Hugo e Pedro Vinícius
  */
