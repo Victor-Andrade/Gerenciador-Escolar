@@ -1,7 +1,6 @@
 package model.classes.faltas;
 
 import model.classes.Data;
-import model.interfaces.IFalta;
 
 import java.io.Serializable;
 
@@ -10,7 +9,7 @@ import java.io.Serializable;
  * @author Pedro Vinícius e Victor Hugo
  */
 
-public class FaltaJustificada extends Falta implements Serializable, IFalta {
+public class FaltaJustificada extends Falta implements Serializable {
     private String caminho;
     private boolean confirmada;
 
