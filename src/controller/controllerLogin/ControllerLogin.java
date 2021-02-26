@@ -91,19 +91,6 @@ public class ControllerLogin {
         }
     }
 
-    /*private void verificarExistenciaUsuarios() {
-        try {
-            List<Usuario> usuarios =  fachadaAdministrador.getUsuariosLogin();
-            if(usuarios.size() < 1){
-                System.out.println("Criando Usuário");
-                fachadaAdministrador.adicionarAdmPadrao();
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Erro, criando usuário");
-            fachadaAdministrador.adicionarAdmPadrao();
-        }
-    }*/
-
     //Remove caracteres especiais no CPF
     private String removerCaracteres(String cpf){
         return cpf.replace(".", "").replace("-", "").trim();

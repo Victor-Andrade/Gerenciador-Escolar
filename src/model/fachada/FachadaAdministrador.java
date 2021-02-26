@@ -199,20 +199,4 @@ public class FachadaAdministrador {
         this.negocioAluno.mudarStatusFalta(aluno, falta);
     }
 
-    //USO DO MÉTODO?
-    /*public void adicionarAdmPadrao(){
-        try{
-            Data data = new Data(2021, 2, 10);
-            Administrador adm = new Administrador("admin", "12345678910", data
-                    ,"admin@admin.com", "(87)99999-9999", "admin123");
-            List<Usuario> p = new ArrayList<>(10);
-            FileOutputStream file = new FileOutputStream("usuarios.dat");
-            ObjectOutputStream os = new ObjectOutputStream(file);
-            p.add(adm);
-            os.writeObject(p);
-            os.close();
-        } catch (InvalidDateException | IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
