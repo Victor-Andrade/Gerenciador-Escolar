@@ -35,6 +35,12 @@ public class Professor extends Usuario {
         this.turmas.remove(id);
     }
 
+    /**
+     * COMPORTAMENTO POLIMORFICO
+     * O comportamento polimórfico ocorre no método toString pois ele é solicitado
+     * no layout de administrador e professor apresentando comportamentos diferentes
+     */
+
     @Override
     public String toString(){
         return super.toString() + "\nSenha: " + this.getSenha() + "\nQuantidade de turmas: " + this.turmas.size();

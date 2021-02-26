@@ -50,6 +50,13 @@ public class Falta implements Serializable, IFalta {
 
     }
 
+    /**
+     * COMPORTAMENTO POLIMORFICO
+     * O comportamento polimórfico ocorre nos métodos alterarStatus e isConfirmada
+     * pois eles são requisitados nos métodos de contagem de faltas do aluno e no
+     * layout, o quais variam de falta justificada e falta não justificada
+     */
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Falta){
